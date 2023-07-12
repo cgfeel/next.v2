@@ -1,3 +1,4 @@
+import Api, { ApiResponseType } from '@/utils/api';
 import { usePathname, useSearchParams  } from 'next/navigation';
 import { FC } from 'react';
 
@@ -9,8 +10,8 @@ type PostItemType = {
 };
 
 const getPostsData: () => Promise<PostItemType[]> = async () => {
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-  return res.json();
+  const res: ApiResponseType<PostItemType[]> = await Api.get('https://jsonplaceholder.typicode.com/posts');
+  return res;
 };
 
 export default async function Post({ params }: { params: { pid: string } }) {
