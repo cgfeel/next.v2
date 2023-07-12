@@ -1,0 +1,19 @@
+import Link from "next/link";
+
+export default function Layout({ children, performance }: any) {
+  return (
+    <>
+      {children}
+      {/* 导航 */}
+      <div>
+        <Link href={"/dashboard/app"}>
+          <span>app 性能数据</span>
+          <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+        </Link>
+      </div>
+      <div className="performance">{performance}</div>
+    </>
+  );
+}
