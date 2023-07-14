@@ -1,7 +1,21 @@
 import { StorageWithEvents } from './index.jsx';
 import { objectify } from './util';
 
-const parseOptions = message => (objectify(message) ? message : { message });
+type HookPropType = {
+    flag: boolean;
+    remove?: boolean;
+    uptime?: number;
+};
+
+type InitPropsType<U = any> = { 
+    point: string; 
+    data?: U;
+    expires?: number;
+    body?: Record<string, string>;
+    [key: string]: any;
+};
+
+const parseOptions: <U = any>(point: string|InitPropsType<U>) => InitPropsType<U> = point => (objectify(point) ? point : { point }) as InitPropsType;
 
 /*function StorageError(data) {
     this.name = 'StorageError';
@@ -21,7 +35,7 @@ export interface StorageDataType<T> {
     ret: number;
     message: string;
     data: T;
-    v: string;
+    v?: string;
 };
 
 /**
@@ -32,7 +46,7 @@ export interface StorageDataType<T> {
  *  - `Api`不会返回`Promise.reject`，因为返回`Promise.reject`就会无限重复请求
  *  - `Storage`遇到错误是返回`Promise.reject`
  */
-export class StorageError<T> extends Error implements StorageDataType<T> {
+export class StorageError<T = any> extends Error implements StorageDataType<T> {
     name: string;
     api: string;
     ret: number;
@@ -41,13 +55,13 @@ export class StorageError<T> extends Error implements StorageDataType<T> {
     url: string;
     v: string;
 
-    constructor(info: StorageDataType, url: string, status: number = -1) {
+    constructor(info: StorageDataType<T>, url: string, status: number = -1) {
         super(info.message);
         this.name = 'StorageError';
         this.api = info.api;
         this.ret = info.ret||1;    // not 0
         this.data = info.data;
-        this.v = info.v;
+        this.v = info.v||'0.1.0';
         this.url = url;
         this.status = status;
 
@@ -55,14 +69,11 @@ export class StorageError<T> extends Error implements StorageDataType<T> {
     }
 }
 
-const getOpt = init => {
-    const option = { body: init.body||{} };
-    let i;
-    
-    for (i in init) {
-        if (i === 'body') {
-            continue;
-        } else if (['id'].indexOf(i) < 0) {
+const getOpt: (init: InitPropsType) => InitPropsType = init => {
+    const { body = {}, ...opts } = init;
+    const option = { body } as InitPropsType & { body: Record<string, string> };
+    for (let i in opts) {
+        if (i !== 'id') {
             option[i] = init[i];
         } else {
             option.body[i] = init[i];
@@ -71,12 +82,56 @@ const getOpt = init => {
     return option;
 };
 
-const action = {
-    async load({storage, init, hook}) {
+type StorePromiseType = <T = any, U = any>(init: InitPropsType<U>, hook?: HookPropType) => Promise<T>;
+type StorePromiseAllType = <T = any, U = any>(init: InitPropsType<U>, hook?: HookPropType) => Promise<T[]>;
+
+type StoreMethodType = <T = any, U = any>(init: InitPropsType<U>, hook?: HookPropType) => T;
+type StoreVoidType = <T = any, U = any>(init: InitPropsType<U>, hook?: HookPropType) => void;
+
+type ActionPromiseType = <T, U = any>(info : { storage: StorageWithEvents, init: InitPropsType<U>, hook?: HookPropType }) => Promise<T>;
+type ActionPromiseAllTeype = <T = any, U = any>(info : { storage: StorageWithEvents, init: InitPropsType<U>, hook?: HookPropType }) => Promise<T[]>;
+
+type ActionMethodType = <T, U = any>(info : { storage: StorageWithEvents, init?: InitPropsType<U> }) => T;
+type ActionVoidType = <T, U = any>(info : { storage: StorageWithEvents, init?: InitPropsType<U> }) => void;
+
+type StorageAsyncKey = 'get'|'load'|'local';
+type StorageAsyncAll = 'getAll'|'loadAll';
+type StorageAwaitKey = 'localData'|'push';
+type StorageVoidKey = '_allSync'|'clear'|'flush'|'remove';
+
+type ActionGroupType = Record<StorageAsyncKey, ActionPromiseType> & 
+                        Record<StorageAsyncAll, ActionPromiseAllTeype> & 
+                        Record<StorageAwaitKey, ActionMethodType> & 
+                        Record<StorageVoidKey, ActionVoidType> & {
+                            save: <T, U = any>(info : { storage: StorageWithEvents, init?: InitPropsType<U> }) => boolean;
+                        };
+
+type StorageType = Record<StorageAsyncKey, StorePromiseType> &
+                    Record<StorageAsyncAll, StorePromiseAllType> & 
+                    Record<StorageAwaitKey, StoreMethodType> & 
+                    Record<StorageVoidKey, StoreVoidType> & {
+    <T = any, U = any>(options: InitPropsType<U> & { type: keyof Exclude<ActionGroupType, '_allSync'> }, hook?: HookPropType): Promise<T[]>|Promise<T>|T|boolean|void;
+    config: {
+        prefix: string;
+        driver: string;
+        defaultExpires: number;
+        flushTime: number;
+        userTokenKey: string;
+    };
+    save: <T, U = any>(init: InitPropsType<U>, hook?: HookPropType) => boolean;
+    signature: () => SignatureType;
+    userToken: () => null|UserTokenType;
+    userCreate: (info: UserTokenType) => UserTokenType;
+    userUpdate: (action: 'active'|'update') => UserTokenType|null;
+};
+
+type StorageTypetKey = Exclude<keyof ActionGroupType, '_allSync'>;
+
+const action: ActionGroupType = {
+    async load({storage, init, hook = {}}) {
         const point = init.id ? `${init.point}.${init.id}` : init.point;
 
-        const reback = hook||{};
-        const flush = reback.remove||hook === true;
+        const { flag = false, remove: flush = false, uptime = 0 } = hook as HookPropType;
 
         flush && storage.remove(point);
         const option = getOpt(init);
@@ -93,10 +148,9 @@ const action = {
         }
         if (record) {
             // 拿到数据后，判断是否需要静默更新
-            const uptime = reback.uptime || 0;
             uptime && record.up + uptime < now && fetchData({
                 extraFetchOptions: option,
-                someFlag: reback.flag
+                someFlag: flag
             }).catch(() => {});
 
             return record.value;
@@ -108,22 +162,21 @@ const action = {
                 message: 'data none~', 
                 data: {},
                 v: '1.0',
-            }));
+            }, point));
         }
 
         return fetchData({
             extraFetchOptions: option,
-            someFlag: reback.flag
+            someFlag: flag
         });
     },
-    async loadAll({storage, init, hook}) {
-        const reback = hook||{};
-        const flush = reback.remove||hook === true;
+    async loadAll({ storage, init, hook }) {
+        const { flag = false, remove: flush = false, uptime = 0 } = (hook||{}) as HookPropType;
 
-        let ids = [];
+        let ids = [] as string[];
         let allsync = {
             value: {
-                error: 1, cost: 0
+                error: 1, cost: 0, ret: -1,
             }, 
             up: 0, 
             timestamp: 0
@@ -136,19 +189,19 @@ const action = {
             ids = storage.keys().filter(name => name.indexOf(init.point+'.') === 0);
         }
 
-        let results;
+        let results = [];
         const cache = !flush && allsync.value.ret !== 1 && ids.length && allsync.value.cost === ids.length;
         if (cache) {
             results = await Promise.all(
-                ids.map(key => Storage.load({
-                    point: key
+                ids.map(key => Storage({
+                    type: 'load',
+                    point: key,
                 }))
             );
         }
 
         // 如果有缓存的情况下，没有后台更新时间或者是还未到更新时间，直接返还缓存数据
-        const uptime = reback.uptime && reback.uptime + allsync.up < new Date().getTime();
-        if (cache && !uptime) {
+        if (cache && !(uptime && uptime + allsync.up < Date.now())) {
             return results;
         }
         const option = getOpt(init);
@@ -157,12 +210,12 @@ const action = {
         if (cache) {
             fetchAllData({
                 extraFetchOptions: option,
-                someFlag: reback.flag
+                someFlag: flag
             });
         } else {
             results = await fetchAllData({
                 extraFetchOptions: option,
-                someFlag: reback.flag
+                someFlag: flag
             });
         }
         return results;
@@ -183,7 +236,7 @@ const action = {
      * 插入数据，插入的数据对象必须已经存在，且有效期内，否则只能返回插入的数据
      */
     push({storage, init}) {
-        const { point, data, id } = init;
+        const { point, data, id } = init as InitPropsType;
         const key = !id ? point : `${point}.${id}`;
         if (!storage.hasKey(key)) {
             return data;
@@ -205,7 +258,7 @@ const action = {
         return info.value;
     },
     save({storage, init}) {
-        const { point, data, id, expires } = init;
+        const { point, data, id, expires } = init as InitPropsType;
         if (!data || !point) {
             return false;
         }
@@ -230,7 +283,7 @@ const action = {
         return save;
     },
     remove({storage, init}) {
-        const { point, id, expires } = init;
+        const { point, id, expires } = init as InitPropsType;
         const key = !id ? point : `${point}.${id}`;
         if (storage.keys().indexOf(key) < 0) {
             return;
@@ -268,12 +321,13 @@ const action = {
     clear({storage}) {
         storage.clear();
     },
-    localData({ storage, init }) {
-        return storage.get(init.point);
+    localData({ storage, init = {} }) {
+        const { point } = init as InitPropsType;
+        return storage.get(point);
     },
-    _allSync({storage, init}) {
+    _allSync({storage, init = {}}) {
         // 不公开的方法
-        const { point, expires } = init;
+        const { point, expires } = init as InitPropsType;
         const ids = storage.keys().filter(name => name.indexOf(point + '.') === 0);
         const now = new Date().getTime();
 
@@ -291,18 +345,19 @@ const action = {
     }
 };
 
-function Storage(options = {}, hook) {
-    const type = options.type && action[options.type] ? options.type : 'load';
+// function Storage<T = any>(options: InitPropsType<T> & { type: keyof Exclude<ActionGroupType, '_allSync'> }, hook?: HookPropType): Promise<T[]>|Promise<T>|T|boolean|void {
+const Storage = <StorageType>(<T, U>(options: InitPropsType<U> & { type: keyof Exclude<ActionGroupType, '_allSync'> }, hook?: HookPropType) => {
+    const { type = 'load', ...opts } = options;
     const instance = new StorageWithEvents(
         Storage.config.prefix, Storage.config.driver
     );
 
-    return action[type]({
+    return action[type]<T, U>({
         storage: instance,
-        init: options,
-        hook: hook
+        hook: hook,
+        init: opts,
     });
-}
+})
 
 export type UserTokenType = {
     access_token: string;
@@ -330,14 +385,15 @@ Storage.userCreate = (info: UserTokenType): UserTokenType => {
         ...info,
         action: 'active',
     };
-    Storage.save({
+    Storage({
+        type: 'save',
         point: Storage.config.userTokenKey,
         data,
     });
 
-    Storage.remove({ point: STORAGE_KEY.API_QUEUE });
-    Storage.remove({ point: STORAGE_KEY.SIGNATURE });
-    return data;
+    Storage({ type: 'remove', point: STORAGE_KEY.API_QUEUE });
+    Storage({ type: 'remove', point: STORAGE_KEY.SIGNATURE });
+    return data as UserTokenType;
 };
 
 Storage.userUpdate = (action: 'active'|'update'): UserTokenType|null => {
@@ -348,11 +404,12 @@ Storage.userUpdate = (action: 'active'|'update'): UserTokenType|null => {
         ...token,
         action,
     };
-    token && token.action !== action && Storage.save({
+    token && token.action !== action && Storage({
+        type: 'save',
         point: Storage.config.userTokenKey,
         data,
     });
-    return data;
+    return data as UserTokenType;
 };
 
 export type EmptyObject = Record<string|number|symbol, never>;
@@ -379,7 +436,7 @@ Storage.signature = (): SignatureType => {
                 ...current,
                 [key]: index[key],
             };
-        }, {} as SignatureItemType);
+        }, {} as SignatureIndexType);
     };
 
     return {
@@ -397,7 +454,8 @@ Storage.signature = (): SignatureType => {
                     code,
                 };
             }
-            Object.keys(index).length === 0 ? Storage.remove({ point: STORAGE_KEY.SIGNATURE }) : Storage.save({
+            Object.keys(index).length === 0 ? Storage({ type: 'remove', point: STORAGE_KEY.SIGNATURE }) : Storage({
+                type: 'save',
                 point: STORAGE_KEY.SIGNATURE, 
                 data: { ...index },
             });
@@ -410,15 +468,16 @@ Storage.config = {
     driver: 'local',
     defaultExpires: 1000 * 86400 * 7,
     flushTime: 1000 * 86400,
-    userTokenKey: 'userToken'
+    userTokenKey: 'userToken',
 };
 
-const createMethod = type => (init, hook) => Storage({
-    type, ...parseOptions(init)
-}, hook);
+const createMethod: <T = any, U = any>(type: StorageTypetKey) => <T, U>(init: InitPropsType<U>, hook?: HookPropType) => Promise<T[]>|Promise<T>|T|boolean|void = type => (init, hook) => Storage({
+    type, ...parseOptions<U>(init)
+}, hook) as Promise<T[]>|Promise<T>|T|boolean|void;
 
 ['load', 'loadAll', 'get', 'getAll', 'local', 'localData', 'save', 'push', 'remove', 'flush', 'clear'].forEach(method => {
-    Storage[method] = createMethod(method);
+    const key = method as Exclude<keyof ActionGroupType, '_allSync'>;
+    Storage[key] = createMethod(key);
 });
 
 // Storage.flush();
@@ -435,7 +494,7 @@ const fetchData = async params => {
 
     const info = someFlag ? someFlag(response.data) : response.data;
     if (info.ret !== 0) {
-        return Promise.reject(new StorageError(info));
+        return Promise.reject(new StorageError(info, info.url||info.api));
     }
 
     /*let responseData = response.data;
@@ -468,7 +527,7 @@ const fetchAllData = async params => {
     // 如果有flag，先用flas去处理，哪怕遇到错误了
     const info = someFlag ? someFlag(response.data) : response.data;
     if (info.ret !== 0) {
-        return Promise.reject(new StorageError(info));
+        return Promise.reject(new StorageError(info, info.url||info.api));
     }
 
     /*const data = someFlag ? someFlag(response.data) : response.data;

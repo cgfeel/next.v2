@@ -11,7 +11,7 @@ const arrayify = item => {
     return item instanceof Array ? item : [item];
 }
 
-const objectify = x => {
+const objectify: (x: any) => boolean = x => {
     const type = typeof x;
     return x !== null && (type === 'object' || type === 'function');
 }

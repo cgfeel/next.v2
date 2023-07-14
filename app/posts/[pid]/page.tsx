@@ -10,13 +10,14 @@ type PostItemType = {
 };
 
 const getPostsData: () => Promise<PostItemType[]> = async () => {
-  const res: ApiResponseType<PostItemType[]> = await Api.get('https://jsonplaceholder.typicode.com/posts');
+  const res: PostItemType[] = await Api.get('https://jsonplaceholder.typicode.com/posts');
   return res;
 };
 
 export default async function Post({ params }: { params: { pid: string } }) {
   const posts = await getPostsData();
   const { pid } = params;
+  
   return (
     <div>
       <p>Post: {pid}</p>

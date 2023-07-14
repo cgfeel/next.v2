@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Suspense } from "react";
+import { ReactNode, Suspense } from "react";
 import { NavigationEvent } from "./components/NavigationEvent";
 
 export const metadata: Metadata = {
@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     description: '展示数据加载',
 }
 
-export default function PostsLayout({ children }) {
+export default function PostsLayout({ children }: { children: ReactNode }) {
     return (
         <>
             {children}

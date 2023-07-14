@@ -3,8 +3,9 @@ import Storage, { EmptyObject, StorageDataType, STORAGE_KEY, StorageError, Signa
 import get from 'lodash/get';
 import pull from 'lodash/pull';
 import random from 'lodash/random';
+import capitalize from 'lodash/capitalize';
 // import { history } from 'umi';
-import { extend, RequestOptionsInit } from 'umi-request';
+import { extend, ExtendOptionsInit, ExtendOptionsWithoutResponse, ExtendOptionsWithResponse, OnionOptions, RequestMethod, RequestOptionsInit, ResponseInterceptor, RequestResponse } from 'umi-request';
 
 const API_URL = 'https://jsonplaceholder.typicode.com';
 const PREFIX_URI = '/';
@@ -26,7 +27,7 @@ type ApiQueueType = {
 };
 
 type ApiOptionsType = RequestOptionsInit & Partial<ApiQueueType> & {
-    signal: AbortSignal;
+    signal?: AbortSignal;
     point?: string;
 };
 
@@ -35,7 +36,7 @@ signal.addEventListener('abort', () => {
     console.log('aborted!');
 });
 
-const codeMessage = {
+const codeMessage: Record<number, string> = {
     200: '服务器成功返回请求的数据。',
     201: '新建或修改数据成功。',
     202: '一个请求已经进入后台排队（异步任务）。',
@@ -54,7 +55,19 @@ const codeMessage = {
     504: '网关超时。',
 };
 
-const errorHandler = async error => {
+type ResponseType = {
+    url: string;
+    status: number;
+    statusText?: string;
+    statusData?: StorageDataType<{ ret: number }>;
+    json: () => Promise<{}>
+};
+
+type ErrorType = {
+    response: ResponseType;
+}
+
+const errorHandler = async (error: ErrorType) => {
     const { response } = error;
     if (!response) {
         return error;
@@ -65,7 +78,7 @@ const errorHandler = async error => {
         if (response.statusData && response.statusData.ret) {
             return new StorageError(response.statusData, url, status);
         }
-        const resData = await response.json();
+        const resData = await response.json() as StorageDataType<{ ret: number }>;
         return new StorageError(resData, url, status);
     } catch (e) {
         return new StorageError({
@@ -77,7 +90,7 @@ const errorHandler = async error => {
     }
 };
 
-const waitUntil = async (prop: ApiWaitType, res: bool = false) => {
+const waitUntil = async (prop: ApiWaitType, res: boolean = false): Promise<Omit<ApiWaitType, 'time'>> => {
     const { time, ...info } = prop;
     return await new Promise((resolve, reject) => {
         setTimeout(() => res ? resolve(info) : reject(info), time);
@@ -85,7 +98,7 @@ const waitUntil = async (prop: ApiWaitType, res: bool = false) => {
 };
 
 // 返回null继续定时循环，其他返回
-const loadUntil = async (time: number, call: (start: number) => null|UserTokenType|StorageError) => {
+const loadUntil: <T extends null|UserTokenType|StorageError<{}>>(time: number, call: (start: number) => Promise<T>) => Promise<T> = async (time, call) => {
     const start = Date.now();
     const data = await call(start);
     return await new Promise((resolve, reject) => {
@@ -100,7 +113,13 @@ const loadUntil = async (time: number, call: (start: number) => null|UserTokenTy
     });
 };
 
-const apiQueue = async (url: string, options: ApiOptionsType): ApiQueueType => {
+type HeadersType = HeadersInit & { 
+    Accept?: string;
+    Authorization?: string;
+    signature?: string;
+};
+
+const apiQueue = async (url: string, options: ApiOptionsType & { headers?: HeadersType, signature?: string }): Promise<ApiQueueType> => {
     const { headers = {}, data = {}, signature = '' } = options;
     let { id = 0 } = options;
 
@@ -116,19 +135,19 @@ const apiQueue = async (url: string, options: ApiOptionsType): ApiQueueType => {
     if ('' !== signature) {
         const signIndex = await getSignature([signature], true);
         if (signIndex[signature]) {
-            headers['signature'] = signIndex[signature].code;
+            headers.signature= signIndex[signature].code;
             options.headers = headers;
         } else {
-            return await Promise.reject(new StorageError({
+            return await Promise.reject(new StorageError<{}>({
                 api: url,
                 ret: 101,
                 message: '获取口令失败，请联系技术解决问题',
                 data: {},
-            }));
+            }, url));
         }
     }
     
-    const list = await Storage.local({
+    const list: number[] = await Storage.local({
         point: STORAGE_KEY.API_QUEUE,
     }).catch(
         () => ([])
@@ -137,7 +156,12 @@ const apiQueue = async (url: string, options: ApiOptionsType): ApiQueueType => {
     const isset = id > 0 && list.indexOf(id) >= 0;
     if (!isset) {
         if (list.length > 60) {
-            return await waitUntil({ type: 'apiWait', time: 5000 });
+            const waitData = await waitUntil({ type: 'apiWait', time: 5000 });
+            return {
+                ...waitData,
+                id,
+                token,
+            };
         }
 
         while (true) {
@@ -169,8 +193,8 @@ const apiQueueOut = async (id: number) => {
 };
 
 const UserToken = {
-    async get(): Promise<null|UserTokenType|ApiWaitType> {
-        const token = Storage.userToken<null|UserTokenType>();
+    async get(): Promise<null|UserTokenType|Omit<ApiWaitType, 'time'>> {
+        const token = Storage.userToken();
 
         if (token === null) return Promise.reject({ type: 'logout' });
         if (token.action === 'active') return token;
@@ -178,16 +202,16 @@ const UserToken = {
         const info = await waitUntil({ type: 'apiWait', time: 5000 });
         return info;
     },
-    async refresh(refresh_token: string, id: number = 0): Promise<UserTokenType|StorageError> {
+    async refresh(refresh_token: string, id: number = 0): Promise<null|UserTokenType|StorageError<{}>> {
         return await loadUntil(500, async (start) => {
-            const token = Storage.userToken<null|UserTokenType>();
+            const token = Storage.userToken();
             const {refresh_token: current_token = '',  action = ''} = token||{};
 
             if (action === 'update') return null;
             if (current_token !== refresh_token && action === 'active') return token;
 
             Storage.userUpdate('update');
-            const info: ApiResponseType = await Api.Post('refresh', {
+            const info = await Api.Post<ApiResponseType<UserTokenType> & { type?: string; id?: number; }>('refresh', {
                 id,
                 data: {
                     token: refresh_token,
@@ -204,28 +228,41 @@ const UserToken = {
                 point: Storage.config.userTokenKey
             });
 
-            return info;
+            return info as StorageError<{}>;
         });
     },
 };
 
-const Api = extend({
+type PointType = 'Get'|'Post'|'Put'|'Patch'|'Delete';
+type RequestMethodType = <T = any>(url: string, options?: RequestOptionsInit) => Promise<T>;
+
+interface RequestJwtMethod<R = false> extends RequestMethod<R>, Record<PointType, RequestMethodType> {
+}
+
+export interface ExtendOfJwt {
+    (options: ExtendOptionsWithoutResponse): RequestJwtMethod<false>;
+    (options: ExtendOptionsWithResponse): RequestJwtMethod<true>;
+    (options: ExtendOptionsInit): RequestJwtMethod;
+}
+
+const extendOfjwt = extend as ExtendOfJwt;
+
+const Api = extendOfjwt({
     timeout: 10 * 1000,
     errorHandler
 });
 
-Api.interceptors.request.use((url: string, options: ApiOptionsType) => {
+Api.interceptors.request.use((url, options) => {
     const http = url.indexOf('http') === 0;
     const uri = http ? url : url.replace('../', '');
 
-    const { token, headers = {}, retry = { count: 5, num: 1 } }: {
-        headers: HeadersInit;
+    const { token, headers = {}, retry = { count: 5, num: 1 } } = options as ApiOptionsType & {
+        headers: HeadersType;
         retry: {
             count: number;
             num: number;
-        };
-        token: null|UserTokenType;
-    } = options;
+        }
+    };
 
     /*if (url === 'shop') {
         controller.abort();
@@ -247,43 +284,54 @@ Api.interceptors.request.use((url: string, options: ApiOptionsType) => {
     };
 });
 
-Api.interceptors.response.use(async (response, options: ApiOptionsType) => {
-    const { url, status, headers: res_header } = response;
+Api.interceptors.response.use(async (response, options) => {
+    const responseOrg = response as Response & { statusData?: StorageDataType<{}>; };
+    const { url, status, headers: res_header } = response as Response;
     if (res_header.has('x-signature')) {
         const signature: Record<string, string> = JSON.parse(
-            decodeURIComponent(res_header.get('x-signature'))
+            decodeURIComponent(res_header.get('x-signature')||'{}')
         );
-        const { seter } = Storage.signature<SignatureType>();
+        const { seter } = Storage.signature();
         Object.keys(signature).forEach(key => seter(key, signature[key]));
     }
     if ((status >= 200 && status < 300) || [400, 403, 404, 500].indexOf(status) >= 0) {
         return response;
     }
 
-    const { headers, id, retry, point = '', token = {}, ...opts } = options;
-    let statusData = {};
+    const { headers, id, retry, point = '', token = {}, ...opts } = options as RequestOptionsInit & {
+        id: number;
+        retry: {
+            num: number;
+            count: number;
+        };
+        token: {
+            refresh_token?: string;
+        };
+        point?: 'delete'|'get'|'patch'|'post'|'put';
+    };
+    let statusData = {} as StorageDataType<{}>;
 
     try {
         statusData = await response.json();
     } catch (e) {}
 
     if (status === 429 && statusData.ret !== 13) {
-        response.statusData = statusData;
-        return response;
+        responseOrg.statusData = statusData;
+        return responseOrg as Response;
     }
 
     if (retry.num >= retry.count) {
-        return new StorageError({
+        throw new StorageError<{}>({
             api: url,
             ret: status,
             message: '错误请求次数太多，请稍后重试',
-            data: statusData,
-        });
+            data: statusData.data,
+        }, url);
     }
 
     // Create new promise to handle exponential backoff
     const backoff = () => new Promise(resolve => {
-        setTimeout(() => resolve(), status === 429 ? 2000 : 500);
+        setTimeout(() => resolve(true), status === 429 ? 2000 : 500);
     });
 
     retry.num++;
@@ -292,7 +340,7 @@ Api.interceptors.response.use(async (response, options: ApiOptionsType) => {
         const { ret = 1 } = statusData;
 
         if (ret === 11 && refresh_token !== null && url.indexOf(REFRESH_URL) < 0) {
-            const token_new: UserTokenType|StorageError = await UserToken.refresh(refresh_token, id).then(info => info).catch(err => err);
+            const token_new = await UserToken.refresh(refresh_token, id).then(info => info).catch(err => null);
             
             if (get(token_new, 'access_token', '') !== '') {
                 const newOptions = {
@@ -305,25 +353,33 @@ Api.interceptors.response.use(async (response, options: ApiOptionsType) => {
 
                 return await ('' !== point ? Api[point](url, newOptions) : Api(url, newOptions));
             }
-            return Promise.reject(token_new);
+            // return Promise.reject(token_new);
+            if (token_new instanceof StorageError) {
+                throw token_new;
+            }
+            throw new StorageError<UserTokenType|null>({
+                api: url,
+                ret: status,
+                message: 'refresh token faild',
+                data: token_new,
+            }, url);
         }
-        return response;
+        return response as Response;
     }
 
     await backoff();
     return await Api(url, {
         ...options,
         retry,
-    });
+    }) as Response;
 });
 
-// 异步执行返回流程，见：https://codesandbox.io/s/yi-bu-huo-qu-yi-chang-fan-hui-jie-guo-zhuang-tai-z3umzw
-const ucfirst = ([first, ...rest]) => first.toUpperCase() + rest.join('');
-['get', 'post', 'put', 'patch', 'delete'].forEach(method => {
-    const point = ucfirst(method);
-    Api[point] = (url, options = {}) => apiQueue(url, options).then(async ({ id, token }: { id: number, token: null|UserTokenType }) => {
+const umiInstance: RequestMethodType = async function (url, options = {}) {
+    const { method, ...opts } = options as ApiOptionsType & { method: 'get'|'post'|'put'|'patch'|'delete' } & { headers?: HeadersType, signature?: string };
+    const point = capitalize(method) as PointType;
+    const data = await apiQueue(url, opts).then(async ({ id, token }) => {
         const res = await Api[method](url, {
-            ...options,
+            ...opts,
             point,
             signal,
             token,
@@ -343,18 +399,26 @@ const ucfirst = ([first, ...rest]) => first.toUpperCase() + rest.join('');
 
         type === 'logout' && alert('登录失效了');
 
-        /*type === 'logout' && Modal.error({
-            title: '登录失效了',
-            content: '点击“重新登录”按钮将跳转至登录页',
-            okText: '重新登录',
-            afterClose: () => history.replace(LOGIN_URL),
-        });*/
+        //type === 'logout' && Modal.error({
+        //    title: '登录失效了',
+        //    content: '点击“重新登录”按钮将跳转至登录页',
+        //    okText: '重新登录',
+        //    afterClose: () => history.replace(LOGIN_URL),
+        //});
         return info;
     });
+
+    return data;
+};
+
+// 异步执行返回流程，见：https://codesandbox.io/s/yi-bu-huo-qu-yi-chang-fan-hui-jie-guo-zhuang-tai-z3umzw
+['get', 'post', 'put', 'patch', 'delete'].forEach(method => {
+    const point = capitalize(method) as PointType;
+    Api[point] = (url, options = {}) => umiInstance(url, { ...options, method });
 });
 
 export async function getSignature(list: string[], reget: boolean = false): Promise<SignatureIndexType> {
-    const { geter } = Storage.signature<SignatureType>();
+    const { geter } = Storage.signature();
     const signature = geter();
   
     const action = list.filter(key => signature[key] === undefined);

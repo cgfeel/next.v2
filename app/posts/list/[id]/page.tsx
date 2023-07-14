@@ -1,7 +1,8 @@
 'use client'
 import Api, { ApiResponseType } from '@/utils/api';
+import Storage from '@/utils/storage/deviceStorage'
 import { usePathname, useSearchParams  } from 'next/navigation';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import useSWR from 'swr';
 
 type PostItemType = {
@@ -12,13 +13,22 @@ type PostItemType = {
 };
 
 const getPostsData: (url: string) => Promise<PostItemType[]> = async url => {
-  const res: ApiResponseType<PostItemType[]> = await Api.get(url);
+  const res: PostItemType[] = await Api.get(url);
   return res;
 };
 
-export default function List({ params }: { params: { pid: string } }) {
+export default function List({ params }: { params: { id: string } }) {
   const { id } = params;
   const { data: posts, isLoading } = useSWR('https://jsonplaceholder.typicode.com/posts', getPostsData);
+
+  useEffect(() => {
+    Storage.local<number[]>({
+      point: 'test'
+    }).catch(
+      (err) => console.log('none')
+    )
+  }, []);
+
   return posts ? (
     <div>
       <p>Post: {id}</p>
