@@ -14,7 +14,7 @@ const LOGIN_URL = '/auth/login';
 export const REFRESH_URL = `${API_URL}${PREFIX_URI}/refresh`;
 export const controller = new AbortController();
 
-export type ApiResponseType<T extends []|Record<string, any>> = StorageDataType<T>|StorageError<T>;
+export type ApiResponseType<T extends any> = StorageDataType<T>|StorageError<T>;
 
 type ApiWaitType = {
     type: string;
@@ -170,7 +170,7 @@ const apiQueue = async (url: string, options: ApiOptionsType & { headers?: Heade
         }
     }
 
-    Storage.save({
+    Storage.save<number[]>({
         point: STORAGE_KEY.API_QUEUE,
         data: [
             ...list,
@@ -186,7 +186,7 @@ const apiQueueOut = async (id: number) => {
     }).catch(
         () => ([])
     );
-    list.length > 0 && Storage.save({
+    list.length > 0 && Storage.save<number[]>({
         point: STORAGE_KEY.API_QUEUE,
         data: pull(list, id),
     });

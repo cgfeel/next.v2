@@ -1,17 +1,20 @@
+import Api, { ApiResponseType } from '@/utils/api';
 import { StorageWithEvents } from './index.jsx';
 import { objectify } from './util';
 
 type HookPropType = {
-    flag: boolean;
     remove?: boolean;
     uptime?: number;
+    flag?: <T>(data: T) => T;
 };
 
 type InitPropsType<U = any> = { 
-    point: string; 
+    point: string;
+    body?: Record<string, string|number>;
     data?: U;
     expires?: number;
-    body?: Record<string, string>;
+    id?: number;
+    method?: string;
     [key: string]: any;
 };
 
@@ -69,14 +72,15 @@ export class StorageError<T = any> extends Error implements StorageDataType<T> {
     }
 }
 
-const getOpt: (init: InitPropsType) => InitPropsType = init => {
+const getOpt = <U>(init: InitPropsType<U>): InitPropsType<U> => {
     const { body = {}, ...opts } = init;
-    const option = { body } as InitPropsType & { body: Record<string, string> };
+    const option = { body } as InitPropsType<U> & { body: Required<InitPropsType<U>>['body'] };
     for (let i in opts) {
+        if (!opts[i]) continue;
         if (i !== 'id') {
-            option[i] = init[i];
+            option[i] = opts[i];
         } else {
-            option.body[i] = init[i];
+            option.body[i] = opts[i] as number;
         }
     }
     return option;
@@ -88,11 +92,14 @@ type StorePromiseAllType = <T = any, U = any>(init: InitPropsType<U>, hook?: Hoo
 type StoreMethodType = <T = any, U = any>(init: InitPropsType<U>, hook?: HookPropType) => T;
 type StoreVoidType = <T = any, U = any>(init: InitPropsType<U>, hook?: HookPropType) => void;
 
-type ActionPromiseType = <T, U = any>(info : { storage: StorageWithEvents, init: InitPropsType<U>, hook?: HookPropType }) => Promise<T>;
-type ActionPromiseAllTeype = <T = any, U = any>(info : { storage: StorageWithEvents, init: InitPropsType<U>, hook?: HookPropType }) => Promise<T[]>;
+type ActionPromiseProps<U> = { storage: StorageWithEvents, init: InitPropsType<U>, hook?: HookPropType };
+type ActionVoidProps<U> = { storage: StorageWithEvents, init?: InitPropsType<U> };
 
-type ActionMethodType = <T, U = any>(info : { storage: StorageWithEvents, init?: InitPropsType<U> }) => T;
-type ActionVoidType = <T, U = any>(info : { storage: StorageWithEvents, init?: InitPropsType<U> }) => void;
+type ActionPromiseType = <T = any, U = any>(info : ActionPromiseProps<U>) => Promise<T>;
+type ActionPromiseAllTeype = <T = any, U = any>(info : ActionPromiseProps<U>) => Promise<T[]>;
+
+type ActionMethodType = <T = any, U = any>(info: ActionPromiseProps<U>) => T;
+type ActionVoidType = <T = any, U = any>(info: ActionVoidProps<U>) => void;
 
 type StorageAsyncKey = 'get'|'load'|'local';
 type StorageAsyncAll = 'getAll'|'loadAll';
@@ -102,9 +109,7 @@ type StorageVoidKey = '_allSync'|'clear'|'flush'|'remove';
 type ActionGroupType = Record<StorageAsyncKey, ActionPromiseType> & 
                         Record<StorageAsyncAll, ActionPromiseAllTeype> & 
                         Record<StorageAwaitKey, ActionMethodType> & 
-                        Record<StorageVoidKey, ActionVoidType> & {
-                            save: <T, U = any>(info : { storage: StorageWithEvents, init?: InitPropsType<U> }) => boolean;
-                        };
+                        Record<StorageVoidKey, ActionVoidType>;
 
 type StorageType = Record<StorageAsyncKey, StorePromiseType> &
                     Record<StorageAsyncAll, StorePromiseAllType> & 
@@ -118,7 +123,7 @@ type StorageType = Record<StorageAsyncKey, StorePromiseType> &
         flushTime: number;
         userTokenKey: string;
     };
-    save: <T, U = any>(init: InitPropsType<U>, hook?: HookPropType) => boolean;
+    save: <T = any>(init: InitPropsType<T>) => boolean;
     signature: () => SignatureType;
     userToken: () => null|UserTokenType;
     userCreate: (info: UserTokenType) => UserTokenType;
@@ -128,19 +133,19 @@ type StorageType = Record<StorageAsyncKey, StorePromiseType> &
 type StorageTypetKey = Exclude<keyof ActionGroupType, '_allSync'>;
 
 const action: ActionGroupType = {
-    async load({storage, init, hook = {}}) {
+    async load<T, U>({ storage, init, hook }: ActionPromiseProps<U>): Promise<T> {
         const point = init.id ? `${init.point}.${init.id}` : init.point;
 
-        const { flag = false, remove: flush = false, uptime = 0 } = hook as HookPropType;
+        const { flag, remove: flush = false, uptime = 0 } = (hook||{}) as HookPropType;
 
         flush && storage.remove(point);
-        const option = getOpt(init);
+        const option = getOpt<U>(init);
 
-        let record = null;
+        let record: { value: T; timestamp: number; now: number; up: number; }|null = null;
         let now = new Date().getTime();
 
         if (storage.hasKey(point)) {
-            record = storage.get(point);
+            record = storage.get(point) as { value: T; timestamp: number; now: number; up: number; };
             if (record.timestamp && record.timestamp < now) {
                 storage.remove(point);
                 record = null;
@@ -148,7 +153,7 @@ const action: ActionGroupType = {
         }
         if (record) {
             // 拿到数据后，判断是否需要静默更新
-            uptime && record.up + uptime < now && fetchData({
+            uptime && record.up + uptime < now && fetchData<T, U>({
                 extraFetchOptions: option,
                 someFlag: flag
             }).catch(() => {});
@@ -165,13 +170,13 @@ const action: ActionGroupType = {
             }, point));
         }
 
-        return fetchData({
+        return fetchData<T, U>({
             extraFetchOptions: option,
             someFlag: flag
         });
     },
-    async loadAll({ storage, init, hook }) {
-        const { flag = false, remove: flush = false, uptime = 0 } = (hook||{}) as HookPropType;
+    async loadAll<T, U>({ storage, init, hook }: ActionPromiseProps<U>): Promise<T[]> {
+        const { flag, remove: flush = false, uptime = 0 } = (hook||{}) as HookPropType;
 
         let ids = [] as string[];
         let allsync = {
@@ -185,11 +190,11 @@ const action: ActionGroupType = {
         if (flush) {
             storage.remove(init.point);
         } else if (storage.hasKey(init.point + 'AllSync')) {
-            allsync = storage.get(init.point + 'AllSync');
+            allsync = storage.get(init.point + 'AllSync') as { value: Record<'error'|'cost'|'ret', number>, up: number; timestamp: number };
             ids = storage.keys().filter(name => name.indexOf(init.point+'.') === 0);
         }
 
-        let results = [];
+        let results = [] as T[];
         const cache = !flush && allsync.value.ret !== 1 && ids.length && allsync.value.cost === ids.length;
         if (cache) {
             results = await Promise.all(
@@ -197,7 +202,7 @@ const action: ActionGroupType = {
                     type: 'load',
                     point: key,
                 }))
-            );
+            ) as T[];
         }
 
         // 如果有缓存的情况下，没有后台更新时间或者是还未到更新时间，直接返还缓存数据
@@ -208,41 +213,41 @@ const action: ActionGroupType = {
 
         // 如果是启用缓存数据，则后台更新返回缓存数据，否则加载远程数据
         if (cache) {
-            fetchAllData({
+            fetchAllData<T, U>({
                 extraFetchOptions: option,
                 someFlag: flag
             });
         } else {
-            results = await fetchAllData({
+            results = await fetchAllData<T, U>({
                 extraFetchOptions: option,
                 someFlag: flag
             });
         }
         return results;
     },
-    async get({storage, init, hook}) {
+    async get<T, U>({ storage, init, hook }: ActionPromiseProps<U>): Promise<T> {
         init.method = 'get';
-        return action.load({storage, init, hook});
+        return action.load<T, U>({storage, init, hook});
     },
-    async getAll({storage, init, hook}) {
+    async getAll<T, U>({ storage, init, hook }: ActionPromiseProps<U>): Promise<T[]> {
         init.method = 'get';
-        return action.loadAll({storage, init, hook});
+        return action.loadAll<T, U>({storage, init, hook});
     },
-    async local({storage, init, hook}) {
+    async local<T, U>({ storage, init, hook }: ActionPromiseProps<U>): Promise<T> {
         init.method = 'local';
-        return action.load({storage, init, hook});
+        return action.load<T, U>({storage, init, hook});
     },
     /**
      * 插入数据，插入的数据对象必须已经存在，且有效期内，否则只能返回插入的数据
      */
-    push({storage, init}) {
+    push<T, U>({ storage, init }: ActionPromiseProps<U>): T {
         const { point, data, id } = init as InitPropsType;
         const key = !id ? point : `${point}.${id}`;
         if (!storage.hasKey(key)) {
             return data;
         }
         
-        const info = storage.get(key);
+        const info = storage.get(key) as { value: T, timestamp: number };
         const now = new Date().getTime();
         if (info.timestamp && info.timestamp < now) {
             action.remove({storage, init});
@@ -257,32 +262,8 @@ const action: ActionGroupType = {
         storage.set(key, info);
         return info.value;
     },
-    save({storage, init}) {
-        const { point, data, id, expires } = init as InitPropsType;
-        if (!data || !point) {
-            return false;
-        }
-
-        const now = new Date().getTime();
-        const value = {
-            value: data,
-            timestamp: now + (expires||Storage.config.defaultExpires),
-            up: now
-        };
-
-        const key = !id ? point : `${point}.${id}`;
-        const save = storage.set(key, value);
-        id && action._allSync({
-            storage: storage,
-            init: {
-                point: point,
-                expires: expires
-            }
-        });
-
-        return save;
-    },
-    remove({storage, init}) {
+    // save<T, U = any>({ storage, init, hook }: ActionPromiseProps<U>): boolean {},
+    remove<T, U>({ storage, init }: ActionVoidProps<U>): void {
         const { point, id, expires } = init as InitPropsType;
         const key = !id ? point : `${point}.${id}`;
         if (storage.keys().indexOf(key) < 0) {
@@ -290,7 +271,7 @@ const action: ActionGroupType = {
         }
 
         storage.remove(key);
-        id && action._allSync({
+        id && action._allSync<T, U>({
             storage: storage,
             init: {
                 point: point,
@@ -298,36 +279,33 @@ const action: ActionGroupType = {
             }
         });
     },
-    flush({storage}) {
+    flush<T, U>({ storage }: ActionVoidProps<U>): void  {
         const flush = storage.get('stoargeFlushAll');
         const now = new Date().getTime();
         if (flush && flush.timestamp > now) {
             return;
         }
 
-        action.save({
-            storage: storage, 
-            init: {
-                point: 'stoargeFlushAll',
-                data: now,
-                expires: 86400 * 1000
-            }
+        Storage.save<number>({
+            point: 'stoargeFlushAll',
+            data: now,
+            expires: 86400 * 1000
         });
         storage.keys().forEach(name => {
-            const data = storage.get(name);
+            const data = storage.get(name) as { data: T, timestamp: number };
             data.timestamp < now && storage.remove(name);
         });
     },
-    clear({storage}) {
+    clear<T, U>({ storage }: ActionVoidProps<U>): void {
         storage.clear();
     },
-    localData({ storage, init = {} }) {
-        const { point } = init as InitPropsType;
-        return storage.get(point);
+    localData<T, U>({ storage, init }: ActionPromiseProps<U>): T {
+        const { point } = (init||{}) as InitPropsType;
+        return storage.get(point) as T;
     },
-    _allSync({storage, init = {}}) {
+    _allSync<T, U>({storage, init}: ActionVoidProps<U>): void {
         // 不公开的方法
-        const { point, expires } = init as InitPropsType;
+        const { point, expires } = (init||{}) as InitPropsType;
         const ids = storage.keys().filter(name => name.indexOf(point + '.') === 0);
         const now = new Date().getTime();
 
@@ -367,6 +345,34 @@ export type UserTokenType = {
     action?: 'active'|'update';
 };
 
+Storage.save = <T>(info: InitPropsType<T>): boolean => {
+    const { point, data, id, expires } = info;
+    if (!data || !point) return false;
+    const storage = new StorageWithEvents(
+        Storage.config.prefix, Storage.config.driver
+    );
+
+    const now = Date.now();
+    const timestamp = now + (expires||Storage.config.defaultExpires);
+    const value = {
+        value: data,
+        timestamp: timestamp,
+        up: now
+    };
+
+    const key = !id ? point : `${point}.${id}`;
+    const save = storage.set(key, value);
+    id && action._allSync<{}, {}>({
+        storage: storage,
+        init: {
+            point: point,
+            expires: timestamp,
+        }
+    });
+
+    return save;
+};
+
 Storage.userToken = (): null|UserTokenType => {
     const storage = new StorageWithEvents(
         Storage.config.prefix, Storage.config.driver
@@ -383,10 +389,9 @@ Storage.userToken = (): null|UserTokenType => {
 Storage.userCreate = (info: UserTokenType): UserTokenType => {
     const data = {
         ...info,
-        action: 'active',
+        action: 'active' as UserTokenType['action'],
     };
-    Storage({
-        type: 'save',
+    Storage.save<UserTokenType>({
         point: Storage.config.userTokenKey,
         data,
     });
@@ -404,8 +409,7 @@ Storage.userUpdate = (action: 'active'|'update'): UserTokenType|null => {
         ...token,
         action,
     };
-    token && token.action !== action && Storage({
-        type: 'save',
+    token && token.action !== action && Storage.save<UserTokenType>({
         point: Storage.config.userTokenKey,
         data,
     });
@@ -454,8 +458,7 @@ Storage.signature = (): SignatureType => {
                     code,
                 };
             }
-            Object.keys(index).length === 0 ? Storage({ type: 'remove', point: STORAGE_KEY.SIGNATURE }) : Storage({
-                type: 'save',
+            Object.keys(index).length === 0 ? Storage({ type: 'remove', point: STORAGE_KEY.SIGNATURE }) : Storage.save<SignatureIndexType>({
                 point: STORAGE_KEY.SIGNATURE, 
                 data: { ...index },
             });
@@ -471,30 +474,33 @@ Storage.config = {
     userTokenKey: 'userToken',
 };
 
-const createMethod: <T = any, U = any>(type: StorageTypetKey) => <T, U>(init: InitPropsType<U>, hook?: HookPropType) => Promise<T[]>|Promise<T>|T|boolean|void = type => (init, hook) => Storage({
-    type, ...parseOptions<U>(init)
-}, hook) as Promise<T[]>|Promise<T>|T|boolean|void;
+function createMethod <T, U>(type: StorageTypetKey) { 
+    return (init: InitPropsType<U>, hook?: HookPropType) => Storage({ type, ...parseOptions<U>(init) }, hook);
+}
 
 ['load', 'loadAll', 'get', 'getAll', 'local', 'localData', 'save', 'push', 'remove', 'flush', 'clear'].forEach(method => {
     const key = method as Exclude<keyof ActionGroupType, '_allSync'>;
-    Storage[key] = createMethod(key);
+    Storage[key] = createMethod(key) as Storage[Exclude<keyof ActionGroupType, '_allSync'>];
 });
 
 // Storage.flush();
 
-const fetchData = async params => {
-    const {
-        extraFetchOptions, someFlag
-    } = params;
+type FetchDataProps<U> = {
+    extraFetchOptions: InitPropsType<U>;
+    someFlag: HookPropType['flag'];
+};
+
+const fetchData = async <T, U = any>(params: FetchDataProps<U>): Promise<T> => {
+    const { extraFetchOptions, someFlag } = params;
 
     // const point = extraFetchOptions.body.key;
 
-    const point = extraFetchOptions.point;
-    const response = await Api[extraFetchOptions.method === 'get' ? 'Get' : 'Post'](point, extraFetchOptions.body);
+    const { body, point, method } = extraFetchOptions;
+    const response: ApiResponseType<T> = await Api[method === 'get' ? 'Get' : 'Post'](point, body);
 
-    const info = someFlag ? someFlag(response.data) : response.data;
+    const info = someFlag ? someFlag(response) : response;
     if (info.ret !== 0) {
-        return Promise.reject(new StorageError(info, info.url||info.api));
+        return Promise.reject(new StorageError(info, info instanceof StorageError ? info.url : info.api));
     }
 
     /*let responseData = response.data;
@@ -507,27 +513,29 @@ const fetchData = async params => {
     }*/
 
     const expires = extraFetchOptions.expires ? {expires: extraFetchOptions.expires} : {};
-    Storage.save({
+    const { id } = extraFetchOptions.body as { id?: number };
+
+    Storage.save<T>({
         point: point,
-        id: extraFetchOptions.body.id,
         data: info.data,
+        id,
         ...expires
     });
     return info.data;
 };
 
-const fetchAllData = async params => {
+const fetchAllData = async <T, U = any>(params: FetchDataProps<U>): Promise<T[]> => {
     const {
         extraFetchOptions, someFlag
     } = params;
 
-    const point = extraFetchOptions.point;
-    const response = await Api[extraFetchOptions.method === 'get' ? 'Get' : 'Post'](point, extraFetchOptions.body);
+    const { body, point, method, expires } = extraFetchOptions;
+    const response: ApiResponseType<T[]> = await Api[method === 'get' ? 'Get' : 'Post'](point, body);
 
     // 如果有flag，先用flas去处理，哪怕遇到错误了
-    const info = someFlag ? someFlag(response.data) : response.data;
+    const info = someFlag ? someFlag(response) : response;
     if (info.ret !== 0) {
-        return Promise.reject(new StorageError(info, info.url||info.api));
+        return Promise.reject(new StorageError(info, info instanceof StorageError ? info.url : info.api));
     }
 
     /*const data = someFlag ? someFlag(response.data) : response.data;
@@ -543,19 +551,17 @@ const fetchAllData = async params => {
         return Promise.reject(new StorageError(saveData));
     }*/
 
-    let list = [];
-    let i = '';
-    const expires = extraFetchOptions.expires ? {expires: extraFetchOptions.expires} : {};
-    for (i in info.data) {
-        list.push(info.data[i]);
-        Storage.save({
+    // let list = [] as T[];
+    for (let i in info.data) {
+        const id = parseInt(i);
+        Storage.save<T>({
             point,
-            id: i,
-            data: info.data[i],
-            ...expires
+            id,
+            data: info.data[id],
+            ...(expires ? { expires } : {})
         });
     }
-    return list
+    return info.data;
 };
 
 export default Storage;

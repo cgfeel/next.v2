@@ -1,13 +1,15 @@
-const parseJSON = value => {
+import { EmptyObject } from "./deviceStorage";
+
+const parseJSON: (val: string) => Record<string, any>|EmptyObject = value => {
     try {
         return JSON.parse(value);
     } catch (e) {
         console.error(e);
-        return value;
+        return {};
     }
 };
 
-const arrayify = item => {
+const arrayify: (item: any) => any[] = item => {
     return item instanceof Array ? item : [item];
 }
 
