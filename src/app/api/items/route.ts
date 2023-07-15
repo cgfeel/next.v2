@@ -22,7 +22,6 @@ export async function GET(request: Request) {
         headers: {
             'Set-Cookie': `user_device_id_timestamp=${token?.value}`,
             'Content-Type': 'application/json',
-            'X-Content-Type-Options': CfRay,
         },
     });
 }
@@ -43,7 +42,7 @@ export async function POST() {
     const data = await res.json();
 
     const headersList = headers();
-    const CfRay = headersList.get('X-Content-Type-Options');
+    const CfRay = headersList.get('X-Content-Type-Options')||'';
 
     // return NextResponse.json(data);
     return new Response(JSON.stringify(data), {
