@@ -1,6 +1,6 @@
 'use client'
-import Api, { ApiResponseType } from '@/utils/api';
-import Storage from '@/utils/storage/deviceStorage'
+import Api, { ApiResponseType } from '@/src/utils/api';
+import Storage from '@/src/utils/storage/deviceStorage'
 import { usePathname, useSearchParams  } from 'next/navigation';
 import { FC, useEffect } from 'react';
 import useSWR from 'swr';

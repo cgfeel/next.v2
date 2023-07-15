@@ -1,4 +1,4 @@
-import Api, { ApiResponseType } from '@/utils/api';
+import Api, { ApiResponseType } from '@/src/utils/api';
 import { usePathname, useSearchParams  } from 'next/navigation';
 import { FC } from 'react';
 

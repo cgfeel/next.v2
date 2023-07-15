@@ -1,4 +1,4 @@
-import Api, { ApiResponseType } from '@/utils/api';
+import Api, { ApiResponseType } from '@/src/utils/api';
 import { StorageWithEvents } from './index.jsx';
 import { objectify } from './util';
 

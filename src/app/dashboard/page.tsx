@@ -1,4 +1,4 @@
-import Send from "@/components/Send";
+import Send from "@/src/components/Send";
 
 export default function Home() {
     return (
