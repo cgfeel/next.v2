@@ -7,13 +7,39 @@
 
 ## 项目技术总结
 - App模式下路由和目录结构
-- - 基础路由，目录`@/src/app/features/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/features))
-  - - 包含：1级页面，2级页面，文件划分：`layout`、`page`，
-  - ---- 分割线 ----
+  - 基础路由，目录`@/src/app/features/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/features))
+    - 包含：1级页面，2级页面，文件划分：`layout`、`page`，
+    - ---- 分割线 ----
   - 插槽和平行路由，目录`@/src/app/dashboard/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/dashboard))
-  - - 插槽：`@/src/app/dashboard/@performance`，平行路由：`@performance`下所有目录
-  - - 插槽下的`page.tsx`会自动注入到`dashboard`下的`layout.tsx`
-- test
+    - 插槽：`@/src/app/dashboard/@performance`，平行路由：`@performance`下所有目录
+    - 插槽下的`page.tsx`会自动注入到`dashboard`下的`layout.tsx`
+    - ---- 分割线 ----
+  - 动态路由，目录`@/src/app/posts/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/posts))
+    - 所有包含`[]`的目录均为动态路由，获取动态路由参数：`@/src/app/posts/page.tsx`
+    - 监听动态路由变化：`@/src/app/posts/[pid]/layout.tsx`
+    - 嵌套动态路由：`@/src/app/posts/user/[...uid]/layout.tsx`
+    - ---- 分割线 ----
+  - 路由Api
+    - 静态Api，目录：`@/src/app/api/items/route.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/api/items/route.ts))
+    - 包含：不同请求处理（`POST`、`GET`）、获取`URI`、获取`COOKIES`、获取`header`
+    - ---- 分割线 ----
+    - 动态Api：`@/src/app/api/items/[slug]/route.tsx`
+    - 跳转Api：`@/src/app/api/items/redirect/route.tsx`
+- 3个不同的模式
+  - SSR请求，目录：`@/src/app/posts/[pid]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/%5Bpid%5D/page.tsx))
+  - CSR模式
+    - CSR请求，目录：`@/src/app/posts/list/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/list/%5Bid%5D/page.tsx))
+    - CSR组件，目录：`@/src/app/dashboard/components/ButtonToPost.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/dashboard/components/ButtonToPost.tsx))
+    - ---- 分割线 ----
+  - SSG模式，目录：`@/src/app/blog/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/blog))
+    - 通过`generateStaticParams`分割页面`@/src/app/blog/[slug]/page.tsx`
+    - 嵌套分割`@/src/app/blog/list/[category]/[product]/page.tsx`
+    - 根据父级结果对子集切割`@/src/app/blog/product`
+- 其他
+  - antd，只为展示引用`antd`库，并非做页面：`@/src/app/antd/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/antd/page.tsx))
+  - swr：`@/src/app/posts/list/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/list/%5Bid%5D/page.tsx))
+  - HTTP库，封装`umi-request`：`@/src/utils/api.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/api.ts))
+  - localStorage封装：`@/src/utils/storage/deviceStorage.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/storage/deviceStorage.ts))
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
