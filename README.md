@@ -39,6 +39,13 @@
   - localStorage封装：`@/src/utils/storage/deviceStorage.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/storage/deviceStorage.ts))
 
 ## Api Route在安全设计上的理解
+
+- 通过`Api Route`搭建起`BFF`，通过内网IP和微服务进行交互，宿主机和外部都不可直接访问微服务容器
+- 外网用户只能通过网关和NextJS的`Api Route`，获取微服务数据，不能直接访问微服务，也猜不到接口真实地址和具体接口入参信息
+- 关于NextJS的3种模式
+  - SSG：CI\CD下，通过build直接从微服务获取数据
+  - SSR和CSR：通过`Api Route`包装的接口获取微服务数据
+
 ![nextjs Api router](https://github.com/cgfeel/next.v2/assets/578141/3ca68501-accf-43b9-af64-dc98533ca3d6)
 
 
