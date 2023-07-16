@@ -15,13 +15,16 @@
     - 监听动态路由变化：`@/src/app/posts/[pid]/layout.tsx`
     - 嵌套动态路由：`@/src/app/posts/user/[...uid]/layout.tsx`
     - ---- 分割线 ----
-  - 路由Api
+  - Api路由
     - 静态Api，目录：`@/src/app/api/items/route.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/api/items/route.ts))
     - 包含：不同请求处理（`POST`、`GET`）、获取`URI`、获取`COOKIES`、获取`header`
     - ---- 分割线 ----
     - 动态Api：`@/src/app/api/items/[slug]/route.tsx`
     - 跳转Api：`@/src/app/api/items/redirect/route.tsx`
     - Api Route在安全设计上的理解 ([查看](#api-route在安全设计上的理解))
+    - ---- 分割线 ----
+  - 链接和导航，目录`@/src/app/dashboard/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/dashboard))
+    - 包含：link组件，route跳转，usePathname监听路由变化
 - 3个不同的模式
   - SSR请求，目录：`@/src/app/posts/[pid]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/%5Bpid%5D/page.tsx))
   - CSR模式
