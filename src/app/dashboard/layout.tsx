@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import Link from "next/link";
+import ActivePath from './components/ActivePath';
 
 export const metadata: Metadata = {
   title: '插槽演示',
@@ -19,6 +20,17 @@ export default function Layout({ children, performance }: any) {
             </span>
         </Link>
       </div>
+      <div>
+        <Link href={"/dashboard/web"}>
+          <span>Web 链接</span>
+          <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+        </Link>
+      </div>
+      <hr />
+      <ActivePath />
+      <hr />
       <div className="performance">{performance}</div>
     </>
   );
