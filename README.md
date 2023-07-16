@@ -37,6 +37,10 @@
   - HTTP库，封装`umi-request`：`@/src/utils/api.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/api.ts))
   - localStorage封装：`@/src/utils/storage/deviceStorage.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/storage/deviceStorage.ts))
 
+Api Route在安全设计上的理解
+![nextjs Api router](https://github.com/cgfeel/next.v2/assets/578141/3ca68501-accf-43b9-af64-dc98533ca3d6)
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
