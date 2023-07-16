@@ -21,6 +21,7 @@
     - ---- 分割线 ----
     - 动态Api：`@/src/app/api/items/[slug]/route.tsx`
     - 跳转Api：`@/src/app/api/items/redirect/route.tsx`
+    - Api Route在安全设计上的理解 ([查看](#api-route在安全设计上的理解))
 - 3个不同的模式
   - SSR请求，目录：`@/src/app/posts/[pid]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/%5Bpid%5D/page.tsx))
   - CSR模式
@@ -37,7 +38,7 @@
   - HTTP库，封装`umi-request`：`@/src/utils/api.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/api.ts))
   - localStorage封装：`@/src/utils/storage/deviceStorage.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/storage/deviceStorage.ts))
 
-Api Route在安全设计上的理解
+## Api Route在安全设计上的理解
 ![nextjs Api router](https://github.com/cgfeel/next.v2/assets/578141/3ca68501-accf-43b9-af64-dc98533ca3d6)
 
 
