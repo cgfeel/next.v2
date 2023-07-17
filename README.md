@@ -25,6 +25,7 @@
     - 向上抛出异常，目录：`@/src/app/error/up`
     - 跟目录捕获子级异常，目录：`@/src/app/error.tsx`
     - 捕获跟目录异常，目录：`@/src/app/global-error.tsx`
+    - ---- 分割线 ----
   - 插槽和平行路由，目录`@/src/app/dashboard/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/dashboard))
     - 插槽：`@performance/layout.tsx`，平行路由：`@performance`下所有目录
     - 插槽下的`page.tsx`会自动注入到`dashboard`下的`layout.tsx`
