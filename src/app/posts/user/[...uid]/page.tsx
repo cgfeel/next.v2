@@ -1,6 +1,6 @@
 export default function PostUserPage({ params }: { params: { uid: string[] } }) {
-    const [type, id] = params.uid;
+    const {uid} = params;
     return (
-        <div>user - type：{type} - uid：{id}</div>
+        <div>user - slugs：{uid.join('|')}</div>
     );
 }
