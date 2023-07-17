@@ -6,6 +6,9 @@
   - 基础路由，目录`@/src/app/features/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/features))
     - 包含：1级页面，2级页面，文件划分：`layout`、`page`，
     - ---- 分割线 ----
+  - 路由组，目录`@/src/app/blog/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/blog))
+    - 包含：路由分组、嵌套布局
+    - ---- 分割线 ----
   - 插槽和平行路由，目录`@/src/app/dashboard/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/dashboard))
     - 插槽：`@/src/app/dashboard/@performance`，平行路由：`@performance`下所有目录
     - 插槽下的`page.tsx`会自动注入到`dashboard`下的`layout.tsx`
