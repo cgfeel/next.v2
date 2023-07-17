@@ -9,10 +9,6 @@
   - 路由组，目录`@/src/app/group/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/group))
     - 包含：路由分组、嵌套布局
     - ---- 分割线 ----
-  - 插槽和平行路由，目录`@/src/app/dashboard/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/dashboard))
-    - 插槽：`@/src/app/dashboard/@performance`，平行路由：`@performance`下所有目录
-    - 插槽下的`page.tsx`会自动注入到`dashboard`下的`layout.tsx`
-    - ---- 分割线 ----
   - 动态路由，目录`@/src/app/posts/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/posts))
     - 监听动态路由变化：`@/src/app/posts/[pid]/layout.tsx`
     - 动态路由：`@/src/app/posts/[pid]`
@@ -29,6 +25,10 @@
     - 向上抛出异常，目录：`@/src/app/error/up`
     - 跟目录捕获子级异常，目录：`@/src/app/error.tsx`
     - 捕获跟目录异常，目录：`@/src/app/global-error.tsx`
+  - 插槽和平行路由，目录`@/src/app/dashboard/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/dashboard))
+    - 插槽：`@performance/layout.tsx`，平行路由：`@performance`下所有目录
+    - 插槽下的`page.tsx`会自动注入到`dashboard`下的`layout.tsx`
+    - ---- 分割线 ----
   - Api路由 ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/api/items/route.ts))
     - 静态Api，目录：`@/src/app/api/items/route.tsx`
     - 包含：不同请求处理（`POST`、`GET`）、获取`URI`、获取`COOKIES`、获取`header`
