@@ -52,8 +52,7 @@
   - SSG：CI\CD下，通过build直接从微服务获取数据
   - SSR和CSR：通过`Api Route`包装的接口获取微服务数据
 
-![nextjs Api router](https://github.com/cgfeel/next.v2/assets/578141/3ca68501-accf-43b9-af64-dc98533ca3d6)
-
+![Api Route在安全设计上的理解](https://github.com/cgfeel/next.v2/assets/578141/22031e79-1026-4e7b-bd79-825648467401)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
