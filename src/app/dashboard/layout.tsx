@@ -13,7 +13,9 @@ export default function Layout({ children, performance }: any) {
       {children}
       {/* 导航 */}
       <div>
-        <Link href={"/dashboard/app"}>
+        <Link 
+          href={"/dashboard/app"}
+        >
           <span>app 性能数据</span>
           <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
               -&gt;
@@ -21,7 +23,9 @@ export default function Layout({ children, performance }: any) {
         </Link>
       </div>
       <div>
-        <Link href={"/dashboard/web"}>
+        <Link 
+          href={"/dashboard/web"}
+        >
           <span>Web 链接</span>
           <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
               -&gt;
