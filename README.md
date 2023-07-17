@@ -23,6 +23,12 @@
     - loading，目录：`@/src/app/posts/[pid]` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/posts/%5Bpid%5D))
     - 自定义数据流，目录：`@/src/app/posts/user/[...uid]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/user/%5B...uid%5D/page.tsx))
     - ---- 分割线 ----
+  - error组件 ([查看]([https://github.com/cgfeel/next.v2/blob/master/src/app/api/items/route.ts](https://github.com/cgfeel/next.v2/tree/master/src/app/error)))
+    - 捕获子级layout，目录：`@/src/app/error/global`
+    - 捕获同级page，目录：`@/src/app/error/path`
+    - 向上抛出异常，目录：`@/src/app/error/up`
+    - 跟目录捕获子级异常，目录：`@/src/app/error.tsx`
+    - 捕获跟目录异常，目录：`@/src/app/global-error.tsx`
   - Api路由 ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/api/items/route.ts))
     - 静态Api，目录：`@/src/app/api/items/route.tsx`
     - 包含：不同请求处理（`POST`、`GET`）、获取`URI`、获取`COOKIES`、获取`header`
