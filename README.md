@@ -4,7 +4,9 @@
 ## 技术总结（清单）
 - App模式下路由和目录结构
   - 基础路由，目录`@/src/app/features/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/features))
-    - 包含：1级页面，2级页面，文件划分：`layout`、`page`，
+    - 1级目录`@/src/app/features/`
+    - 2级目录`@/src/app/features/metadata/`
+    - 文件划分：`layout`、`page`，
     - ---- 分割线 ----
   - 路由组，目录`@/src/app/group/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/group))
     - 包含：路由分组、嵌套布局
