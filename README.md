@@ -9,7 +9,8 @@
     - 文件划分：`layout`、`page`，
     - ---- 分割线 ----
   - 路由组，目录`@/src/app/group/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/group))
-    - 包含：路由分组、嵌套布局
+    - 路由分组，目录`@/src/app/group/`
+    - 嵌套布局，目录`@/src/app/group/(marketing)/blog`、`@/src/app/group/(shop)/cart`
     - ---- 分割线 ----
   - 动态路由，目录`@/src/app/posts/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/posts))
     - 监听动态路由变化：`@/src/app/posts/[pid]/layout.tsx`
