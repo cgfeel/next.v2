@@ -19,6 +19,10 @@
     - 嵌套路由：`@/src/app/posts/user/[...uid]`
     - 可选嵌套路由：`@/src/app/posts/shop/[[...slug]]`
     - ---- 分割线 ----
+  - loading和自定义数据流
+    - loading，目录：`@/src/app/posts/[pid]` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/posts/%5Bpid%5D))
+    - 自定义数据流，目录：`@/src/app/posts/user/[...uid]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/user/%5B...uid%5D/page.tsx))
+    - ---- 分割线 ----
   - Api路由
     - 静态Api，目录：`@/src/app/api/items/route.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/api/items/route.ts))
     - 包含：不同请求处理（`POST`、`GET`）、获取`URI`、获取`COOKIES`、获取`header`
