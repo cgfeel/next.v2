@@ -42,7 +42,7 @@ export async function POST() {
     const data = await res.json();
 
     const headersList = headers();
-    const CfRay = headersList.get('X-Content-Type-Options')||'';
+    const CfRay = headersList.get('X-Content-Type-Options')||'crf-none';
 
     // return NextResponse.json(data);
     return new Response(JSON.stringify(data), {
