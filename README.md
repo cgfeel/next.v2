@@ -14,9 +14,10 @@
     - 插槽下的`page.tsx`会自动注入到`dashboard`下的`layout.tsx`
     - ---- 分割线 ----
   - 动态路由，目录`@/src/app/posts/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/posts))
-    - 所有包含`[]`的目录均为动态路由，获取动态路由参数：`@/src/app/posts/page.tsx`
     - 监听动态路由变化：`@/src/app/posts/[pid]/layout.tsx`
-    - 嵌套动态路由：`@/src/app/posts/user/[...uid]/layout.tsx`
+    - 动态路由：`@/src/app/posts/[pid]`
+    - 嵌套路由：`@/src/app/posts/user/[...uid]`
+    - 可选嵌套路由：`@/src/app/posts/shop/[[...slug]]`
     - ---- 分割线 ----
   - Api路由
     - 静态Api，目录：`@/src/app/api/items/route.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/api/items/route.ts))
