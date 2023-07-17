@@ -5,6 +5,8 @@
 > 仓库源码全部由我个人整理，共享，可以通过提交记录中的信息和日期进行确认 ([查看](https://github.com/cgfeel/next.v2/activity))
 
 ## 技术总结（清单）
+
+- 安装和运行 ([查看](#getting-started-安装和运行))
 - App模式下路由和目录结构
   - 基础路由 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/features))
     - 1级目录`@/src/app/features/`
@@ -76,7 +78,18 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Getting Started (安装和运行)
+
+当前默认认为看的用户能力均能本地安装和运行，所以这里直接采用官方提供的内容，不做额外说明，对于我运行的环境补充一下。
+
+- 系统：macOS, Windows (including WSL), and Linux（我是OSX）
+- node版本：v18.12.1（官方推荐^16.8，16.0运行过会报错）
+
+> 由于仓库已安装过了，如果需要本地运行，请clone项目后直接`npm install`
+
+----
+
+以下是官方文档内容：
 
 First, run the development server:
 
