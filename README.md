@@ -23,7 +23,7 @@
     - loading，目录：`@/src/app/posts/[pid]` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/posts/%5Bpid%5D))
     - 自定义数据流，目录：`@/src/app/posts/user/[...uid]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/user/%5B...uid%5D/page.tsx))
     - ---- 分割线 ----
-  - error组件 ([查看]([https://github.com/cgfeel/next.v2/blob/master/src/app/api/items/route.ts](https://github.com/cgfeel/next.v2/tree/master/src/app/error)))
+  - error组件 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/error))
     - 捕获子级layout，目录：`@/src/app/error/global`
     - 捕获同级page，目录：`@/src/app/error/path`
     - 向上抛出异常，目录：`@/src/app/error/up`
