@@ -34,10 +34,14 @@
     - 跟目录捕获子级异常，目录：`@/src/app/error.tsx`
     - 捕获跟目录异常，目录：`@/src/app/global-error.tsx`
     - ---- 分割线 ----
-  - 插槽和平行路由，目录`@/src/app/dashboard/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/dashboard))
-    - 插槽：`@performance/layout.tsx`，平行路由：`@performance`下所有目录
-    - 插槽下的`page.tsx`会自动注入到`dashboard`下的`layout.tsx`
+  - 插槽和平行路由 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/dashboard))
+    - 平行路由，目录`@/src/app/dashboard`
+    - 插槽：`@/src/app/dashboard/layout.tsx`
+    - 平行路由和`subroot`下的`page.tsx`会自动注入到`dashboard`下的`layout.tsx`
     - ---- 分割线 ----
+  - 路由拦截 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/photo))
+    - 目录下`@/src/app/photo/@model/(.)photos/[id]`会主动拦截上级目录`@/src/app/photo/photos/[id]`
+    - 从首页打开拦截的照片弹窗，刷新页面将不再被拦截，主动展示详情页
   - Api路由 ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/api))
     - 静态Api：`@/src/app/api/items/route.tsx`
     - 模拟错误：`@/src/app/api/error/route.tsx`
