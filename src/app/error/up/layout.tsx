@@ -1,7 +1,8 @@
 import { PropsWithChildren } from "react";
 
 export default function Layout({ children }: PropsWithChildren<{}>) {
-    throw new Error('up error');
+    const a = {};
+    a.map();
     return (
         <div>
             <div>up error layout!</div>

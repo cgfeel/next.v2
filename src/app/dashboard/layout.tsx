@@ -1,13 +1,16 @@
 import { Metadata } from 'next'
 import Link from "next/link";
 import ActivePath from './components/ActivePath';
+import { PropsWithChildren, ReactNode } from 'react';
 
 export const metadata: Metadata = {
   title: '插槽演示',
   description: '包含：插槽、平行route、懒加载、页面跳转、本地组件',
 }
 
-export default function Layout({ children, performance }: any) {
+export default function Layout({ children, performance }: PropsWithChildren<{
+  performance: ReactNode;
+}>) {
   return (
     <>
       {children}
