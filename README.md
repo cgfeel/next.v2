@@ -38,8 +38,9 @@
     - 插槽：`@performance/layout.tsx`，平行路由：`@performance`下所有目录
     - 插槽下的`page.tsx`会自动注入到`dashboard`下的`layout.tsx`
     - ---- 分割线 ----
-  - Api路由 ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/api/items/route.ts))
-    - 静态Api，目录：`@/src/app/api/items/route.tsx`
+  - Api路由 ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/api))
+    - 静态Api：`@/src/app/api/items/route.tsx`
+    - 模拟错误：`@/src/app/api/error/route.tsx`
     - 包含：不同请求处理（`POST`、`GET`）、获取`URI`、获取`COOKIES`、获取`header`
     - ---- 分割线 ----
     - 动态Api：`@/src/app/api/items/[slug]/route.tsx`
@@ -60,6 +61,8 @@
     - 通过`generateStaticParams`分割页面`@/src/app/blog/[slug]/page.tsx`
     - 嵌套分割`@/src/app/blog/list/[category]/[product]/page.tsx`
     - 根据父级结果对子集切割`@/src/app/blog/product`
+    - ---- 分割线 ----
+  - ISR模式，目录：`@/src/app/posts/isr` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/posts/isr))
 - 其他
   - antd，只为展示引用`antd`库，并非做页面：`@/src/app/antd/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/antd/page.tsx))
   - swr：`@/src/app/posts/list/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/list/%5Bid%5D/page.tsx))
