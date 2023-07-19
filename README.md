@@ -13,6 +13,9 @@
     - 2级目录`@/src/app/features/metadata/`
     - 文件划分：`layout`、`page`，
     - ---- 分割线 ----
+  - 链接和导航，目录`@/src/app/dashboard/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/dashboard))
+    - 包含：link组件，route跳转，usePathname监听路由变化
+    - ---- 分割线 ----
   - 路由组 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/group))
     - 路由分组，目录`@/src/app/group/`
     - 嵌套布局，目录`@/src/app/group/(marketing)/blog`、`@/src/app/group/(shop)/cart`
@@ -56,8 +59,8 @@
     - ---- 分割线 ----
     - Api Route在安全设计上的理解 ([查看](#api-route在安全设计上的理解))
     - ---- 分割线 ----
-  - 链接和导航，目录`@/src/app/dashboard/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/dashboard))
-    - 包含：link组件，route跳转，usePathname监听路由变化
+  - 中间件，目录：`@/src/middleware.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/middleware.ts))
+    - 包含：路由重定向、重写url、获取header、设置header、设置cookies
 - 3个不同的模式
   - SSR请求，目录：`@/src/app/posts/[pid]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/%5Bpid%5D/page.tsx))
   - CSR模式
