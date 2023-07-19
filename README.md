@@ -42,7 +42,7 @@
   - 路由拦截 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/photo))
     - 目录下`@/src/app/photo/@model/(.)photos/[id]`会主动拦截上级目录`@/src/app/photo/photos/[id]`
     - 通过`@model/default.ts`返回`null`，阻止插槽自动注入
-    - 从首页打开拦截的照片弹窗，刷新页面将不再被拦截，主动展示详情页
+    - 从首页打开拦截的照片弹窗，刷新页面将不再被拦截，主动展示详情页 ([查看示例](#路由拦截器实现的案例))
     - ---- 分割线 ----
   - Api路由 ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/api))
     - 静态Api：`@/src/app/api/items/route.tsx`
@@ -85,6 +85,14 @@
   - SSR和CSR：通过`Api Route`包装的接口获取微服务数据
 
 ![Api Route在安全设计上的理解](https://github.com/cgfeel/next.v2/assets/578141/22031e79-1026-4e7b-bd79-825648467401)
+
+## 路由拦截器实现的案例
+
+点开列表图片将会被拦截器阻拦，当打开照片刷新页面，将跳过阻拦进入详情页
+
+https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a2eea
+
+
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
