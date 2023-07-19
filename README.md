@@ -49,9 +49,10 @@
     - 模拟错误：`@/src/app/api/error/route.tsx`
     - 包含：不同请求处理（`POST`、`GET`）、获取`URI`、获取`COOKIES`、获取`header`
     - ---- 分割线 ----
-    - 动态Api：`@/src/app/api/items/[slug]/route.tsx`
+    - 动态Api、获取请求、跨域：`@/src/app/api/items/[slug]/route.tsx`
     - 跳转Api：`@/src/app/api/redirect/route.tsx`
     - Api数据流：`@/src/app/api/stream/route.tsx`
+    - 静态资源响应：`@/src/app/api/rss.xml/route.tsx`
     - ---- 分割线 ----
     - Api Route在安全设计上的理解 ([查看](#api-route在安全设计上的理解))
     - ---- 分割线 ----
