@@ -20,7 +20,7 @@ export async function GET(request: Request) {
     return new Response(JSON.stringify({ [id === null ? 'data' : 'product']: product, time: Date.now() }), {
         status: 200,
         headers: {
-            'Set-Cookie': `user_device_id_timestamp=${token?.value}`,
+            'Set-Cookie': `user_device_id_timestamp=${token?.value||'none'}`,
             'Content-Type': 'application/json',
         },
     });

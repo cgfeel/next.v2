@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { PropsWithChildren, ReactNode } from "react";
-import './globals.css'
+import './global.css'
 
 export const metadata: Metadata = {
     title: 'NextGram',
