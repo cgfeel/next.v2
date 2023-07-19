@@ -61,6 +61,7 @@
     - ---- 分割线 ----
   - 中间件，目录：`@/src/middleware.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/middleware.ts))
     - 包含：路由重定向、重写url、获取header、设置header、设置cookies
+    - ---- 分割线 ----
 - 3个不同的模式
   - SSR请求，目录：`@/src/app/posts/[pid]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/%5Bpid%5D/page.tsx))
   - CSR模式
