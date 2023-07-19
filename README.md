@@ -41,6 +41,7 @@
     - ---- 分割线 ----
   - 路由拦截 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/photo))
     - 目录下`@/src/app/photo/@model/(.)photos/[id]`会主动拦截上级目录`@/src/app/photo/photos/[id]`
+    - 通过`@model/default.ts`返回`null`，阻止插槽自动注入
     - 从首页打开拦截的照片弹窗，刷新页面将不再被拦截，主动展示详情页
     - ---- 分割线 ----
   - Api路由 ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/api))
