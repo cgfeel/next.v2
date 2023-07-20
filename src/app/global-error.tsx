@@ -6,7 +6,7 @@ export default function GlobalError({ error, reset }: {
 }) {
     return (
         <html lang="en">
-          <body className={inter.className}>
+          <body>
             <div>
                 <h2>Global went wrong - {error.message}!</h2>
                 <button

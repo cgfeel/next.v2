@@ -18,7 +18,7 @@ const Modal: FC<PropsWithChildren<{}>> = ({ children }) => {
         }
     }, [overlay, wrapper, onDismiss]);
 
-    const onKeyDown = useCallback(e => {
+    const onKeyDown = useCallback((e: KeyboardEvent) => {
         if (e.key === 'Escape') onDismiss();
     }, [onDismiss]);
 

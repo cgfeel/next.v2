@@ -14,7 +14,7 @@ export async function POST(request: Request, { params } : {
 }) {
     const { slug } = params;
     const data = await (slug === 'json' ? request.json() : request.formData().then(res => {
-        const data = {};
+        const data = {} as Record<string, FormDataEntryValue>;
         
         res.forEach((value, key) => data[key] = value);
         return data;
