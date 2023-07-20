@@ -99,7 +99,7 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 - NextJS默认所有`page`都是`SSG`
 - 在build前将会对所有设置过`generateStaticParams`生成静态页面，没有设置过将视为`server components`
 - 只有通过`generateStaticParams`生成的`page`，每次请求时是通过`SSG`的方式，否则就是`SSR`
-- 无论`SSG`还是`SSR`，所有的`fetch`都将在build前以`SSG`放下完成加载，build之后不在请求
+- 无论`SSG`还是`SSR`，所有的`fetch`都将在build前以`SSG`方式完成加载，build之后不在请求
 - 除非将`fetch`采用`cache: 'no-store`模式（类似`getStaticProps`）
 - `no-store`模式下，通过`revalidate`实现ISR
 - `SSR` + `use client`实现`CSR`，`SSG`在`build`后可采用`CSR`方式对边缘计算做交互
