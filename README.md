@@ -98,7 +98,8 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 ## NextJS 4个模式的关系
 
-![NextJS 4个模式的关系](https://github.com/cgfeel/next.v2/assets/578141/fdc8eee3-a013-4785-a5ba-d463bd8198ec)
+![NextJS 4个模式的关系](https://github.com/cgfeel/next.v2/assets/578141/3e377489-5559-4c93-a4be-24c5a7b90fc3)
+
 
 ## Getting Started (安装和运行)
 
