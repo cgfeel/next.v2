@@ -62,18 +62,16 @@
   - 中间件，目录：`@/src/middleware.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/middleware.ts))
     - 包含：路由重定向、重写url、获取header、设置header、设置cookies
     - ---- 分割线 ----
-- 4个不同的模式，关系图 ([查看](#nextjs-4个模式的关系))
-  - SSR请求，目录：`@/src/app/posts/[pid]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/%5Bpid%5D/page.tsx))
-  - CSR模式
-    - CSR请求，目录：`@/src/app/posts/list/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/list/%5Bid%5D/page.tsx))
-    - CSR组件，目录：`@/src/app/dashboard/components/ButtonToPost.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/dashboard/components/ButtonToPost.tsx))
-    - ---- 分割线 ----
-  - SSG模式，目录：`@/src/app/blog/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/blog))
-    - 通过`generateStaticParams`分割页面`@/src/app/blog/[slug]/page.tsx`
-    - 嵌套分割`@/src/app/blog/list/[category]/[product]/page.tsx`
-    - 根据父级结果对子集切割`@/src/app/blog/product`
-    - ---- 分割线 ----
-  - ISR模式，目录：`@/src/app/posts/isr` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/posts/isr))
+- 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
+  - SSR模式，目录：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
+    - `page`和`fetch`均为`SSR`
+  - CSR，目录：`@/src/app/blog/time/client/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/client/page.tsx))
+  - SSG模式，目录：`@/src/app/blog/time/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/%5Bid%5D/page.tsx))
+    - 访问时`[id] = 1`，则`page`和`fetch`均为`SSG`
+    - 访问时`[id] > 1`，则`page`为`SSR`，`fetch`缓存为`SSG`
+  - ISR模式，目录：`@/src/app/blog/time/isr/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/isr/%5Bid%5D/page.tsx))
+    - 访问时`[id] = 1`，则`page`和`fetch`均为`SSG`
+    - 访问时`[id] > 1`，则通过`revalidate`缓存为`ISR`
 - 其他
   - antd，只为展示引用`antd`库，并非做页面：`@/src/app/antd/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/antd/page.tsx))
   - swr：`@/src/app/posts/list/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/list/%5Bid%5D/page.tsx))
@@ -98,7 +96,16 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 ## NextJS 4个模式的关系
 
-![NextJS 4个模式的关系](https://github.com/cgfeel/next.v2/assets/578141/3e377489-5559-4c93-a4be-24c5a7b90fc3)
+- NextJS默认所有`page`都是`SSG`
+- 在build前将会对所有设置过`generateStaticParams`生成静态页面
+- 没有设置过的`page`将视为`dynamic page`或`sigle page`
+- 只有通过`generateStaticParams`生成的`page`，每次请求时是通过`SSG`的方式，否则就是`SSR`
+- 无论`SSG`还是`SSR`，所有的`fetch`都将在build前以`SSG`放下完成加载，build之后不在请求
+- 除非将`fetch`采用`cache: 'no-store`模式（类似`getStaticProps`）
+- `no-store`模式下，通过`revalidate`实现ISR
+- `SSR` + `use client`实现`CSR`，`SSG`在`build`后可采用`CSR`方式对边缘计算做交互
+
+![NextJS 4个模式的关系](https://github.com/cgfeel/next.v2/assets/578141/64d27962-a156-4882-b1fa-b36bccb514de)
 
 
 ## Getting Started (安装和运行)
