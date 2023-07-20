@@ -65,7 +65,7 @@
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式，目录：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
-  - CSR，目录：`@/src/app/blog/time/client/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/client/page.tsx))
+  - CSR模式，目录：`@/src/app/blog/time/client/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/client/page.tsx))
   - SSG模式，目录：`@/src/app/blog/time/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/%5Bid%5D/page.tsx))
     - 访问时`[id] = 1`，则`page`和`fetch`均为`SSG`
     - 访问时`[id] > 1`，则`page`为`SSR`，`fetch`缓存为`SSG`
@@ -98,8 +98,8 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 - NextJS默认所有`page`都是`SSG`
 - 在build前将会对所有设置过`generateStaticParams`生成静态页面，没有设置过将视为`server components`
-- 只有通过`generateStaticParams`生成的`page`，每次请求时是通过`SSG`的方式，否则就是`SSR`
-- 无论`SSG`还是`SSR`，所有的`fetch`都将在build前以`SSG`方式完成加载，build之后不在请求
+- 只有通过`generateStaticParams`生成的`page`，渲染时是通过`SSG`的方式，否则就是`SSR`
+- 无论`SSG`还是`SSR`，所有的`fetch`都将在build前以`SSG`方式完成加载，build之后不再请求
 - 除非将`fetch`采用`cache: 'no-store`模式（类似`getStaticProps`）
 - `no-store`模式下，通过`revalidate`实现`ISR`
 - `SSR` + `use client`实现`CSR`，`SSG`在`build`后可采用`CSR`方式对边缘计算做交互
