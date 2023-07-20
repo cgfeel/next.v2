@@ -62,7 +62,7 @@
   - 中间件，目录：`@/src/middleware.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/middleware.ts))
     - 包含：路由重定向、重写url、获取header、设置header、设置cookies
     - ---- 分割线 ----
-- 3个不同的模式
+- 4个不同的模式，关系图 ([查看](#nextjs-4个模式的关系))
   - SSR请求，目录：`@/src/app/posts/[pid]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/%5Bpid%5D/page.tsx))
   - CSR模式
     - CSR请求，目录：`@/src/app/posts/list/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/list/%5Bid%5D/page.tsx))
@@ -96,6 +96,9 @@
 
 https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a2eea
 
+## NextJS 4个模式的关系
+
+![NextJS 4个模式的关系](https://github.com/cgfeel/next.v2/assets/578141/fdc8eee3-a013-4785-a5ba-d463bd8198ec)
 
 ## Getting Started (安装和运行)
 
