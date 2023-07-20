@@ -97,8 +97,7 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 ## NextJS 4个模式的关系
 
 - NextJS默认所有`page`都是`SSG`
-- 在build前将会对所有设置过`generateStaticParams`生成静态页面
-- 没有设置过的`page`将视为`dynamic page`或`sigle page`
+- 在build前将会对所有设置过`generateStaticParams`生成静态页面，没有设置过将视为`server components`
 - 只有通过`generateStaticParams`生成的`page`，每次请求时是通过`SSG`的方式，否则就是`SSR`
 - 无论`SSG`还是`SSR`，所有的`fetch`都将在build前以`SSG`放下完成加载，build之后不在请求
 - 除非将`fetch`采用`cache: 'no-store`模式（类似`getStaticProps`）
