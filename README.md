@@ -105,7 +105,7 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 - `no-store`模式下，通过`revalidate`实现ISR
 - `SSR` + `use client`实现`CSR`，`SSG`在`build`后可采用`CSR`方式对边缘计算做交互
 
-![NextJS 4个模式的关系](https://github.com/cgfeel/next.v2/assets/578141/64d27962-a156-4882-b1fa-b36bccb514de)
+![NextJS 4个模式的关系](https://github.com/cgfeel/next.v2/assets/578141/8a4cd4c1-c07b-4782-a506-bdfd2c2690c5)
 
 
 ## Getting Started (安装和运行)
