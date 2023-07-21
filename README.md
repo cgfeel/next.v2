@@ -20,7 +20,7 @@
     - 路由分组，目录`@/src/app/group/`
     - 嵌套布局，目录`@/src/app/group/(marketing)/blog`、`@/src/app/group/(shop)/cart`
     - ---- 分割线 ----
-  - 动态路由，目录`@/src/app/posts/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/posts))
+  - 动态路由`@/src/app/posts/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/posts))
     - 监听动态路由变化：`@/src/app/posts/[pid]/layout.tsx`
     - 动态路由：`@/src/app/posts/[pid]`
     - 嵌套路由：`@/src/app/posts/user/[...uid]`
@@ -59,20 +59,29 @@
     - ---- 分割线 ----
     - Api Route在安全设计上的理解 ([查看](#api-route在安全设计上的理解))
     - ---- 分割线 ----
-  - 中间件，目录：`@/src/middleware.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/middleware.ts))
+  - 中间件：`@/src/middleware.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/middleware.ts))
     - 包含：路由重定向、重写url、获取header、设置header、设置cookies
     - ---- 分割线 ----
   - 本地化，目录：`@/src/app/lang/[slug]` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/lang/%5Bslug%5D))
     - 只做了本地化词典本分
     - 还剩余两个方法`middleware`和`generateStaticParams`，由于需要调整目录结构会和当前实例冲突，目前不做演示
+    - ---- 分割线 ----
+- 数据获取
+  - 静态和动态数据获取 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch))
+    - server components中获取数据：`@/src/app/fetch/page.tsx`
+    - 并行请求：`@/src/app/fetch/parallel/[id]/page.tsx`
+    - 通过`suspense`优先渲染：`@/src/app/fetch/suspense/[id]/page.tsx`
+    - 顺序请求：`@/src/app/fetch/sequential/[id]/page.tsx`
+    - 缓存配置：`@/src/app/fetch/revalidate/[id]/page.tsx`
+    - ---- 分割线 ----
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
-  - SSR模式，目录：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
+  - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
-  - CSR模式，目录：`@/src/app/blog/time/client/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/client/page.tsx))
-  - SSG模式，目录：`@/src/app/blog/time/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/%5Bid%5D/page.tsx))
+  - CSR模式：`@/src/app/blog/time/client/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/client/page.tsx))
+  - SSG模式：`@/src/app/blog/time/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/%5Bid%5D/page.tsx))
     - 访问时`[id] = 1`，则`page`和`fetch`均为`SSG`
     - 访问时`[id] > 1`，则`page`为`SSR`，`fetch`缓存为`SSG`
-  - ISR模式，目录：`@/src/app/blog/time/isr/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/isr/%5Bid%5D/page.tsx))
+  - ISR模式：`@/src/app/blog/time/isr/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/isr/%5Bid%5D/page.tsx))
     - 访问时`[id] = 1`，则`page`和`fetch`均为`SSG`
     - 访问时`[id] > 1`，则通过`revalidate`缓存为`ISR`
 - 其他
