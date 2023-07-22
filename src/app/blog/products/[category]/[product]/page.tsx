@@ -3,7 +3,6 @@ export async function generateStaticParams({
 }: {
     params: { category: string }
 }) {
-    console.log(category);
     return [{ product: '1' }, { product: '2' }, { product: '3' }];
 }
 

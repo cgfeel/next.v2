@@ -2,7 +2,8 @@ import { FC, Suspense } from "react";
 import { AlbumsItemsType, ArtistType, getArtist, getArtistAlbums } from "../../service";
 
 const Albums: FC<Pick<ArtistType, 'id'>> = async ({ id }) => {
-    const albums = await getArtistAlbums(id);
+    const point = id.toString() as `${number}`;
+    const albums = await getArtistAlbums(point);
     return (
         <ul>
             {albums.map((album, i) => (

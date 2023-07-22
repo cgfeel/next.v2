@@ -7,7 +7,7 @@ import capitalize from 'lodash/capitalize';
 // import { history } from 'umi';
 import { extend, ExtendOptionsInit, ExtendOptionsWithoutResponse, ExtendOptionsWithResponse, OnionOptions, RequestMethod, RequestOptionsInit, ResponseInterceptor, RequestResponse } from 'umi-request';
 
-const API_URL = 'https://jsonplaceholder.typicode.com';
+const API_URL = process.env.HOME_URL||'';
 const PREFIX_URI = '/';
 const LOGIN_URL = '/auth/login';
 

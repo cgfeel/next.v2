@@ -10,7 +10,7 @@ export default function Page() {
     const [now, setData] = useState<DateType|undefined>();
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/time').then(data => data.json()).then(data => {
+        fetch(`/api/time`).then(data => data.json()).then(data => {
             setData(data);
         });
     }, [setData]);

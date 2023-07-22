@@ -1,10 +1,9 @@
-import { PhotoItemType } from "@/src/components/frame/Frame";
-import Api from "@/src/utils/api";
 import Image from "next/image";
 import Link from "next/link";
+import { getPhotoList } from "./service";
 
 export default async function Page() {
-    const photos = await Api.get<PhotoItemType[]>('http://localhost:3000/api/photo');
+    const photos = await getPhotoList();
     return (
         <main
             className="container mx-auto"

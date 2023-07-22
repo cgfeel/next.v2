@@ -9,4 +9,4 @@ const dictionaries = {
     nl: () => import('../../../dictionaries/nl.json').then(module => module.default),
 };
 
-export const getDictionary = async (locale) => dictionaries[locale]() as Promise<DictionaryType>;
+export const getDictionary = async (locale: 'en'|'nl') => dictionaries[locale]() as Promise<DictionaryType>;

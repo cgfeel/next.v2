@@ -14,12 +14,12 @@ type ResultType = {
 };
 
 const getPostsData: () => Promise<ResultType> = async () => {
-  const res = await Api.get<ResultType>('http://localhost:3000/api/items', {
+  const data = await Api.get<ResultType['data']>('https://jsonplaceholder.typicode.com/posts', {
     next: {
         revalidate: 60
     }
   });
-  return res;
+  return { data, time: Date.now() };
 };
 
 export const revalidate = 60;

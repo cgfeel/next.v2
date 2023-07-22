@@ -1,9 +1,11 @@
+import { TimeType } from "../../page";
+
 export async function generateStaticParams() {
     return [{ id: '1' }];
 }
 
 export default async function Page() {
-    const data = await fetch('http://localhost:3000/api/time', {
+    const data = await fetch('http://worldtimeapi.org/api/timezone/Asia/Shanghai', {
         next: { revalidate: 10 }
     });
     if (!data.ok) {
@@ -12,8 +14,8 @@ export default async function Page() {
         );
     }
 
-    const now = await data.json() as { time: number };
+    const now = await data.json() as TimeType;
     return (
-        <div>time now: {new Date(now.time).toLocaleTimeString()}</div>
+        <div>time now: {now.datetime}</div>
     );
 }

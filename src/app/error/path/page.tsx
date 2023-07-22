@@ -1,6 +1,6 @@
 export default async function Page() {
     // fetch错误不会抛出错误
-    /*const data = await fetch('http://localhost:3000/api/error', {
+    /*const data = await fetch(`${process.env.HOME_URL}/api/error`, {
         method: 'POST',
     });
 
