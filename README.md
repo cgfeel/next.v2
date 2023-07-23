@@ -74,6 +74,16 @@
     - 顺序请求：`@/src/app/fetch/sequential/[id]/page.tsx`
     - 缓存配置：`@/src/app/fetch/revalidate/[id]/page.tsx`
     - ---- 分割线 ----
+  - 缓存 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/cache))
+    - 请求树：`@/src/app/fetch/cache/page.tsx`
+    - 服务组件到客服组件：`@/src/app/fetch/cache/client/page.tsx`
+    - 不缓存：`@/src/app/fetch/cache/nostore/page.tsx`
+    - POST缓存：`@/src/app/fetch/cache/post/page.tsx`
+    - 预缓存：`@/src/app/fetch/cache/preload/page.tsx`
+    - 通过react缓存：`@/src/app/fetch/cache/react-cache/page.tsx`
+    - ISR：`@/src/app/blog/time/isr/page.tsx`
+    - 总结 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/cache))
+    - ---- 分割线 ----
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
@@ -105,6 +115,47 @@
 点开列表图片将会被拦截器阻拦，当打开照片刷新页面，将跳过阻拦进入详情页
 
 https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a2eea
+
+## NextJS 缓存总结
+
+![image](https://github.com/cgfeel/next.v2/assets/578141/f0e49045-cd9d-480a-94ab-93e06a3743d8)
+
+- 缓存是树状结构，如上图官方所示，缓存只加载请求1次，多次相同链接的请求将按照第一次的结果从缓存中获取数据
+- 如果要刷新缓存，通过`fetch`设置`no-store`或`export const revalidate = 0`
+- 在请求树中相同链接的请求，只要有1个请求设置了重新验证，整个树所有请求都将重新向服务端发起请求（注1）
+- 关于`POST`请求缓存的一处错误（注2）
+- `POST`和`GET`缓存不同在于，`POST`如果链接相同，请求参数不同，将视作新的请求而不从缓存中获取，而`GET`没有，见`@/src/app/fetch/cache/post`
+- 对于预存取的用法，在官方文档有提到（注3）
+- 对于react的`cache`组件缓存（注3）
+- 对于客户端组件，它本身和服务端组件不是一套组件，所以在客服端组件中，无论怎么刷新时间，都不重新渲染服务端，也不会使用服务端的缓存
+
+**注1：** `@/src/app/fetch/cache/post/revalidate`
+
+- 包含两个Api：`worldtimeapi`、`timeapi`
+- 请求树链路：`cache/layout.tsx` - `cache/post/layout.tsx` - `cache/post/revalidate/page.tsx`
+- 在`page.tsx`刷新缓存，整个树全部刷新，无论链接、请求方式，参数、层级，整个请求树缓存都重新请求
+- 在重新请求过程中遵循缓存规则，后一条请求获取第一条请求结果的缓存
+
+**注2：** `@/src/app/fetch/cache/post`
+
+文档是这么说的
+
+> Dynamic methods (next/headers, export const POST, or similar) are used and the fetch is a POST request (or uses Authorization or cookie headers)
+ 
+实测：
+
+1. post请求也缓存，请求缓存不缓存取决于`no-store`和`revalidate`
+2. `cookie`和`header`设置只存在中间件和`api route`，而`api route`无论请求方式是什么，是否设置缓存均不缓存，见`@/src/app/api/time/cache/route.ts`
+  
+**注3：** 
+
+官方不建议通过props跨层级传递数据，而建议重复使用fetch获取数据，因为NextJS中`fetch`的结果是默认获取上一条相同请求的缓存
+
+> In this new model, we recommend fetching data directly in the component that needs it, even if you're requesting the same data in multiple components, rather than passing the data between components as props.
+
+关于react的`cache`组件，官方备注一条：即便你不这样做，NextJS在`fetch`时默认也会缓存，并且推荐默认的做法
+
+> `fetch()` caches requests automatically, so you don't need to wrap functions that use `fetch()` with `cache()`. See automatic request deduping for more information.
 
 ## NextJS 4个模式的关系
 
