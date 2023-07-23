@@ -1,5 +1,5 @@
+import { TimeType } from "@/src/app/blog/time/page";
 import Api from "@/src/utils/api";
-import { TimeType } from "../../blog/time/page";
 import Time from "./Time";
 
 export default async function Page() {

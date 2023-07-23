@@ -6,7 +6,7 @@ import { FC } from "react"
 import useSWR from 'swr';
 
 const getPostsData: (url: string) => Promise<TimeType> = async url => {
-    return await Api.get<PostItemType[]>(url);
+    return await Api.get<TimeType>(url);
 };
 
 const Time: FC = () => {
@@ -17,7 +17,7 @@ const Time: FC = () => {
         <div>
             <div>client time: {data?.datetime}</div>
             <button
-                onClick={mutate}
+                onClick={() => mutate()}
             >
                 click to uptime
             </button>
