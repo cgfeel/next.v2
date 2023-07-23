@@ -1,9 +1,9 @@
 import Api from "@/src/utils/api";
+import { TimeType } from "../../blog/time/page";
 
 export default async function Page() {
-    // const data = await Api.get<{time: number}>(`${process.env.HOME_URL}/api/time`);
-    // : {new Date(data.time).toLocaleTimeString()}
+    const data = await Api.get<TimeType>('http://worldtimeapi.org/api/timezone/Asia/Shanghai');
     return (
-        <div>page time</div>
+        <div>page time : {data.datetime}</div>
     );
 }
