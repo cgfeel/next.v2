@@ -150,7 +150,6 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 实测：
 
 1. post请求也缓存，请求缓存不缓存取决于`no-store`和`revalidate`
-2. `cookie`和`header`设置只存在中间件和`api route`，而`api route`无论请求方式是什么，是否设置缓存均不缓存，见`@/src/app/api/time/cache/route.ts`
   
 **注3：** 
 
