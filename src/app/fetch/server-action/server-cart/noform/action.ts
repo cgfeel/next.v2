@@ -8,6 +8,6 @@ function sleep(time: number) {
 
 // 这里的阻塞在生产环境无效
 export const action = async () => {
-    await sleep(5);
+    await sleep(5000);
     return true;
 };

@@ -10,7 +10,7 @@ function sleep(time: number) {
 
 // 这里的阻塞在生产环境无效
 export const action = async (formData: FormData) => {
-    await sleep(5);
+    await sleep(5000);
     const data = formData.get('flush')?.toString()||'';
     const flush = parseInt(data)||0;
     if (flush > 0) {
