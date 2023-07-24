@@ -82,12 +82,24 @@
     - 预缓存：`@/src/app/fetch/cache/preload/page.tsx`
     - 通过react缓存：`@/src/app/fetch/cache/react-cache/page.tsx`
     - ISR：`@/src/app/blog/time/isr/page.tsx`
-    - 总结 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/cache))
+    - 总结 ([查看](#nextjs-缓存总结))
     - ---- 分割线 ----
   - 重新验证
     - `fetch`静默更新：`@/src/app/blog/time/isr/page.tsx`
     - 配置文件静默更新：`@/src/app/blog/time/isr/revalidate/page.tsx`
-    - 动态标签更新，略（后续添加）
+    - 动态标签更新（`revalidateTag`）：`@/src/app/fetch/server-action/revalidation/page.tsx`
+    - ---- 分割线 ----
+  - 服务端操作 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action))
+    - 服务端操作（`action`、`formAction`）：`@/src/app/fetch/server-action/server-cart/page.tsx`
+    - 客户端操作：`@/src/app/fetch/server-action/client-cart/page.tsx`
+    - 除表单外通过`startTransition`进行操作：`@/src/app/fetch/server-action/client-cart/transition/page.tsx`
+    - 除`startTransition`外，非表单操作：`@/src/app/fetch/server-action/custom/[id]/page.tsx`
+    - 本地实验功能`useOptimistic`：`@/src/app/fetch/server-action/optimistic/page.tsx`
+    - 服务端操作提交后重新渲染视图：`@/src/app/fetch/server-action/revalidation/page.tsx`
+    - 服务端校验表单、设置cookies：`@/src/app/fetch/server-action/validation/page.tsx`
+    - 服务端非表单进行操作：`@/src/app/fetch/server-action/server-cart/noform/page.tsx`
+    - 客户端轮训：`@/src/app/fetch/server-action/client-cart/noform/page.tsx`
+    - 总结 ([查看](#nextjs-server-action总结))
     - ---- 分割线 ----
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
@@ -150,6 +162,7 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 实测：
 
 1. post请求也缓存，请求缓存不缓存取决于`no-store`和`revalidate`
+2. 除非这个post请求位于`server action`中，这样即便是get请求一样会重新请求
   
 **注3：** 
 
@@ -160,6 +173,28 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 关于react的`cache`组件，官方备注一条：即便你不这样做，NextJS在`fetch`时默认也会缓存，并且推荐默认的做法
 
 > `fetch()` caches requests automatically, so you don't need to wrap functions that use `fetch()` with `cache()`. See automatic request deduping for more information.
+
+## NextJS Server Action总结
+
+`use server`：
+
+- 大部分情况是用于表单验证，非表单验证的情况下可做后台静默更新（例如埋点检测并更新用户信息）
+- 在官方文档里提到这个功能目前是实验性的，对于用在表单场景的交互更多可能出于本地JS被禁用的情况
+  
+**服务端提交后交互**：
+
+- 文档里写到通过`redirect`、`revalidatePath`、`revalidateTag`（示范中提供了`revalidateTag`）
+- 以示范文件说原理：页面首次fetch，得到未认证的结果，提交表单`revalidateTag`重新验证，视图中的fetch再次请求得到认证状态，重新渲染视图
+
+`use client`：
+
+- 可用于表单，也可以是非表单的操作（诸如：轮训，见示例文件）
+- 对于表单验证，本地验证更符合当下交互习惯
+
+**轮训场景**：
+
+- 例如微信扫码登录，先从`server action`提交`OAUTH`认证，拿到`token`后交给客户端轮训登录状态
+- 以示范文件说原理：先发起`server action`，通过后本地使用`swr`轮训状态
 
 ## NextJS 4个模式的关系
 
