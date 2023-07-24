@@ -1,4 +1,4 @@
-import { cookies } from "next/headers"
+import { cookies } from "next/headers";
 
 export default function Page() {
     async function addItem(data: Record<string, any>) {
