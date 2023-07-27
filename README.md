@@ -101,6 +101,17 @@
     - 客户端轮训：`@/src/app/fetch/server-action/client-cart/noform/page.tsx`
     - 总结 ([查看](#nextjs-server-action总结))
     - ---- 分割线 ----
+- 组件和优化
+  - 图片 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/images))
+    - 图片相关配置信息：`@/next.config.js`，见`nextConfig.images`
+    - 基础操作：`@/src/app/optimizing/images/page.tsx`，包含：内部图片、外部图片、图片加载器、图片事件
+    - 背景图片：`@/src/app/optimizing/images/background`
+    - 图片占位符图片：`@/src/app/optimizing/images/color/page.tsx`
+    - 设置断点处理图片自适应：`@/src/app/optimizing/images/fill-container/page.tsx`
+    - 根据父容器填充图片：`@/src/app/optimizing/images/fill-container/list/page.tsx`
+    - 默认模糊占位符图片：`@/src/app/optimizing/images/placeholder/page.tsx`
+    - 自适应图片：`@/src/app/optimizing/images/responsive`
+    - svg占位符图片：`@/src/app/optimizing/images/shimmer/page.tsx`
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
