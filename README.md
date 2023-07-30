@@ -121,6 +121,11 @@
     - 通过字体别名设置字体、使用本地字体
     - 通过`Tailwind CSS`设置字体
     - ---- 分割线 ----
+  - 链接 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/link))
+    - 目录：`@/src/app/optimizing/link`
+    - 包含：链接、对象链接、链接替换、阻止预加载、中间件
+    - 导航监听和跳转：`@/src/app/optimizing/link/demo`
+    - ---- 分割线 ----
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
