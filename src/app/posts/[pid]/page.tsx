@@ -1,6 +1,4 @@
-import Api, { ApiResponseType } from '@/src/utils/api';
-import { usePathname, useSearchParams  } from 'next/navigation';
-import { FC } from 'react';
+import Api from '@/src/utils/api';
 
 type PostItemType = {
   userId: number;

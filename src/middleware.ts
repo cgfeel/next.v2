@@ -35,6 +35,10 @@ export function middleware(request: NextRequest) {
     if (request.nextUrl.pathname.startsWith('/tophoto')) {
         return NextResponse.rewrite(new URL('/photo', request.url));
     }
+
+    if (request.nextUrl.pathname.startsWith('/optimizing-dashboard')) {
+        return NextResponse.rewrite(new URL('/optimizing/link/dashboard', request.url));
+    }
     return res;
 }
 
