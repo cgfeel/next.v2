@@ -1,0 +1,8 @@
+.text {
+    font-family: var(--antonio-font);
+    font-style: italic;
+}
+
+.contact {
+    font-family: var(--cooper-font);
+}
