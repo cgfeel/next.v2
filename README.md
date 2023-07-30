@@ -112,6 +112,15 @@
     - 默认模糊占位符图片：`@/src/app/optimizing/images/placeholder/page.tsx`
     - 自适应图片：`@/src/app/optimizing/images/responsive`
     - svg占位符图片：`@/src/app/optimizing/images/shimmer/page.tsx`
+    - ---- 分割线 ----
+  - 字体 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/font/google))
+    - 多页共享字体库：`@/src/utils/fonts.ts`
+    - 字体包含：可变字体、不可变字体、
+    - 组件修改字体：字体子集加载替换、通过样式名修改字体（含子组件字体），通过样式修改字体
+    - 通过styled-jsx修改字体：`:root`托管全局字体变量，`:global`设置子组件字体
+    - 通过字体别名设置字体、使用本地字体
+    - 通过`Tailwind CSS`设置字体
+    - ---- 分割线 ----
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
