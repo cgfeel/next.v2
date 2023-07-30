@@ -112,6 +112,7 @@
     - 默认模糊占位符图片：`@/src/app/optimizing/images/placeholder/page.tsx`
     - 自适应图片：`@/src/app/optimizing/images/responsive`
     - svg占位符图片：`@/src/app/optimizing/images/shimmer/page.tsx`
+    - 备注：nextjs推荐在生产环境和独立模式下通过`sharp`进行优化 ([查看](https://nextjs.org/docs/messages/sharp-missing-in-production))
     - ---- 分割线 ----
   - 字体 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/font/google))
     - 多页共享字体库：`@/src/utils/fonts.ts`
