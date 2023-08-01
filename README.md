@@ -127,6 +127,14 @@
     - 包含：链接、对象链接、链接替换、阻止预加载、中间件
     - 导航监听和跳转：`@/src/app/optimizing/link/demo`
     - ---- 分割线 ----
+  - 动态脚本 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/script))
+    - 引入脚本，包含策略2个策略、2个内联模式：`@/src/app/optimizing/script/page.tsx`
+    - 加载成功事件：`@/src/app/optimizing/script/group/chart/page.tsx`
+    - 加载失败事件：`@/src/app/optimizing/script/group/onerror/page.tsx`
+    - CSP组件：`@/src/app/optimizing/script/cspe/page.tsx`
+    - CSP配置：`@/next.config.js`，见`nextConfig.headers`中`script`部分
+    - 总结 ([查看](#nextjs-动态加载脚本总结))
+    - ---- 分割线 ----
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
@@ -226,6 +234,8 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 ## NextJS 4个模式的关系
 
+![NextJS 4个模式的关系](https://github.com/cgfeel/next.v2/assets/578141/8a4cd4c1-c07b-4782-a506-bdfd2c2690c5)
+
 - NextJS默认所有`page`都是`SSG`
 - 在build前将会对所有设置过`generateStaticParams`生成静态页面，没有设置过将视为`server components`
 - 只有通过`generateStaticParams`生成的`page`，渲染时是通过`SSG`的方式，否则就是`SSR`
@@ -234,8 +244,36 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 - `no-store`模式下，通过`revalidate`实现`ISR`
 - `SSR` + `use client`实现`CSR`，`SSG`在`build`后可采用`CSR`方式对边缘计算做交互
 
-![NextJS 4个模式的关系](https://github.com/cgfeel/next.v2/assets/578141/8a4cd4c1-c07b-4782-a506-bdfd2c2690c5)
+## NextJS 动态加载脚本总结
 
+示例采用[`cdn.jsdelivr.net`](https://www.jsdelivr.com/)作为外部脚本公共库，查看演示前先确保能够正常访问仓库资源。
+
+**坑点1：两个策略**
+
+- `beforeInteractive`：在`App dir`模式下，按照官方文档添加到根目录下的`layout`，会提示错误“No Before Interactive Script Outside Document” ([查看](https://nextjs.org/docs/messages/no-before-interactive-script-outside-document))，要求你放到`page`目录下，然而`app`和`page`两个模式并不可以同时存在
+- `worker`：在`App dir`模式下，文档已明确目前不可用：`The worker strategy is not yet stable and does not yet work with the app directory. Use with caution.`
+
+**坑点2：编译检测**
+
+假定你远程调用`echart`，完成后有个全局的`echat`对象，编译时会异常提醒`echat`这个对象不存在，于是我将代码用字符的形式包裹起来，用`event`调用，编译通过，这样就埋下第3个坑
+
+**坑点3：CSP**
+
+- 对于`script-src`和`style-src`，默认要求配置`self`，而对于有在组件上写CSS的情况，`style-src`还需要设置`unsafe-inline`
+- 对于`script-src`，如果有客户端组件用到JS的情况（例如：`useEffect`），必须设置`unsafe-inline`才能执行
+- 对应坑点2，有使用到`eval`、`setTimeout`、`setInterval`和`Function`等函数，必须设置`unsafe-eval`才能执行
+
+**坑点4：CSP-nonce模式**
+
+> NextJS加载动态脚本分两部分：①通过`link`元素将远程的`script`下载下来；②按照组件情况插入`script`
+
+接着说坑点：
+
+- 对于使用`nonce`模式，那么一定会造成`unsafe-inline`失效，因为NextJS，不会根据你设置`nonce`的Hash值，动态去匹配每一个内联脚本，也就不会去执行
+- 设置了`nonce`模式，如果是外部脚本，同样需要配置`domain`，它关系到外部的脚本在`link`标签下会不会下载，而`nonce`的Hash值决定下载后会不会动态插入到`document`
+- 由于第一点问题，`nonce`模式下，`onLoad`和`onReady`，同样不会执行
+
+总结：如果需要使用`csp`的`nonce`模式需要自行考虑了。如果不考虑引入外部脚本，那么`csp`完全可以解决`XSS`的问题。对于图片组件安全，配置安全作用域，对于脚本安全，可以采用`csp`作为安全解决方案
 
 ## Getting Started (安装和运行)
 
