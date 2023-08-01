@@ -56,6 +56,44 @@ const nextConfig = {
         contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
         */
     },
+    async headers() {
+        const ContentSecurityPolicy = (nonce = '') => `
+            default-src 'self';
+            script-src 'self'${nonce ? ` '${nonce}'` : ''} 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net;
+            child-src example.com;
+            style-src 'self' 'unsafe-inline' cdn.jsdelivr.net;
+            font-src 'self';
+        `;
+
+        return [
+            {
+                source: '/optimizing/script/group/:path*',
+                headers: [
+                    {
+                        key: 'x-custom-header',
+                        value: 'my custom header value',
+                    },
+                    {
+                        key: 'Content-Security-Policy',
+                        value: ContentSecurityPolicy().replace(/\s{2,}/g, ' ').trim(),
+                    },
+                ],
+            },
+            {
+                source: '/optimizing/script/cspe',
+                headers: [
+                    {
+                        key: 'x-custom-header',
+                        value: 'my custom header value',
+                    },
+                    {
+                        key: 'Content-Security-Policy',
+                        value: ContentSecurityPolicy('nonce-XUENAJFW').replace(/\s{2,}/g, ' ').trim(),
+                    },
+                ],
+            },
+        ];
+    },
 }
 
 module.exports = nextConfig
