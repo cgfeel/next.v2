@@ -135,6 +135,15 @@
     - CSP配置：`@/next.config.js`，见`nextConfig.headers`中`script`部分
     - 总结 ([查看](#nextjs-动态加载脚本总结))
     - ---- 分割线 ----
+  - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/metadata))
+    - 元数据重写、继承，提供`JSON-LD`，`open graph`共享，静态单个`icon`和`apple-icon`：`@/src/app/optimizing/metadata`
+    - 动态生成描述信息，`open graph`继承、共享、覆盖，动态单个`icon`：`@/src/app/optimizing/metadata/[id]`
+    - 静态多个`icon`，静态单个`OG image`和`twitter image`：`@/src/app/optimizing/metadata`
+    - 动态多个`icon`，动态多个`OG image`：`@/src/app/optimizing/metadata/multiple/[id]`
+    - 动态单个`OG image`，引入特殊字体：`@/src/app/optimizing/metadata/opengraph/[id]`
+    - 动态`robot`，动态`sitemap`：`@/src/app/robots.ts`和`@/src/app/sitemap.ts`
+    - 静态`robot`，静态`sitemap`（使用移动到`app`根目录）：`@/src/app/@metadata`
+    - ---- 分割线 ----
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
@@ -145,6 +154,7 @@
   - ISR模式：`@/src/app/blog/time/isr/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/isr/%5Bid%5D/page.tsx))
     - 访问时`[id] = 1`，则`page`和`fetch`均为`SSG`
     - 访问时`[id] > 1`，则通过`revalidate`缓存为`ISR`
+    - ---- 分割线 ----
 - 其他
   - antd，只为展示引用`antd`库，并非做页面：`@/src/app/antd/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/antd/page.tsx))
   - swr：`@/src/app/posts/list/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/list/%5Bid%5D/page.tsx))
