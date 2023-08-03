@@ -1,19 +1,13 @@
 import Api from "@/src/utils/api";
 import dayjs from "dayjs";
 import { ImageResponse } from "next/server";
+import { PostType } from "../../layout";
 
 type ItemType = {
     postId: number;
     id: number;
     name: string;
     email: string;
-    body: string;
-};
-
-type PostType = {
-    userId: number;
-    id: number;
-    title: string;
     body: string;
 };
 
