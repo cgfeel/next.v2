@@ -136,7 +136,7 @@
     - 总结 ([查看](#nextjs-动态加载脚本总结))
     - ---- 分割线 ----
   - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/metadata))
-    - 元数据重写、继承，提供`JSON-LD`，`open graph`共享，静态单个`icon`和`apple-icon`：`@/src/app/optimizing/metadata/`
+    - 元数据重写、继承，提供`JSON-LD`，`open graph`共享，静态单个`icon`和`apple-icon`：`@/src/app/optimizing/metadata`
     - 动态生成描述信息，`open graph`继承、共享、覆盖，动态单个`icon`：`@/src/app/optimizing/metadata/[id]`
     - 静态多个`icon`，静态单个`OG image`和`twitter image`：`@/src/app/optimizing/metadata`
     - 动态多个`icon`，动态多个`OG image`：`@/src/app/optimizing/metadata/multiple/[id]`
