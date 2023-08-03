@@ -144,6 +144,11 @@
     - 动态`robot`，动态`sitemap`：`@/src/app/robots.ts`和`@/src/app/sitemap.ts`
     - 静态`robot`，静态`sitemap`（使用移动到`app`根目录）：`@/src/app/@metadata`
     - ---- 分割线 ----
+  - 懒加载 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/lazy))
+    - 及时懒加载、按需懒加载、客户端懒加载、加载loading、按命名懒加载：`@/src/app/optimizing/lazy/page.tsx`
+    - 服务端懒加载：`@/src/app/optimizing/lazy/server/page.tsx`
+    - 懒加载外部库：`@/src/app/optimizing/lazy/external/page.tsx`
+    - ---- 分割线 ----
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
