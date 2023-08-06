@@ -151,10 +151,11 @@
     - ---- 分割线 ----
 - 配置文件
   - 环境变量 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/env))
-  - 示例：`@/src/app/env`，配置文件：`@/.env*`
-  - Node环境变量：开发环境、生产环境、默认环境、覆盖环境变量、环境变量分组
-  - 浏览器环境变量：服务端组件下调用，客户端组件下调用
-  - ---- 分割线 ----
+    - 示例：`@/src/app/env`，配置文件：`@/.env*`
+    - Node环境变量：开发环境、生产环境、默认环境、覆盖环境变量、环境变量分组
+    - 浏览器环境变量：服务端组件下调用，客户端组件下调用
+    - ---- 分割线 ----
+  - 模块重命名见：`@/tsconfig.json`，TS配置放置后面`nextjs.config.js`一起总结
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
