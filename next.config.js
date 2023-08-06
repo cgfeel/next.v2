@@ -6,6 +6,9 @@ const nextConfig = {
     experimental: {
         appDir: true,
         serverActions: true,
+
+        // 不建议开启，因为很多路由可能探测不到，需要手动添加`as Route`，与其这样不如手动检查
+        // typedRoutes: true,
     },
     images: {
         remotePatterns: [
@@ -55,6 +58,10 @@ const nextConfig = {
         contentDispositionType: 'attachment',
         contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
         */
+    },
+    typescript: {
+        // 禁用ts类型检测，这是个危险举措
+        // ignoreBuildErrors: false,
     },
     async headers() {
         const ContentSecurityPolicy = (nonce = '') => `
