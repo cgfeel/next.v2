@@ -177,7 +177,7 @@
     - 不包含插件`remark`（需要修改配置文件到`mjs`），不包含`mdxRs`（需要配置`rust`），当前文档主要总结`nextjs`
     - ---- 分割线 ----
     - 备注1：`mdx`和`nextjs`的TS体操标准不一样，见：`@/src/app/mdx/custom/page.tsx`
-    - 备注2：`mdx`的图片资源支持内部好外部，见：组件和优化-图片
+    - 备注2：`mdx`的图片资源支持内部和外部，见：组件和优化-图片
     - ---- 分割线 ----
   - antd，只为展示引用`antd`库，并非做页面：`@/src/app/antd/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/antd/page.tsx))
   - swr：`@/src/app/posts/list/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/list/%5Bid%5D/page.tsx))
