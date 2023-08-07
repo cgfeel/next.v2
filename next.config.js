@@ -6,8 +6,9 @@ const nextConfig = {
     experimental: {
         appDir: true,
         serverActions: true,
+        mdxRs: true,
 
-        // 不建议开启，因为很多路由可能探测不到，需要手动添加`as Route`，与其这样不如手动检查
+        // 不建议开启，在buid时很多路由可能探测不到，需要手动添加`as Route`，与其这样不如手动检查
         // typedRoutes: true,
     },
     images: {
@@ -103,4 +104,9 @@ const nextConfig = {
     },
 }
 
-module.exports = nextConfig
+const withMDX = require('@next/mdx')({
+    options: {
+        providerImportSource: '@mdx-js/react',
+    },
+});
+module.exports = withMDX(nextConfig);
