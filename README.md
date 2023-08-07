@@ -156,6 +156,7 @@
     - 浏览器环境变量：服务端组件下调用，客户端组件下调用
     - ---- 分割线 ----
   - 模块重命名见：`@/tsconfig.json`，TS配置放置后面`nextjs.config.js`一起总结
+  - src目录，正如你看到当前示例，如果初始项目没有选择src目录，后期直接移动目录即可
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
