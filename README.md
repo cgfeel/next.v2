@@ -59,6 +59,10 @@
     - ---- 分割线 ----
     - Api Route在安全设计上的理解 ([查看](#api-route在安全设计上的理解))
     - ---- 分割线 ----
+    - 草稿模式：`@/src/app/api/draft` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/api/draft))
+    - 测试Page：`@/src/app/blog/draft/page.tsx`
+    - 文档中草稿模式归类在配置文件，但更符合Api路由
+    - ---- 分割线 ----
   - 中间件：`@/src/middleware.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/middleware.ts))
     - 包含：路由重定向、重写url、获取header、设置header、设置cookies
     - ---- 分割线 ----
