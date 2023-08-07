@@ -168,6 +168,12 @@
     - 访问时`[id] > 1`，则通过`revalidate`缓存为`ISR`
     - ---- 分割线 ----
 - 其他
+  - mdx：`@/src/app/mdx` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/mdx))
+    - 官方文档归类在配置里，但是引用的全是第三方包，配置文件：`@/next.config.js`
+    - 额外用到的库：`@next/mdx`、`@mdx-js/loader`、`@mdx-js/react`、`@types/mdx`、`next-mdx-remote`
+    - 包含：本地`mdx`、远程`mdx`、layout布局包裹、自定义组件元素
+    - 不包含插件`remark`（需要修改配置文件到`mjs`），不包含`mdxRs`（需要配置`rust`），当前文档主要总结`nextjs`
+    - ---- 分割线 ----
   - antd，只为展示引用`antd`库，并非做页面：`@/src/app/antd/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/antd/page.tsx))
   - swr：`@/src/app/posts/list/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/list/%5Bid%5D/page.tsx))
   - HTTP库，封装`umi-request`，3种模式（SSR、SSG、CSR）下均可使用，对于非`client component`下配合`deviceStorage`能够作为代替`swr`的一种解决方案：`@/src/utils/api.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/api.ts))
