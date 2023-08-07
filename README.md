@@ -171,7 +171,9 @@
   - mdx：`@/src/app/mdx` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/mdx))
     - 官方文档归类在配置里，但是引用的全是第三方包，配置文件：`@/next.config.js`
     - 额外用到的库：`@next/mdx`、`@mdx-js/loader`、`@mdx-js/react`、`@types/mdx`、`next-mdx-remote`
-    - 包含：本地`mdx`、远程`mdx`、layout布局包裹、自定义组件元素
+    - 本地解析（包含layout布局）：`@/src/app/mdx/page.tsx`
+    - 远程解析：`@/src/app/mdx/remote`
+    - 自定义组件元素：`@/src/app/mdx/custom`
     - 不包含插件`remark`（需要修改配置文件到`mjs`），不包含`mdxRs`（需要配置`rust`），当前文档主要总结`nextjs`
     - ---- 分割线 ----
     - 备注1：`mdx`和`nextjs`的TS体操标准不一样，见：`@/src/app/mdx/custom/page.tsx`
