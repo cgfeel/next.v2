@@ -179,7 +179,7 @@
     - 备注1：`mdx`的图片资源支持内部和外部，见：组件和优化-图片
     - ---- 分割线 ----
     - 坑点1：`mdx`和`nextjs`的TS体操标准不一样，见：`@/src/app/mdx/custom/page.tsx`
-    - 坑点2：本地`mdx`必须是`client component`否则报错，远程`mdx`基于`next-mdx-remote`，需要时`server component`否则报错（或者至少把数据获取`fetch`和`MDXRemote`分开）
+    - 坑点2：本地`mdx`必须`client component`否则报错，远程`mdx`基于`next-mdx-remote`，需要`server component`否则报错（或者至少把数据获取`fetch`和`MDXRemote`分开）
     - ---- 分割线 ----
   - antd，只为展示引用`antd`库，并非做页面：`@/src/app/antd/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/antd/page.tsx))
   - swr：`@/src/app/posts/list/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/list/%5Bid%5D/page.tsx))
