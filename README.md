@@ -215,7 +215,7 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 ## not-found.tsx 总结
 
-![not-found tsx](https://github.com/cgfeel/next.v2/assets/578141/843a98c6-960a-44b5-beb7-b6ee08f8a794)
+![not-found tsx](https://github.com/cgfeel/next.v2/assets/578141/1d9c258f-8709-4762-b8a4-7b9a31fd3ca9)
 
 **静态路由：**
  - 在路由段中先去查`page.tsx`，找到并进行渲染
