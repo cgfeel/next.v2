@@ -235,7 +235,7 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 **我的解决办法：**
 
-在`app`根目录下创建一个动态路由`[slug]`，并且在按照上面的规则创建`page.tsx`和`not-found.tsx`，这样所有找不到路由段的404，都默认向下在`[slug]`中进行捕获并渲染
+在`app`根目录下创建一个动态路由`[...slug]`，并且在按照上面的规则创建`page.tsx`和`not-found.tsx`，这样所有找不到路由段的404，都默认向下在`[...slug]`中进行捕获并渲染
 
 **备注：**
 
