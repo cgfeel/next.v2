@@ -74,6 +74,7 @@
     - 捕获全局：`@/src/app/not-found.tsx`
     - 捕获当前路段：`@/src/app/file`
     - 捕获动态路由：`@/src/app/file/[not]/page.tsx`
+    - 捕获全局404：`@/src/app/[...slug]`
     - 总结 ([查看](#not-foundtsx-总结))
     - ---- 分割线 ----
 - 数据获取
@@ -215,7 +216,7 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 ## not-found.tsx 总结
 
-![not-found tsx](https://github.com/cgfeel/next.v2/assets/578141/d5f5dd3b-0726-49d2-85b7-1aaf48a6f48a)
+![not-found tsx](https://github.com/cgfeel/next.v2/assets/578141/cd01ffa2-9c9a-41e6-be36-85a029f67c46)
 
 **静态路由：**
  - 在路由段中先去查`page.tsx`，找到并进行渲染
@@ -235,7 +236,8 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 **我的解决办法：**
 
-在`app`根目录下创建一个动态路由`[...slug]`，并且在按照上面的规则创建`page.tsx`和`not-found.tsx`，这样所有找不到路由段的404，都默认向下在`[...slug]`中进行捕获并渲染
+- 在`app`根目录下创建一个动态路由`[...slug]`，并且在按照上面的规则创建`page.tsx`和`not-found.tsx`，这样所有找不到路由段的404，都默认向下在`[...slug]`中进行捕获并渲染
+- UML绘图使用了[revenote](https://revenote.com/)
 
 **备注：**
 
