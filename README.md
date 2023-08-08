@@ -215,13 +215,13 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 ## not-found.tsx 总结
 
-![not-found tsx](https://github.com/cgfeel/next.v2/assets/578141/1d9c258f-8709-4762-b8a4-7b9a31fd3ca9)
+![not-found tsx](https://github.com/cgfeel/next.v2/assets/578141/d5f5dd3b-0726-49d2-85b7-1aaf48a6f48a)
 
 **静态路由：**
  - 在路由段中先去查`page.tsx`，找到并进行渲染
- - 如果路由段中`page.tsx`抛出`notFound()`，将向`app`根目录查找`not-found.tsx`，如果没有找到则采用默认`404`页面
- - 抛出`notFound()`，找到`app`跟目录`not-found.tsx`，先执行默认函数不渲染，然后在叶子路由段查找`not-found.tsx`，如果在叶子段找到则执行并渲染，否则向上一级继续查找`not-found.tsx`
- - 若整个路由段都没有`not-found.tsx`将渲染`app`根目录下的`not-found.tsx`，并不断循环这个查找过程，这意味着所有找不到路由段的404都将按照这个步骤进行
+ - 如果路由段中`page.tsx`抛出`notFound()`，将向`app`根目录查找`not-found.tsx`，如果整个路由段都没找到则采用默认`404`页面
+ - 如果抛出`notFound()`找到`app`跟目录`not-found.tsx`，先执行默认函数不渲染，然后在叶子路由段查找`not-found.tsx`执行并渲染，叶子节点没有则向上一级节点继续查找
+ - 若只有根目录存在`not-found.tsx`，将渲染根据路下的`not-found.tsx`，并不断循环这个查找过程。这意味着所有找不到路由段的404都将按照这个步骤进行
 
 **动态路由：**
 
