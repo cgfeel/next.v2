@@ -74,7 +74,7 @@
     - 捕获全局：`@/src/app/not-found.tsx`
     - 捕获当前路段：`@/src/app/file`
     - 捕获动态路由：`@/src/app/file/[not]/page.tsx`
-    - 总结 ([查看](#not-found.tsx-总结))
+    - 总结 ([查看](#not-foundtsx-总结))
     - ---- 分割线 ----
 - 数据获取
   - 静态和动态数据获取 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch))
