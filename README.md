@@ -70,6 +70,12 @@
     - 只做了本地化词典本分
     - 还剩余两个方法`middleware`和`generateStaticParams`，由于需要调整目录结构会和当前实例冲突，目前不做演示
     - ---- 分割线 ----
+  - not-found ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/file))
+    - 捕获全局：`@/src/app/not-found.tsx`
+    - 捕获当前路段：`@/src/app/file`
+    - 捕获动态路由：`@/src/app/file/[not]/page.tsx`
+    - 坑点总结 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/api/draft))
+    - ---- 分割线 ----
 - 数据获取
   - 静态和动态数据获取 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch))
     - server components中获取数据：`@/src/app/fetch/page.tsx`
@@ -206,6 +212,30 @@
 点开列表图片将会被拦截器阻拦，当打开照片刷新页面，将跳过阻拦进入详情页
 
 https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a2eea
+
+## not-found.tsx 总结
+
+![not-found tsx](https://github.com/cgfeel/next.v2/assets/578141/0638214f-b07a-4eaf-854b-c16010e8caf4)
+
+**静态路由：**
+ - 在路由段中先去查`page.tsx`，找到并进行渲染
+ - 如果路由段中`page.tsx`抛出`notFound()`，将向`app`根目录查找`not-found.tsx`，如果没有找到则采用默认`404`页面
+ - 抛出`notFound()`，找到`app`跟目录`not-found.tsx`，先执行默认函数不渲染，然后继续向下一级路由段查找`not-found.tsx`，并执行默认函数，直至找到叶子级找`not-found.tsx`进行渲染
+ - 在路由段中找不到`page.tsx`，则直接向`app`根目录查找`not-found.tsx`进行渲染，并不再继续向下查找`not-found.tsx`，同样这意味着所有找不到`page.tsx`的路由段全部由根目录`not-found.tsx`进行处理
+
+**动态路由：**
+
+ - 在路由段中先去查`page.tsx`，如果不存在将去查动态路由(`[slug]`)下的`page.tsx`
+ - 如果当前路由段存在`page.tsx`，且抛出`notFound()`，则按照上面静态路由部分规则执行
+ - 如果想要在动态路由段中抛出404，只要在动态路由段的`page.tsx`中抛出`notFound()`，抛出后渲染规则和静态路由段规则一致
+
+**坑点：**
+
+`app`根目录下的`not-found.tsx`，一旦无法线下继续抛出异常并捕获，将会重复不断执行渲染函数。示例：`@/src/app/not-found.tsx`，将函数中的`console.log`注释取消。所以在这个文件中建议做最简单的渲染，不要做任何复杂的计算处理。这个问题涵盖了所有找不到路由段的404页面，对于这个问题，官方文档并没有给予任何解释和解决办法。
+
+**备注：**
+
+抛出`notFound()`时，会从根目录一级一级查找`not-found.tsx`，也就意味着会执行每一级`not-found.tsx`的默认函数但不会渲染，直至叶子级`not-found.tsx`。这样结合下面提到的`cache`部分，可以通过`fetch`在不同层级传递数据。
 
 ## NextJS 缓存总结
 
