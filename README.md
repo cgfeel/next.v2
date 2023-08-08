@@ -215,13 +215,13 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 ## not-found.tsx 总结
 
-![not-found tsx](https://github.com/cgfeel/next.v2/assets/578141/0638214f-b07a-4eaf-854b-c16010e8caf4)
+![not-found tsx](https://github.com/cgfeel/next.v2/assets/578141/843a98c6-960a-44b5-beb7-b6ee08f8a794)
 
 **静态路由：**
  - 在路由段中先去查`page.tsx`，找到并进行渲染
  - 如果路由段中`page.tsx`抛出`notFound()`，将向`app`根目录查找`not-found.tsx`，如果没有找到则采用默认`404`页面
- - 抛出`notFound()`，找到`app`跟目录`not-found.tsx`，先执行默认函数不渲染，然后继续向下一级路由段查找`not-found.tsx`，并执行默认函数，直至找到叶子级找`not-found.tsx`进行渲染
- - 在路由段中找不到`page.tsx`，则直接向`app`根目录查找`not-found.tsx`进行渲染，并不再继续向下查找`not-found.tsx`，同样这意味着所有找不到`page.tsx`的路由段全部由根目录`not-found.tsx`进行处理
+ - 抛出`notFound()`，找到`app`跟目录`not-found.tsx`，先执行默认函数不渲染，然后在叶子路由段查找`not-found.tsx`，如果在叶子段找到则执行并渲染，否则向上一级继续查找`not-found.tsx`
+ - 若整个路由段都没有`not-found.tsx`将渲染`app`根目录下的`not-found.tsx`，并不断循环这个查找过程，这意味着所有找不到路由段的404都将按照这个步骤进行
 
 **动态路由：**
 
@@ -231,7 +231,7 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 **坑点：**
 
-`app`根目录下的`not-found.tsx`，一旦无法向下继续抛出异常并捕获，将会重复不断执行渲染函数。示例：`@/src/app/not-found.tsx`，将函数中的`console.log`注释取消。所以在这个文件中建议做最简单的渲染，不要做任何复杂的计算处理。这个问题涵盖了所有找不到路由段的404页面，对于这个问题，官方文档并没有给予任何解释和解决办法。
+由于静态路由中第三步和第四步，当访问一个不存在的路由段时，将不断循环查找过程，然而这种404的情况是很普遍的，而官方文档并没有提供任何解释和解决办法。
 
 **我的解决办法：**
 
