@@ -220,8 +220,8 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 **静态路由：**
  - 在路由段中先去查`page.tsx`，找到并进行渲染
  - 如果路由段中`page.tsx`抛出`notFound()`，将向`app`根目录查找`not-found.tsx`，如果整个路由段都没找到则采用默认`404`页面
- - 如果抛出`notFound()`找到`app`跟目录`not-found.tsx`，先执行默认函数不渲染，然后在叶子路由段查找`not-found.tsx`执行并渲染，叶子节点没有则向上一级节点继续查找
- - 若只有根目录存在`not-found.tsx`，将渲染根据路下的`not-found.tsx`，并不断循环这个查找过程。这意味着所有找不到路由段的404都将按照这个步骤进行
+ - 如果抛出`notFound()`找到`app`根目录`not-found.tsx`，先执行默认函数不渲染，然后根据路由段一级一级查找`not-found.tsx`，最后将在最接近叶子节点查找`not-found.tsx`捕获并渲染
+ - 若只有根目录存在`not-found.tsx`，将渲染根目录下的`not-found.tsx`，并不断循环这个查找过程。这意味着所有找不到路由段的404都将按照这个步骤进行
 
 **动态路由：**
 
@@ -239,7 +239,7 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 **备注：**
 
-抛出`notFound()`时，会从根目录一级一级查找`not-found.tsx`，也就意味着会执行每一级`not-found.tsx`的默认函数但不会渲染，直至叶子级`not-found.tsx`。这样结合下面提到的`cache`部分，可以通过`fetch`在不同层级传递数据。
+抛出`notFound()`时，无论如何都会去执行`app`根目录`not-found.tsx`，除非这个文件也不存在。这样结合下面提到的`cache`部分，可以通过`fetch`在不同层级传递数据。
 
 ## NextJS 缓存总结
 
