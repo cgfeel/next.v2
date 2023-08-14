@@ -427,8 +427,8 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 App Dir模式下不支持`waitUntil`
 
-> https://nextjs.org/docs/pages/api-reference/functions/next-server#nextfetchevent
-> https://github.com/vercel/next.js/issues/50522
+> - https://nextjs.org/docs/pages/api-reference/functions/next-server#nextfetchevent
+> - https://github.com/vercel/next.js/issues/50522
 
 当时给出了3个方式：
 
