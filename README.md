@@ -432,9 +432,9 @@ App Dir模式下不支持`waitUntil`
 
 当时给出了3个方式：
 
-1. `server action`非表单默认提交，从上面例子中正式无效
-2. `Api Route`异步`fetch`，仍旧有效，但设置很繁琐
-3. `middleware`发起异步`fetch`（推荐），因为一个页面内容可以`no data`，但是绝对不会没有`header`
+1. `server action`非表单默认提交，从上面例子中证实无效；
+2. `Api Route`异步`fetch`，有效但设置很繁琐；
+3. `middleware`发起异步`fetch`（推荐），因为一个页面内容可以`no data`，但是绝对不会没有`header`；
 
 ## Getting Started (安装和运行)
 
