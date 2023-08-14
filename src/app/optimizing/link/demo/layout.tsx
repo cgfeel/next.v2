@@ -1,10 +1,11 @@
+import Nav from "@/src/components/nav";
 import { PropsWithChildren } from "react";
-import Nav from "../components/Nav";
+import NavLinks from "../components/NavLinks";
 
 export default function Layout({ children }: PropsWithChildren<{}>) {
     return (
         <>
-            <Nav />
+            <NavLinks />
             <hr />
             {children}
         </>

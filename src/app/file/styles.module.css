@@ -1,0 +1,14 @@
+.active::after {
+    content: ' (current)';
+}
+.navLink {
+    text-decoration: none;
+}
+.list {
+    list-style: inside;
+}
+.list code {
+    color: #be00ff;
+    font-size: 16px;
+    white-space: pre-wrap;
+}

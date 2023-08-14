@@ -1,5 +1,4 @@
 import Link from "next/link";
-import ActiveLink from "./components/ActiveLink";
 
 export default function Page() {
     return (

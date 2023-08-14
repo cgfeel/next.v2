@@ -22,7 +22,7 @@ export default async function Page() {
                         id="flush_1" 
                         name="flush" 
                         value={1} 
-                        checked 
+                        defaultChecked 
                     />
                     <label 
                         htmlFor="flush_1"
