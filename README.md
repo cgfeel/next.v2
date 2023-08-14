@@ -423,6 +423,8 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 > 当然，如果存在非单一用户产生的状态，而又不需要实时同步信息的页面。无需考虑以上情况，因为服务端会不定时路由跳转后重新验证，这个时间目前还不清楚，因为文档里并没有提到。
 > 为何强调非单一用户，因为单一用户产生的状态可以通过`server action`提交信息的同时无感刷新路由视图
 
+---
+
 **最后在补充一个群里提到的一个坑点：**
 
 App Dir模式下不支持`waitUntil`
@@ -430,7 +432,7 @@ App Dir模式下不支持`waitUntil`
 > - https://nextjs.org/docs/pages/api-reference/functions/next-server#nextfetchevent
 > - https://github.com/vercel/next.js/issues/50522
 
-当时给出了3个方式：
+当时给出了3个方案：
 
 1. `server action`非表单默认提交，从上面例子中证实无效；
 2. `Api Route`异步`fetch`，有效但设置很繁琐；
