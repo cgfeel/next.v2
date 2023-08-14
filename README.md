@@ -77,6 +77,37 @@
     - 捕获全局404：`@/src/app/[...slug]`
     - 总结 ([查看](#not-foundtsx-总结))
     - ---- 分割线 ----
+  - 路由段配置 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/file/dynamic))
+    - `dynamic`
+      - 默认情况：`@/src/app/file/dynamic/(auto)`
+      - 强制不缓存、强制请求不缓存：`@/src/app/file/dynamic/(force-dynamic)`
+      - `error`静态模式、请求静态模式、`SSG`静态模式下允许动态参数（默认`error`模式下为静态）：`@/src/app/file/dynamic/(error)`
+      - 强制静态模式（`cookie`、`header`、`searchParams`为空）：`@/src/app/file/dynamic/(force-static)`
+    - `dynamicParams`：
+      - `SSG`静态模式下允许动态参数：`@/src/app/file/dynamic/(dynamic-params)/in-dynmic-params/[slug]`
+      - `SSG`静态模式下超出参数范围404：`@/src/app/file/dynamic/(dynamic-params)/not-in-dynmic-params/[slug]`
+    - `revalidate`：`@/src/app/file/dynamic/(revalidate)`
+      - 包含：默认强制缓存、每次请求重新验证、ISR定时重新验证
+    - `fetchCache`高级设置覆盖默认缓存行为
+      - 以缓存设置为准：`@/src/app/file/dynamic/(fetch-cache)/fetch-cache`
+      - 默认缓存行为：`@/src/app/file/dynamic/(fetch-cache)/fetch-cache-default-cache`
+      - 使用缓存行为：`@/src/app/file/dynamic/(fetch-cache)/fetch-cache-only-cache`
+      - 强制缓存行为：`@/src/app/file/dynamic/(fetch-cache)/fetch-cache-force-cache`
+      - 默认不缓存行为：`@/src/app/file/dynamic/(fetch-cache)/fetch-cache-default-no-store`
+      - 使用不缓存行为：`@/src/app/file/dynamic/(fetch-cache)/fetch-cache-only-no-store`
+      - 强制不缓存行为：`@/src/app/file/dynamic/(fetch-cache)/fetch-cache-force-no-store`
+    - `runtime`（见元数据优化）：`@/src/app/optimizing/metadata/opengraph/[id]/opengraph-image.tsx`
+    - `generateStaticParams`（`SSG`静态模式），见下方4种模式
+      - `@/src/app/blog/time/[id]/page.tsx`
+    - 其他，因为是单一例子所以放在`dynamic`的`auto`下
+      - `preferredRegion`：`@/src/app/file/dynamic/(auto)/auto-preferred-region`
+      - `maxDuration`：`@/src/app/file/dynamic/(auto)/auto-max-duration`
+    - ---- 分割线 ----
+  - 路由导航的缓存和视图刷新 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/link))
+    - 目录：`@/src/app/link`
+    - 这部分是文档没有的，因为我发现`NextJS`路由导航缓存存在坑点，单独加了示例
+    - 总结 ([查看](#路由导航缓存总结))
+    - ---- 分割线 ----
 - 数据获取
   - 静态和动态数据获取 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch))
     - server components中获取数据：`@/src/app/fetch/page.tsx`
@@ -108,7 +139,7 @@
     - 本地实验功能`useOptimistic`：`@/src/app/fetch/server-action/optimistic/page.tsx`
     - 服务端操作提交后重新渲染视图：`@/src/app/fetch/server-action/revalidation/page.tsx`
     - 服务端校验表单、设置cookies：`@/src/app/fetch/server-action/validation/page.tsx`
-    - 服务端非表单进行操作：`@/src/app/fetch/server-action/server-cart/noform/page.tsx`
+    - ~~服务端非表单进行操作：`@/src/app/fetch/server-action/server-cart/noform/page.tsx`~~ (查看：[路由导航总结](#路由导航缓存总结))
     - 客户端轮训：`@/src/app/fetch/server-action/client-cart/noform/page.tsx`
     - 总结 ([查看](#nextjs-server-action总结))
     - ---- 分割线 ----
@@ -241,7 +272,9 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 **备注：**
 
-抛出`notFound()`时，无论如何都会去执行`app`根目录`not-found.tsx`，除非这个文件也不存在。这样结合下面提到的`cache`部分，可以通过`fetch`在不同层级传递数据。
+- 抛出`notFound()`时，无论如何都会去执行`app`根目录`not-found.tsx`除非这个文件也不存在。
+- 只要存在`not-found`文件，那么路由段下无论是否发生错误，这段静态资源就必须输出，如果文件里有`fetch`请求，无论是否错误也会执行
+- 同理，结合这里提到的`cache`缓存部分，当前路段所有的`fetch`请求都会记录缓存，无论是从`layout`到`not-found`，还是从`not-found`到`page`
 
 ## NextJS 缓存总结
 
@@ -350,6 +383,44 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 - 由于第一点问题，`nonce`模式下，`onLoad`和`onReady`，同样不会执行
 
 总结：如果需要使用`csp`的`nonce`模式需要自行考虑了。如果不考虑引入外部脚本，那么`csp`完全可以解决`XSS`的问题。对于图片组件安全，配置安全作用域，对于脚本安全，可以采用`csp`作为安全解决方案
+
+## 路由导航缓存总结
+
+**问题：** 在`server components`下3个模式：(`SSR`、`SSG`、`ISR`)的缓存和重新验证，在官方文档所有说明中，只针对新开、刷新当前路由，而不包括路由导航之间的跳转。这就意味着，所有非单一用户产生的状态，需要在路由跳转后实时返回状态信息的页面，不能及时同步状态。
+
+**示例：** `@/src/app/link` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/link))
+
+**说明：** 
+
+- `auto`服务端链接页，结论：只要是在路由导航间`get`请求就无法刷新视图；
+- `client`本地链接页，结论：通过`useEffect`设置`hash`值刷新视图；
+- `fetch`数据获取页，包含一个`server action`去刷新视图；
+- `ramdom`服务端`hash`链接刷新视图，前提需要通过`server action`刷新视图后拿到新的`hash`；
+
+> 其中`auto`这个页面尝试了：
+>  - `page`页面中刷新视图（无效）
+>  - 通过强制禁用页面缓存，导出路由段配置（无效）
+>  - 通过`api route`刷新视图（无效，第一次成功跳转后，之后所有的转向直接到结果页，不会再尝试走`api`刷新视图）
+>  - 通过非表单`service action`刷新视图（无效，这样也印证了技术清单中`server action`的服务端下非表单服务端请求是不可能成立的）
+
+**情景再现：订单列表** 
+
+假定这个页面路由是`list`，这个页面的订单状态随后台操作（客服、物流等）进行改变，而不是单方面由下单的客户进行改变，那么列表最新的订单状态就需要实时同步，按照上面的情况可以通过以下几种情况：
+
+- 通过本地异步加载列表页，例如淘宝。缺点：列表页就不存在服务端渲染了，是实实在在的本地异步加载，不会从服务端输出静态资源
+- 页面增加一个类似刷新的按钮，通过`post`请求发起`server action`，刷新视图。缺点：必须是`post`请求
+- 使用`client component`，通过在路由链接中添加`hash`值，刷新路由。缺点：链接的`searchParams`中总是有一段随机的`hash`值
+  
+**情景再现：订单详情页** 
+
+- 除了上述3种情况以外，还可以增加一条，从订单列表页新窗口打开订单详情页，因为是新窗口打开，所以视图会随着路由段配置进行重新验证
+
+**情景再现：页面小部件** 
+
+- 例如：个人中心出票状况、最新订单发货进度等等，这种可能在个人中心某一处位置的小部件，它不是整个页面主导部分，但又需要实时同步状态
+- 那么建议通过本地异步请求状态，而不要使用服务端加载
+
+> 当然，如果存在非单一用户产生的状态，而又不需要实时同步信息的页面。无需考虑以上情况，因为服务端会不定时路由跳转后重新验证，这个时间目前还不清楚，因为文档里并没有提到。
 
 ## Getting Started (安装和运行)
 
