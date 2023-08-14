@@ -425,7 +425,7 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 ---
 
-**最后在补充一个群里提到的一个坑点：**
+**再补充一个群里提到的一个坑点：**
 
 App Dir模式下不支持`waitUntil`
 
