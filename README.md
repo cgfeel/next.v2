@@ -455,7 +455,7 @@ App Dir模式下不支持`waitUntil`
 
 当时给出了3个方案：
 
-1. `server action`非表单默认提交，从上面例子中证实，`server action`并不根据`<Link>`组件跳转而执行；
+1. `server action`非表单默认提交（无效），从上面例子中证实，`server action`并不根据`<Link>`组件跳转而执行；
 2. `Api Route`异步`fetch`，有效但设置很繁琐；
 3. `middleware`发起异步`fetch`（推荐），因为一个页面内容可以`no data`，但是绝对不会没有`header`；
 
