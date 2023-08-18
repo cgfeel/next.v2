@@ -1,0 +1,11 @@
+.list ul {
+    list-style: inside;
+}
+.list li ul {
+    margin-left: 20px;
+}
+.list code {
+    color: #be00ff;
+    font-size: 16px;
+    white-space: pre-wrap;
+}
