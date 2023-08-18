@@ -262,6 +262,26 @@
 
 https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a2eea
 
+**路由拦截的坑点：**
+
+只接受当前路由段拦截，其他URL均不可以。举个例子目录如下，只有`/list`下才可以拦截`/list/photo`，其他路由段无论是子级的`/list/catgory`还是相邻的`/blog`，跳转到`/list/photo`均报错，是名副其实的单页应用。
+
+```
+./list/
+├── @modal
+│   └── (.)photo
+│   └── default.tsx
+├── catgory
+│   └── page.tsx
+├── photo
+│   └── page.tsx
+├── default.tsx
+├── layout.tsx
+└── page.tsx
+./blog/
+└── page.tsx
+```
+
 ## not-found.tsx 总结
 
 ![not-found tsx](https://github.com/cgfeel/next.v2/assets/578141/cd01ffa2-9c9a-41e6-be36-85a029f67c46)
