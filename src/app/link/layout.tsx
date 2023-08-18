@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { PropsWithChildren, ReactNode } from "react";
 
-export default function Layout({ children }: PropsWithChildren<>) {
+export default function Layout({ children }: PropsWithChildren<{}>) {
     return (
         <>
             <div>
