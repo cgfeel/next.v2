@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 
-export default function Layout({ children }: PropsWithChildren<{}>) {
+export default function Layout({ children }: PropsWithChildren<>) {
     return (
         <>
             <div>
@@ -12,6 +12,8 @@ export default function Layout({ children }: PropsWithChildren<{}>) {
                 <Link href="/link/ramdom">ramdom</Link>
                 {' | '}
                 <Link href="/link/client">client</Link>
+                {' | '}
+                <Link href="/link/server-action">server-action</Link>
             </div>
             <hr />
             {children}
