@@ -490,7 +490,7 @@ function linkClicked(e, router, href, as, replace, shallow, scroll, locale, isAp
 - 目录：`@/src/app/link/server-action` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/link/server-action))
 - 原理：服务端通过`server action`刷新，客户端通过异步发起请求，并通过`React Cache`或`zustand`这类状态机记录请求步骤
 
-** 解决的问题：**
+**解决的问题：**
 
 - 能够每次导航后更新当前数据和`page`视图，不刷新整个`layout`，能够做到无感更新数据；
 - 不需要通过给url添加随机`hash`后缀，也不用手动刷新页面；
