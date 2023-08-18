@@ -199,6 +199,23 @@
     - ---- 分割线 ----
   - 模块重命名见：`@/tsconfig.json`，TS配置放置后面`nextjs.config.js`一起总结
   - src目录，正如你看到当前示例，如果初始项目没有选择src目录，后期直接移动目录即可
+- 函数
+  - cookies ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/cookies))
+    - 包含：获取单个、获取所有、判断存在、设置、删除、设置生命周期、设置有效期
+    - 备注：用`get`代替`has`判断cookies，否则在`server action`下报错
+    - ---- 分割线 ----
+  - draft，草稿模式见当前清单：Api路由 - 草稿模式 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/api/draft))
+  - fetch ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/fetch))
+    - 包含：缓存设置、重新校验
+    - 视图标签和刷新见当前清单：服务端操作 - 服务端校验表单、设置cookies ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/revalidation))
+    - ---- 分割线 ----
+  - 动态生成icon，见当前清单：组件和优化 - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/metadata))
+  - metadata，元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/metadata))
+    - 动态生成函数（含metadata的TS类型），见当前清单：组件和优化 - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/metadata))
+    - 包含：title、description、baseic fields、metadataBase、openGraph、robots、icons、themeColor、manifest、twitter、viewport、verification、appleWebApp、alternates、appLinks、archives、assets、bookmarks、category、other custom、resource hints
+    - ---- 分割线 ----
+  - SSG，见当前清单：4个不同的模式 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/blog))
+  - headers ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/headers))
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
