@@ -217,6 +217,7 @@
   - SSG，见当前清单：4个不同的模式 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/blog))
   - headers ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/headers))
   - ImageResponse，见当前清单：组件和优化 - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/metadata))
+  - NextRequest，见：`@/src/middleware.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/middleware.ts))，获取、更新、删除Cookies同上方cookies方法一致 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/cookies))
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
