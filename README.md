@@ -232,6 +232,10 @@
     - 输出JSON：`@/src/app/api/data/posts/route.ts`
     - `redirect`方法同`redirect()`：`@/src/app/api/draft/route.ts`
     - ---- 分割线 ----
+  - notFound，见当前清单：App模式下路由和目录结构 - not-found ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/file))
+    - 从官方文档提供的案例中，这个模式更青睐于找不到时的UI渲染，比如说：用户找不到，文章找不到，没有权限等，而404只是这个特性附带的一个功能
+    - 总结 ([查看](#not-foundtsx-总结))
+    - ---- 分割线 ----
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
