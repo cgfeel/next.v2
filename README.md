@@ -216,6 +216,7 @@
     - ---- 分割线 ----
   - SSG，见当前清单：4个不同的模式 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/blog))
   - headers ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/headers))
+  - ImageResponse，见当前清单：组件和优化 - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/metadata))
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
