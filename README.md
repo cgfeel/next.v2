@@ -240,6 +240,7 @@
     - 如果定向到404，官方建议用`not-found`代替
     - 不要在代用`fetch`的路由段中的`server action`去执行`redirect`，可能会抛出异常，建议通过`revalidateTag`代替
     - ---- 分割线 ----
+  - revalidatePath、revalidateTag：`@/src/app/link/fetch/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/link/fetch/page.tsx))
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
