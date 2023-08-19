@@ -215,6 +215,11 @@
     - 包含：title、description、baseic fields、metadataBase、openGraph、robots、icons、themeColor、manifest、twitter、viewport、verification、appleWebApp、alternates、appLinks、archives、assets、bookmarks、category、other custom、resource hints
     - ---- 分割线 ----
   - SSG，见当前清单：4个不同的模式 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/blog))
+    - 动态路段生成静态路由(一级路段)：`@/src/app/blog/[slug]/page.tsx`
+    - 限定路段的静态路由：`@/src/app/file/dynamic/(dynamic-params)/not-in-dynmic-params/[slug]/page.tsx`
+    - 从下至上生成（多级路段）：`@/src/app/blog/list/[category]/[product]/page.tsx`
+    - 捕获全路段：`@/src/app/blog/list/info/[...slug]/page.tsx`
+    - 从上至下生成路段：`@/src/app/blog/products/[category]`
   - headers ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/headers))
   - ImageResponse，见当前清单：组件和优化 - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/metadata))
   - NextRequest，见：`@/src/middleware.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/middleware.ts))，获取、更新、删除Cookies同上方cookies方法一致 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/cookies))
