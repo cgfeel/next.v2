@@ -1,5 +1,5 @@
 import { draftMode } from "next/headers";
-import { redirect } from "next/navigation";
+import { NextResponse } from "next/server";
 
 function getPostBySulg(slug: string): Promise<{ slug: string }|undefined> {
     return new Promise(resolve => {
@@ -38,5 +38,5 @@ export async function GET(request: Request) {
 
     // Redirect to the path from the fetched post
     // We don't redirect to searchParams.slug as that might lead to open redirect vulnerabilities
-    redirect(post.slug);
+    NextResponse.redirect(post.slug);
 }
