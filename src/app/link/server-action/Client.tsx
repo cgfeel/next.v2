@@ -14,7 +14,7 @@ const Client: FC<ClientProps> = ({ loaded }) => {
         return () => {
             action(init => init === 1 ? 2 : 0);
         };
-    }, [getNum, loaded]);
+    }, [loaded]);
 
     return (
         <div>It is client components, it is will be refresh fetch when this components is renderd.</div>

@@ -1,15 +1,15 @@
 'use client'
 
-import { useParams } from "next/navigation";
-import styles from "../styles.module.css";
+import { useParams, usePathname } from "next/navigation";
 
 export default function Page() {
     const params = useParams();
+    const pathname = usePathname();
+
     return (
-        <div
-            className={styles.list}
-        >
-            params: <code>{JSON.stringify(params)}</code>
-        </div>
+        <ul>
+            <li>params: <code>{JSON.stringify(params)}</code></li>
+            <li>pathname: <code>{pathname}</code></li>
+        </ul>
     );
 }
