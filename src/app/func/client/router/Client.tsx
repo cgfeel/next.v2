@@ -1,13 +1,20 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 const Client: FC = () => {
     const router = useRouter();
     
+    useEffect(() => {
+        router.prefetch('/func/client/shop/1/3',);
+    }, [router]);
+    
     return (
         <ul>
+            <li>
+                <code>{"'/func/client/shop/1/3'"}</code> is prefetched.
+            </li>
             <li>
                 <button
                     type="button"
@@ -30,14 +37,6 @@ const Client: FC = () => {
                     onClick={() => router.refresh()}
                 >
                     refresh current page
-                </button>
-            </li>
-            <li>
-                <button
-                    type="button"
-                    onClick={() => router.prefetch('/func/client/shop/1/4')}
-                >
-                    prefetch to shop
                 </button>
             </li>
             <li>
