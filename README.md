@@ -241,6 +241,14 @@
     - 不要在代用`fetch`的路由段中的`server action`去执行`redirect`，可能会抛出异常，建议通过`revalidateTag`代替
     - ---- 分割线 ----
   - revalidatePath、revalidateTag：`@/src/app/link/fetch/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/link/fetch/page.tsx))
+  - 本地组件hooks ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/client))
+    - `useParams`、`revalidateTag`：`@/src/app/func/client`，包含：静态路由、动态路由、多级路由、路由全局捕获
+    - `useRouter`：`@/src/app/func/client/router`，包含：监听路由变化、路由预取、路由跳转（不滚动页面）、替换页面、路由刷新、回退、前进
+    - `useSearchParams`：`@/src/app/func/client/search-params`，包含：获取和判断参数，客户端静态获取、客户端静动态获取、服务端获取、更新查询参数
+    - `useSelectedLayoutSegment`、`useSelectedLayoutSegments`：`@/src/app/func/client/components`，包含：一级路由、二级路由
+  - `useReportWebVitals`：`@/src/app/func/web-vitals` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/web-vitals))
+    - 借助`google analytics`：监听路由`web vitals`作为非交互事件、发送交互事件、监听路由发送监听事件
+    - 案例中`NEXT_PUBLIC_GA_ID`，请将自己的`google analytics`代码添加到`env.local`中，仓库没有提供
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
