@@ -458,7 +458,7 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 **SSG的坑点：**
 
-一旦通过`generateStaticParams`去声明`SSG`渲染，无论是在`page`中，还是在`page`上方的路由中，请不要在服务端去调用`cookies`和`headers`这样的动态函数，否则会报错`[NEXT-1181] DynamicServerError: Dynamic server usage: cookies`，见issue：https://github.com/vercel/next.js/issues/49373
+一旦通过`generateStaticParams`去声明`SSG`渲染，无论是在`page`中，还是在`page`上方的布局中，请不要在服务端去调用`cookies`和`headers`这样的动态函数，否则会报错`[NEXT-1181] DynamicServerError: Dynamic server usage: cookies`，见issue：https://github.com/vercel/next.js/issues/49373
 
 阅读整个issue，你会发现有人提供了这样的解决办法：
 ```
