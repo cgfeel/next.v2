@@ -73,8 +73,9 @@
   - not-found ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/file))
     - 捕获全局：`@/src/app/not-found.tsx`
     - 捕获当前路段：`@/src/app/file`
-    - 捕获动态路由：`@/src/app/file/[not]/page.tsx`
+    - 捕获：`@/src/app/file/[not]/page.tsx`
     - 捕获全局404：`@/src/app/[...slug]`
+    - 场景复现：`@/src/app/power`
     - 总结 ([查看](#not-foundtsx-总结))
     - ---- 分割线 ----
   - 路由段配置 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/file/dynamic))
@@ -333,6 +334,11 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
  - 如果当前路由段存在`page.tsx`，且抛出`notFound()`，则按照上面静态路由部分规则执行
  - 如果想要在动态路由段中抛出404，只要在动态路由段的`page.tsx`中抛出`notFound()`，抛出后渲染规则和静态路由段规则一致
 
+**SSG路由(generateStaticParams)：**
+
+ - 通过`notFound()`抛出的404，将按照上述规则，一层一层捕获
+ - 通过`generateStaticParams` + `dynamicParams = false`限定路由抛出的404，将视作`not exist`通过下方`[...slug]`解决办法进行捕获
+
 **坑点：**
 
 由于静态路由中第三步和第四步，当访问一个不存在的路由段时，将不断循环查找过程，然而这种404的情况是很普遍的，而官方文档并没有提供任何解释和解决办法。
@@ -347,6 +353,23 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 - 抛出`notFound()`时，无论如何都会去执行`app`根目录`not-found.tsx`除非这个文件也不存在。
 - 只要存在`not-found`文件，那么路由段下无论是否发生错误，这段静态资源就必须输出，如果文件里有`fetch`请求，无论是否错误也会执行
 - 同理，结合这里提到的`cache`缓存部分，当前路段所有的`fetch`请求都会记录缓存，无论是从`layout`到`not-found`，还是从`not-found`到`page`
+
+**not-found场景复现**：复现了需登录登录查看文章的流程
+
+目录：`@/src/app/file/power`
+
+步骤：
+
+- 访问`/file/power/[slug]`先检查权限，不够权限由`layout.tsx`抛出`notFound`，被`/file/power/not-found.tsx`捕获，并指引登录
+- 权限够正常访问
+- 权限够访问`[slug]`为4，由`page.tsx`抛出`notFound`，经由`/file/power/not-found.tsx`后被`/file/power/(list)/not-found.tsx`捕获，并提示找不到内容
+
+原理：
+
+- 同级目录下`layout`包裹了`not-found`，再包裹了子集的`page.tsx`，当权限不够由`layout`抛出的`notFound`只能被上一级的`not-found`捕获
+- 当叶子节点`page`抛出`notFound`，将会一层一层进行捕获，最终会在最接近`page`层级下的`notFound`捕获进行渲染
+
+备注：复现时分别发现两个坑点，请分别查看`server action`([查看](#nextjs-server-action总结))和NextJS 4个模式的关系([查看](#nextjs-4个模式的关系))
 
 ## NextJS 缓存总结
 
@@ -413,17 +436,53 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 - 例如微信扫码登录，先从`server action`提交`OAUTH`认证，拿到`token`后交给客户端轮训登录状态
 - 以示范文件说原理：先发起`server action`，通过后本地使用`swr`轮训状态
 
+**坑点1：`Server Action` + `redirect`**
+
+- 不要在`Server Action`中直接调用`redirect`，否则会警告`failed to get redirect response TypeError: fetch failed`
+- 正确做法，`Server Action`后通过`revalidateTag`或`revalidatePath`刷新视图，在视图中根据情况`redirect`
+
+**坑点2：`Server Action` + `cookies().has()`**
+
+- 不要在`Server Action`后去判断`cookies().has()`，会提示`has`这个方法补存在，也不要用`get`后去转换成`boolean`，因为删除`cookies`后对象依旧存在，只是值为空了
+- 解决办法：`@/src/app/file/power/lib.ts`
+
 ## NextJS 4个模式的关系
 
 ![NextJS 4个模式的关系](https://github.com/cgfeel/next.v2/assets/578141/8a4cd4c1-c07b-4782-a506-bdfd2c2690c5)
 
-- NextJS默认所有`page`都是`SSG`
-- 在build前将会对所有设置过`generateStaticParams`生成静态页面，没有设置过将视为`server components`
-- 只有通过`generateStaticParams`生成的`page`，渲染时是通过`SSG`的方式，否则就是`SSR`
-- 无论`SSG`还是`SSR`，所有的`fetch`都将在build前以`SSG`方式完成加载，build之后不再请求
-- 除非将`fetch`采用`cache: 'no-store`模式（类似`getStaticProps`）
+- NextJS默认所有`page`都是`SSG`，需要通过调用动态函数`cookies`、`headers`，或者通过声明`revalidate`、`dynamic`转换为`SSR`
+- 可以通过`generateStaticParams`去声明`SSG`的渲染范围
+- 无论`SSG`还是`SSR`，服务端所有的`fetch`都将在build前以`SSG`方式完成加载，build之后不再请求，除非将`fetch`采用`cache: 'no-store`模式（具体看上述`fetch`总结）
 - `no-store`模式下，通过`revalidate`实现`ISR`
 - `SSR` + `use client`实现`CSR`，`SSG`在`build`后可采用`CSR`方式对边缘计算做交互
+
+**SSG的坑点：**
+
+一旦通过`generateStaticParams`去声明`SSG`渲染，无论是在`page`中，还是在`page`上方的路由中，请不要在服务端去调用`cookies`和`headers`这样的动态函数，否则会报错`[NEXT-1181] DynamicServerError: Dynamic server usage: cookies`，见issue：https://github.com/vercel/next.js/issues/49373
+
+阅读整个issue，你会发现有人提供了这样的解决办法：
+```
+export const dynamic = 'force-dynamic'
+// or
+export const revalidate = 0
+```
+
+实测不建议，原因有人在issue中提到了
+
+> The `export const dynamic = 'force-dynamic` line worked for me when placed in my `layout.tsx` file, but when I navigate to a different page using the `useRouter` hook, I get the following err:
+>
+> `Error: Dynamic server usage: force-dynamic`
+
+解决办法：
+
+1. 既然声明了`SSG`，那么就遵循要求，不要在服务端去做任何`dynamic action`，如果需要做请通过本地`client`操作，如上图所示
+2. 通过`middleware`去做权限判断，没有权限统一`redirect`到指定`router`
+
+这就意味着：
+
+- 需要鉴权才能展示请不要用`SSG`的方式，用`SSR`代替
+- 如果要`SSG`，又需要做相应的交互，请在`client`中进行，参考案例：淘宝宝贝详情页是SSG，销售数据可以`client`异步获取，帮助中心文档是SSG，文档点赞和评论可以`client`异步获取
+- 否则请采用解决办法中的第2条解决
 
 ## NextJS 动态加载脚本总结
 
