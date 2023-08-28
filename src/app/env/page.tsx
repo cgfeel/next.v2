@@ -161,6 +161,15 @@ export default function Page() {
                         </li>
                     </ul>
                 </div>
+                <hr className={styles.hr} />
+                <div>
+                    Environment variables in next.config.js.
+                    <ul>
+                        <li>
+                            HOME_UR: {process.env.HOME_URL}
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     );
