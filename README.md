@@ -624,7 +624,7 @@ App Dir模式下不支持`waitUntil`
 
 缺点：项目占用大；不支持`monorepo`模式；依赖`next cli`和`node_modules`；
 
-**standalone：默认模式**
+**standalone：独立模式**
 
 方法：在`next.config.js`中添加`output: 'standalone'`
 
