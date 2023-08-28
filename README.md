@@ -604,6 +604,41 @@ App Dir模式下不支持`waitUntil`
 2. `Api Route`异步`fetch`，有效但设置很繁琐；
 3. `middleware`发起异步`fetch`（推荐），因为一个页面内容可以`no data`，但是绝对不会没有`header`；
 
+## NextJS构建时导出总结
+
+构建导出包含3个模式：`default`、`export`、`standalone`
+
+**export：纯静态模式，或采用客户端单页应用模式**
+
+方法：在`next.config.js`中添加`output: 'export'`
+
+说明：纯静态化，将根据路由导出静态文件到`out`目录，需要借助web server运行 ([示例](https://nextjs.org/docs/app/building-your-application/deploying/static-exports#deploying))
+
+缺点：不能在服务端进行动态路由处理，动态函数处理 ([查看](https://nextjs.org/docs/app/building-your-application/deploying/static-exports#unsupported-features))
+
+**default：默认模式**
+
+方法：在`next.config.js`去掉`output`属性（默认没有启用）
+
+说明：支持服务端静态和动态导出，导出将存放至`.next`目录，部署时需要按照开发环境目录连同`.next`一起运行
+
+缺点：项目占用大；不支持`monorepo`模式；依赖`next cli`和`node_modules`；
+
+**standalone：默认模式**
+
+方法：在`next.config.js`中添加`output: 'standalone'`
+
+说明：
+
+- 支持服务端静态和动态导出，导出将存放至`.next/standalone`目录，部署时需仅需提供`standalone`目录，运行`node server.js`
+- 其中`public`或`.next/static`需要手动添加到`standalone`目录，官方推荐存放至CDN，这样就需要在`next.config.js`中用到第二个属性：`assetPrefix`
+
+优点：项目占用小，仅根据所需文件追踪；支持`monorepo`模式；不依赖`next cli`和`node_modules`（也拷贝到`standalone`目录），通过`node`即可启动服务
+
+对于`monorepo`模式，`standalone`还提供几个实验性的功能：`outputFileTracingExcludes`、`outputFileTracingIncludes`、`outputFileTracingRoot`，说明见`next.config.js` ([查看](https://github.com/cgfeel/next.v2/blob/master/next.config.js))
+
+> 对于`default`模式和`standalone`模式，如果项目中有使用`next\image`加载器的情况，构建时官方建议安装`sharp`依赖 ([查看](https://nextjs.org/docs/app/api-reference/next-config-js/output#automatically-copying-traced-files))
+
 ## Getting Started (安装和运行)
 
 当前默认认为看的用户能力均能本地安装和运行，所以这里直接采用官方提供的内容，不做额外说明，对于我运行的环境补充一下。
