@@ -1,6 +1,6 @@
 # NextJs的掌握概括
 
-基于NextJS.13下`App`模式，将按照官方文档，以最小示例去实现文档。可直接本地运行比对下列清单，比口述归档更具直观。
+基于NextJS.13下`App`模式，将按照官方文档，以最小示例去实现文档知识点。可直接本地运行比对下列清单，比口述归档更具直观。
 
 > 本仓库根据英文官方文档([查看](https://nextjs.org/docs))逐字阅读整理，可通过提交记录查看历史提交 ([查看](https://github.com/cgfeel/next.v2/activity))
 
@@ -252,6 +252,14 @@
     - 借助`google analytics`：监听路由`web vitals`作为非交互事件、发送交互事件、监听路由发送监听事件
     - 案例中`NEXT_PUBLIC_GA_ID`，请将自己的`google analytics`代码添加到`env.local`中，仓库没有提供
     - ---- 分割线 ----
+  - `next.config.js`配置 ([查看](https://github.com/cgfeel/next.v2/blob/master/next.config.js))
+    - 配置文件按照属性名先后顺序排列，函数属性放置在属性名后
+    - 包括：`appDir`、`assetPrefix`、`basePath`、`compress`、`devIndicators`、`distDir`、`env`、`eslint`、`generateEtags`、`keepAlive`、`mdxRs`、`onDemandEntries`、`pageExtensions`、`poweredByHeader`、`productionBrowserSourceMaps`、`reactStrictMode`、`trailingSlash`
+    - `generateBuildId`，生成`build-id`方法：`@/src/utils/build-id.js` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/build-id.js))
+    - `header`：标头覆盖行为、路径匹配、通配符匹配、正则匹配、`header`匹配、`cookies`匹配、`query`匹配、`basePath`支持、`i18n`支持、可选属性（见`source: '/blog/:post(\\d{1,})'`）
+    - `images`：安全远程匹配、图片压缩、`deviceSizes`、`imageSizes`、图片输出格式、`ttl`、文件导入、外部svg安全策略(csp)、本地图片加载器`@/src/utils/myImageLoader.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/myImageLoader.ts))
+    - `incrementalCacheHandlerPath`：增量缓存处理器，实验功能，默认采用文件缓存 `@/src/utils/cache-handler.js` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/cache-handler.js))
+    - `output`：([查看总结](#nextjs构建时导出总结))
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
