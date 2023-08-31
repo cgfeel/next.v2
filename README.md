@@ -254,12 +254,20 @@
     - ---- 分割线 ----
 - `next.config.js`配置 ([查看](https://github.com/cgfeel/next.v2/blob/master/next.config.js))
   - 配置文件按照属性名先后顺序排列，函数属性放置在属性名后
-  - 包括：`appDir`、`assetPrefix`、`basePath`、`compress`、`devIndicators`、`distDir`、`env`、`eslint`、`generateEtags`、`keepAlive`、`mdxRs`、`onDemandEntries`、`pageExtensions`、`poweredByHeader`、`productionBrowserSourceMaps`、`reactStrictMode`、`trailingSlash`
+  - 包括：`appDir`、`assetPrefix`、`basePath`、`compress`、`devIndicators`、`distDir`、`env`、`eslint`、`generateEtags`、`keepAlive`、`mdxRs`、`onDemandEntries`、`poweredByHeader`、`productionBrowserSourceMaps`、`reactStrictMode`、`trailingSlash`
   - `generateBuildId`，生成`build-id`方法：`@/src/utils/build-id.js` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/build-id.js))
   - `header`：标头覆盖行为、路径匹配、通配符匹配、正则匹配、`header`匹配、`cookies`匹配、`query`匹配、`basePath`支持、`i18n`支持、可选属性（见`source: '/blog/:post(\\d{1,})'`）
   - `images`：安全远程匹配、图片压缩、`deviceSizes`、`imageSizes`、图片输出格式、`ttl`、文件导入、外部svg安全策略(csp)、本地图片加载器`@/src/utils/myImageLoader.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/myImageLoader.ts))
   - `incrementalCacheHandlerPath`：增量缓存处理器，实验功能，默认采用文件缓存 `@/src/utils/cache-handler.js` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/cache-handler.js))
   - `output`：([查看总结](#nextjs构建时导出总结))
+  - `pageExtensions`：文件扩展、`NextConfig`
+  - `redirects`：基础匹配、路径匹配、通配符匹配、正则匹配、特殊字符匹配、`header`匹配、`cookies`匹配、`query`匹配、`basePath`支持、`i18n`支持
+  - `rewrites`：
+    - 匹配周期：`beforeFiles`、`afterFiles`、`fallback`（注意配置文件中missing案例），`fallback`一个坑点和全局not-fount相关 ([查看](#not-foundtsx-总结))
+    - 匹配参数：自动匹配路径、路径转换至`query`、手动匹配
+    - 外部重写：路径匹配、尾斜线匹配、增量匹配
+    - 其他：基础重写、路径重写、通配符重写、正则重写、特殊字符重写、`header`匹配、`cookies`匹配、`query`匹配、`basePath`支持、`i18n`支持
+    - ---- 分割线 ----
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
     - `page`和`fetch`均为`SSR`
@@ -355,6 +363,10 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 - 在`app`根目录下创建一个动态路由`[...slug]`，并且在按照上面的规则创建`page.tsx`和`not-found.tsx`，这样所有找不到路由段的404，都默认向下在`[...slug]`中进行捕获并渲染
 - UML绘图使用了[revenote](https://revenote.com/)
+
+**埋下的问题：**
+
+如果按照上面去匹配全站404，那么会导致不能在`next.config.js`中使用`rewrites`的`fallback`失效。因为在跟目录设置全局`not-found`匹配本身就是一种`fallback`，它属于filesystem，按照文档说法优先级高于`rewrites`的`fallback`。如果要两者并存，建议将全局`not-found`在`rewrites`外部的网站进行匹配，这样就相当于`location` - `external site` - `not-found`
 
 **备注：**
 
