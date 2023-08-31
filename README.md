@@ -366,7 +366,7 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 **埋下的问题：**
 
-如果按照上面去匹配全站404，那么会导致不能在`next.config.js`中使用`rewrites`的`fallback`失效。因为在跟目录设置全局`not-found`匹配本身就是一种`fallback`，它属于filesystem，按照文档说法优先级高于`rewrites`的`fallback`。如果要两者并存，建议将全局`not-found`在`rewrites`外部的网站进行匹配，这样就相当于`location` - `external site` - `not-found`
+如果按照上面去匹配全站404，那么会导致在`next.config.js`中使用`rewrites`的`fallback`失效。因为在根目录设置全局`not-found`匹配本身就是一种`fallback`，它属于filesystem，按照文档说法优先级高于`rewrites`的`fallback`。如果要两者并存，建议将全局`not-found`在`rewrites`外部的网站进行匹配，这样就相当于`location` - `external site` - `not-found`
 
 **备注：**
 
