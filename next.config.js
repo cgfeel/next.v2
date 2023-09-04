@@ -70,8 +70,17 @@ const nextConfig = {
         // enable server action
         serverActions: true,
 
+        // To prevent certain packages from being included in the client bundle
+        serverComponentsExternalPackages: ["bcryptjs"],
+
         // 不建议开启，在buid时很多路由可能探测不到，需要手动添加`as Route`，与其这样不如手动检查
         // typedRoutes: true,
+
+        // import modules directly from URLs, eg. '/optimizing/script'.
+        urlImports: ['http://up1.yii.so/'],
+
+        // 留额坑，一开始以为和useReportWebVitals有关，实际开不开启都一样
+        // webVitalsAttribution: ['CLS', 'LCP'],
     },
 
     // default is true, set false to disable etag. https://en.wikipedia.org/wiki/HTTP_ETag
@@ -170,10 +179,24 @@ const nextConfig = {
     // /about becomes /about/index.html and is routable via /about/, default false.
     // trailingSlash: true,
 
+    // monorepo下用于编译指定包，由于当前不涉及到monorepo，所以只提供参考案例
+    // https://github.com/vercel/turbo/tree/main/examples/basic
+    // https://github.com/vercel/turbo/blob/main/examples/basic/apps/web/next.config.js'
+    // https://github.com/vercel/turbo/blob/main/examples/basic/packages/ui/index.tsx
+    // transpilePackages: [],
+
     // 禁用ts类型检测，这是个危险举措
     /*typescript: {
         ignoreBuildErrors: false,
     },*/
+
+    webpack: (
+        config, 
+        { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
+    ) => {
+        // Important: return the modified config
+        return config;
+    },
 
     // This feature is exclusive to next export and currently deprecated in favor of getStaticPaths with pages or generateStaticParams with app.
     /*exportPathMap: async function (
@@ -765,8 +788,11 @@ const nextConfig = {
 }
 
 const withMDX = require('@next/mdx')({
+    extension: /\.(md|mdx)$/,
     options: {
         providerImportSource: '@mdx-js/react',
+        rehypePlugins: [],
+        remarkPlugins: [],
     },
 });
 module.exports = withMDX(nextConfig);

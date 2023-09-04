@@ -1,0 +1,5 @@
+{
+  "http://up1.yii.so/jianli/static/square.js": { "integrity": "sha512-lx+erCxzcvOdSNb4OFQfuC2Xha/F7yIjD1FpkcMebne4nWcyGoYcAZLNDa3kClrURTsK3GIW9+untu5X4NL70g==", "contentType": "text/javascript" },
+  "http://up1.yii.so/jianli/static/vercel.png": { "integrity": "sha512-wV/8OUV+65FApYYS91UEYd0cjFIECid4IPIJcfWUKNN71ZgAWUNCguvvx7NvBbqRyfy682Ji+ywJVoRw8S10BA==", "contentType": "image/png" },
+  "version": 1
+}
