@@ -6,6 +6,8 @@
 
 ## 技术总结（清单）
 
+以下清单基本按照英文官方文档章节顺序，以文档章节以最小方式去复现出来。可以运行和直接打开文件查看，不用再去逐字阅读文档。
+
 - 安装和运行 ([查看](#getting-started-安装和运行))
 - App模式下路由和目录结构
   - 基础路由 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/features))
@@ -257,7 +259,7 @@
   - 包括：`appDir`、`assetPrefix`、`basePath`、`compress`、`devIndicators`、`distDir`、`env`、`eslint`、`generateEtags`、`keepAlive`、`mdxRs`、`onDemandEntries`、`poweredByHeader`、`productionBrowserSourceMaps`、`reactStrictMode`、`trailingSlash`
   - `generateBuildId`，生成`build-id`方法：`@/src/utils/build-id.js` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/build-id.js))
   - `header`：标头覆盖行为、路径匹配、通配符匹配、正则匹配、`header`匹配、`cookies`匹配、`query`匹配、`basePath`支持、`i18n`支持、可选属性（见`source: '/blog/:post(\\d{1,})'`）
-  - `images`：安全远程匹配、图片压缩、`deviceSizes`、`imageSizes`、图片输出格式、`ttl`、文件导入、外部svg安全策略(csp)、本地图片加载器`@/src/utils/myImageLoader.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/myImageLoader.ts))
+  - `images`：`remotePatterns`、`unoptimized`、`domains`、`deviceSizes`、`imageSizes`、图片输出格式、`ttl`、文件导入、外部svg安全策略(csp)、本地图片加载器(`loader`、`loaderFile`): `@/src/utils/myImageLoader.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/myImageLoader.ts))
   - `incrementalCacheHandlerPath`：增量缓存处理器，实验功能，默认采用文件缓存 `@/src/utils/cache-handler.js` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/cache-handler.js))
   - `output`：([查看总结](#nextjs构建时导出总结))
   - `pageExtensions`：文件扩展、`NextConfig`
@@ -267,6 +269,16 @@
     - 匹配参数：自动匹配路径、路径转换至`query`、手动匹配
     - 外部重写：路径匹配、尾斜线匹配、增量匹配
     - 其他：基础重写、路径重写、通配符重写、正则重写、特殊字符重写、`header`匹配、`cookies`匹配、`query`匹配、`basePath`支持、`i18n`支持
+    - ---- 分割线 ----
+  - `experimental`实验性功能：
+    - 文件注释包含详细说明：`appDir`、`serverActions`、`serverComponentsExternalPackages`、`trailingSlash`、`typedRoutes`、`typescript`
+    - `mdxRs`详细见下方`mdx`说明 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/mdx))
+    - output相关：`outputFileTracingExcludes`、`outputFileTracingIncludes`、`outputFileTracingRoot` ([查看总结](#nextjs构建时导出总结))
+    - `urlImports`，除了配置外提供的示例：`@/src/app/optimizing/config/urlimports` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/config/urlimports))；TS开启`urlImports`需要添加导入类型，见`tsconfig.json`中`typeRoots` ([查看](https://github.com/cgfeel/next.v2/blob/master/tsconfig.json))
+    - `webpack`包含：配置函数、引入第三方包`withMDX`
+    - `transpilePackages`没有实现，本次按照`multiplerepo`方式并非`monorepo`，注释列举了示例URL
+    - `turbo`没有实现，因为和目前和`server action`冲突
+    - `webVitalsAttribution`留个坑
     - ---- 分割线 ----
 - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
   - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
