@@ -1,0 +1,43 @@
+.search {
+    padding: 20px;
+    padding-top: 40px;
+    text-align: center;
+}
+
+.search input {
+    border-radius: 24px;
+    color: #000;
+    padding: 10px 24px 10px 38px;
+    width: 80%;
+}
+
+.search label {
+    position: relative;
+}
+
+.search label :global(.anticon) {
+    color: #000;
+    left: 15px;
+    position: absolute;
+    top: 3px;
+}
+
+.search .tips {
+    font-size: 24px;
+    padding: 40px 20px 20px;
+    text-align: left;
+}
+
+.search ul {
+    text-align: left;
+    padding: 0 20px;
+}
+
+.search li {
+    margin-bottom: 20px;
+}
+
+.search h3 {
+    color: #ff0;
+    font-size: 18px;
+}

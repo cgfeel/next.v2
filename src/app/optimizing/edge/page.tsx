@@ -57,7 +57,7 @@ type R = typeof queryUser.options.next.revalidate;
   
 type H = typeof queryUser.options.headers;
 
-export const runtime = 'edge';
+// export const runtime = 'edge';
 
 export default async function Page() {
     const blob = await Api.get<{ hello: string }>('/api/edge/blob', {

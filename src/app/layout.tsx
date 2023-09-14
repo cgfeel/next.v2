@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import GithubCorner from '../components/github-corner/GithubCorner'
+import StyledComponentsRegistry from '../lib/AntdRegistry'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -22,7 +23,7 @@ export default function RootLayout({
         className={inter.className}
       >
         <GithubCorner />
-        {children}
+        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
       </body>
     </html>
   )
