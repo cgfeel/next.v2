@@ -144,6 +144,7 @@
     - 服务端校验表单、设置cookies：`@/src/app/fetch/server-action/validation/page.tsx`
     - ~~服务端非表单进行操作：`@/src/app/fetch/server-action/server-cart/noform/page.tsx`~~ (查看：[路由导航总结](#路由导航缓存总结))
     - 客户端轮训：`@/src/app/fetch/server-action/client-cart/noform/page.tsx`
+    - 通过`useTransition`实现的实时搜索预览：`@/src/app/fetch/server-action/client-cart/transition/[...slug]` ([预览](#实时搜索预览))
     - 总结 ([查看](#nextjs-server-action总结))
     - ---- 分割线 ----
 - 组件和优化
@@ -305,7 +306,9 @@
     - 坑点1：`mdx`和`nextjs`的TS体操标准不一样，见：`@/src/app/mdx/custom/page.tsx`
     - 坑点2：本地`mdx`必须`client component`否则报错，远程`mdx`基于`next-mdx-remote`，需要`server component`否则报错（或者至少把数据获取`fetch`和`MDXRemote`分开）
     - ---- 分割线 ----
-  - antd，只为展示引用`antd`库，并非做页面：`@/src/app/antd/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/antd/page.tsx))
+  - antd，包含服务端渲染配置，和一个示例
+    - 配置文件：`@/src/lib`、`@/src/app/layout.tsx` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/lib))
+    - 实时搜索示例：`@/src/app/fetch/server-action/client-cart/transition/[...slug]` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/client-cart/transition/%5B...slug%5D))
   - swr：`@/src/app/posts/list/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/list/%5Bid%5D/page.tsx))
   - HTTP库，封装`umi-request`，3种模式（SSR、SSG、CSR）下均可使用，对于非`client component`下配合`deviceStorage`能够作为代替`swr`的一种解决方案：`@/src/utils/api.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/api.ts))
   - localStorage封装：`@/src/utils/storage/deviceStorage.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/storage/deviceStorage.ts))
@@ -345,6 +348,12 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 ./blog/
 └── page.tsx
 ```
+
+## 实时搜索预览
+
+通过`startTransition`实现的，输入完成后会通过`router`导航到搜索结果页，页面根据导航提供的`slug`展示搜索结果
+
+https://github.com/cgfeel/next.v2/assets/578141/ebd18cec-8ba6-40e6-888f-4b6e74d334cf
 
 ## not-found.tsx 总结
 
