@@ -686,8 +686,10 @@ App Dir模式下不支持`waitUntil`
 
 - 系统：macOS, Windows (including WSL), and Linux（我是OSX）
 - node版本：v18.12.1（官方推荐^16.8，16.0运行过会报错）
+- React：18.2.0
 
-> 由于仓库已安装过了，如果需要本地运行，请clone项目后直接`npm install`
+> - 由于仓库已安装过了，如果需要本地运行，请clone项目后直接`npm install`
+> - 在官方文档中提到过，如果要在包含`TypeScript`的服务端组件中使用`async`/`await`，请确保你的`TypeScript`的版本为`5.1.3`或更高，`@types/react`版本为`18.2.8`或更高 ([查看](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating))
 
 ----
 
