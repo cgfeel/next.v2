@@ -1,6 +1,5 @@
 'use server'
 
-import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers"
 
 export const setPower: (login?: boolean) => Promise<void> = async (login = true) => {
