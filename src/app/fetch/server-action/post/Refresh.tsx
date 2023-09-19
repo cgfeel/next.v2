@@ -30,7 +30,7 @@ const Refresh: FC<PropsWithChildren<{ handleRefresh: () => void }>> = ({ childre
         return () => {
             refresh.destroy();
         };
-    }, [pathname, handleRefresh]);
+    }, [handleRefresh]);
 
     return (
         <div>{isPending ? 'loading...' : children}</div>

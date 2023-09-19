@@ -13,7 +13,7 @@
     white-space: pre-wrap;
 }
 
-.time {
+.time, .remove {
     padding: 15px;
     padding-bottom: 0;
 }

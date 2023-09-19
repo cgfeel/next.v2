@@ -1,5 +1,8 @@
 import Api from "@/src/utils/api";
+import { cookies } from "next/headers";
+import { removeAction } from "../action";
 import styles from "../styles.module.css";
+import Remove from "./Remove";
 
 type CommentItemType = {
     body: string;
@@ -11,10 +14,30 @@ type CommentItemType = {
 
 export default async function Page({ params }: { params: { slug?: string[] } }) {
     const { slug = [] } = params;
-    const data = await await Api.get<CommentItemType[]>(`https://jsonplaceholder.typicode.com/posts/${slug[0]||'1'}/comments`);
+    const id = slug[0]||'1';
+
+    const cookieStore = cookies();
+    const cookie = cookieStore.get('flush-test-time');
+
+    const data = await Api.get<CommentItemType[]>(`/api/data/posts/time/${id}`, cookie === undefined ? {} : {
+        headers: {
+            cookie: `flush-test-time=${cookie?.value};`
+        }
+    });
+
+    if (data instanceof Error) {
+        throw data;
+    }
 
     return (
         <div>
+            {id === '4' && (
+                <div
+                    className={styles.remove}
+                >
+                    <Remove action={removeAction} />
+                </div>
+            )}
             <div
                 className={styles.time}
             >

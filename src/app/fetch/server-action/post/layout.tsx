@@ -1,14 +1,11 @@
+import Nav from "@/src/components/nav";
 import { revalidatePath } from "next/cache";
 import { PropsWithChildren } from "react";
-import Nav from "@/src/components/nav";
-import styles from "./styles.module.css";
+import { flush } from "./action";
 import Refresh from "./Refresh";
+import styles from "./styles.module.css";
 
 export default function Layout({ children }: PropsWithChildren<{}>) {
-    async function flush() {
-        'use server'
-        revalidatePath('/fetch/server-action/post');
-    }
     return (
         <div
             className={styles.flush}
@@ -29,6 +26,7 @@ export default function Layout({ children }: PropsWithChildren<{}>) {
                         { name: 'default', href: '/fetch/server-action/post' },
                         { name: 'android', href: '/fetch/server-action/post/2' },
                         { name: 'node', href: '/fetch/server-action/post/3' },
+                        { name: 'java', href: '/fetch/server-action/post/4' },
                     ]}
                 />
                 <hr />
