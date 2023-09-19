@@ -7,7 +7,7 @@ const Client: FC = () => {
     const router = useRouter();
     
     useEffect(() => {
-        router.prefetch('/func/client/shop/1/3',);
+        router.prefetch('/func/client/shop/1/3');
     }, [router]);
     
     return (

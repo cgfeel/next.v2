@@ -1,0 +1,42 @@
+.active::after {
+    content: ' (current)';
+}
+.navLink {
+    text-decoration: none;
+}
+.list {
+    list-style: inside;
+}
+.list code {
+    color: #be00ff;
+    font-size: 16px;
+    white-space: pre-wrap;
+}
+
+.time {
+    padding: 15px;
+    padding-bottom: 0;
+}
+
+.search {
+    padding: 20px;
+    padding-top: 40px;
+    text-align: center;
+}
+
+.search ul {
+    text-align: left;
+    padding: 0 20px;
+}
+
+.search li {
+    margin-bottom: 20px;
+}
+
+.search h3 {
+    color: #ff0;
+    font-size: 18px;
+}
+.flush :global(#ptr-instructions) {
+    color: #fff;
+}
