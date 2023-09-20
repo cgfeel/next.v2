@@ -145,6 +145,7 @@
     - ---- 附赠应用场景 ----
     - 客户端轮训：`@/src/app/fetch/server-action/client-cart/noform/page.tsx`
     - 通过`useTransition`实现的实时搜索预览：`@/src/app/fetch/server-action/client-cart/transition/[...slug]` ([预览](#实时搜索预览-案例))
+    - 标签筛选内容+加载提示+错误fallback+断网fallback：`@/src/app/fetch/server-action/post` ([预览](#筛选列表-案例))
     - ---- 分割线 ----
 - 缓存 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/cache))
   - 请求树：`@/src/app/fetch/cache/page.tsx`
