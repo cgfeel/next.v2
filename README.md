@@ -371,7 +371,7 @@ https://github.com/cgfeel/next.v2/assets/578141/11d3c7ab-5908-47c4-8522-f6c890cf
 
  - 页面分标签选项和内容列表，选择标签后，内容变换标签位置内容都不变，解决：layout+page
  - 内容必须是服务端SSR输出静态资源，解决：服务端fetch
- - 下拉刷新列表，选线不变，头部不刷新，解决：pulltorefreshjs + useTransition + server action
+ - 下拉刷新列表，头部标签选项不改变，解决：pulltorefreshjs + useTransition + server action
  - 下来刷新要有个加载过程作骨架屏，解决：loading（NextJS中loading采用suspense的方式，UI界面做骨架屏也好，spin也好都可以）
  - 用户中途断网提示，标签：php、python，解决：not-found + router prefetch、router redirect（两种方法）
 
