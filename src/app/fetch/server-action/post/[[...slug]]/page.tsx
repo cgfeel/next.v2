@@ -1,5 +1,6 @@
 import Api from "@/src/utils/api";
 import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
 import { removeAction } from "../action";
 import styles from "../styles.module.css";
 import Remove from "./Remove";
@@ -12,10 +13,7 @@ type CommentItemType = {
     postId: number;
 };
 
-export default async function Page({ params }: { params: { slug?: string[] } }) {
-    const { slug = [] } = params;
-    const id = slug[0]||'1';
-
+const requestByCookies = async (id: string) => {
     const cookieStore = cookies();
     const cookie = cookieStore.get('flush-test-time');
 
@@ -25,6 +23,23 @@ export default async function Page({ params }: { params: { slug?: string[] } }) 
         }
     });
 
+    return data;
+}
+
+const requestNoneCookies = async (id: string) => {
+    const data = await Api.get<CommentItemType[]>(`/api/data/posts/time/${id}`);
+    return data;
+}
+
+export default async function Page({ params }: { params: { slug?: string[] } }) {
+    const { slug = [] } = params;
+    const id = slug[0]||'1';
+
+    if (id === '0') {
+        notFound();
+    }
+
+    const data = await (id === '4' ? requestByCookies : requestNoneCookies)(id);
     if (data instanceof Error) {
         throw data;
     }

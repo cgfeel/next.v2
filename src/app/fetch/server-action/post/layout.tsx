@@ -2,6 +2,8 @@ import Nav from "@/src/components/nav";
 import { revalidatePath } from "next/cache";
 import { PropsWithChildren } from "react";
 import { flush } from "./action";
+import ClientRouter from "./components/ClientRouter";
+import ClientLink from "./components/ClientLink";
 import Refresh from "./Refresh";
 import styles from "./styles.module.css";
 
@@ -29,6 +31,12 @@ export default function Layout({ children }: PropsWithChildren<{}>) {
                         { name: 'java', href: '/fetch/server-action/post/4' },
                     ]}
                 />
+                <div>
+                    <ClientRouter />
+                </div>
+                <div>
+                    <ClientLink />
+                </div>
                 <hr />
                 <Refresh handleRefresh={flush}>
                     {children}

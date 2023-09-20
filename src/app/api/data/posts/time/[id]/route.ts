@@ -9,14 +9,11 @@ export type CommentItemType = {
     postId: number;
 };
 
-const range = ['1', '2', '3'];
-
 export async function GET(request: Request, { params }: {
     params: { id: `${number}` };
 }) {
     const { id } = params;
-
-    if (range.indexOf(id) < 0) {
+    if (id === '4') {
         const cookieStore = cookies();
         const token = cookieStore.get('flush-test-time');
 
