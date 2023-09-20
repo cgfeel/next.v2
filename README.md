@@ -334,7 +334,7 @@
 
 ## 路由拦截器-案例
 
-目录：`@/src/app/fetch/server-action/post` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/photo))
+目录：`@/src/app/photo` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/photo))
 
 点开列表图片将会被拦截器阻拦，当打开照片刷新页面，将跳过阻拦进入详情页
 
