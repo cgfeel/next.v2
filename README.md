@@ -334,6 +334,8 @@
 
 ## 路由拦截器-案例
 
+目录：`@/src/app/fetch/server-action/post` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/photo))
+
 点开列表图片将会被拦截器阻拦，当打开照片刷新页面，将跳过阻拦进入详情页
 
 https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a2eea
@@ -360,6 +362,8 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 ## 实时搜索预览-案例
 
+目录：`@/src/app/fetch/server-action/client-cart/transition/[...slug]` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/client-cart/transition/%5B...slug%5D))
+
 通过`startTransition`实现的，输入完成后会通过`router`导航到搜索结果页，页面根据导航提供的`slug`展示搜索结果
 
 https://github.com/cgfeel/next.v2/assets/578141/ebd18cec-8ba6-40e6-888f-4b6e74d334cf
@@ -368,7 +372,7 @@ https://github.com/cgfeel/next.v2/assets/578141/ebd18cec-8ba6-40e6-888f-4b6e74d3
 
 https://github.com/cgfeel/next.v2/assets/578141/11d3c7ab-5908-47c4-8522-f6c890cf2af9
 
-目录：`@/src/app/fetch/server-action/post`  ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/post))
+目录：`@/src/app/fetch/server-action/post` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/post))
 
 来自字节大佬的需求：
 
@@ -391,6 +395,8 @@ https://github.com/cgfeel/next.v2/assets/578141/11d3c7ab-5908-47c4-8522-f6c890cf
  - 做到这了就OK了吗？并不会，因为你会发现服务端收到刷新视图了，本地还是没有更新？怎么回事？
  - 重点来了：请记得给所有error.tsx所在路由段下配套添加loading.tsx，否则你刷新视图会因为过程中重复点击而造成本地和服务端视图不一致，或重复渲染
  - 以上就是2天下来的总结，特地附加一段demo：`@/src/app/fetch/server-action/test/demo1`  ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/test/demo1))
+
+> 注：官方文档中有提到，能够使用`not-found`解决的场景优先使用`not-found`
 
 ## not-found.tsx 总结
 
@@ -434,7 +440,9 @@ https://github.com/cgfeel/next.v2/assets/578141/11d3c7ab-5908-47c4-8522-f6c890cf
 
 **not-found场景复现**：复现了需登录登录查看文章的流程
 
-目录：`@/src/app/file/power`
+https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88ec55
+
+目录：`@/src/app/file/power` ([查看](src/app/file/power))
 
 步骤：
 
