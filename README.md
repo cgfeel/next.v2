@@ -47,7 +47,7 @@
   - 路由拦截 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/photo))
     - 目录下`@/src/app/photo/@model/(.)photos/[id]`会主动拦截上级目录`@/src/app/photo/photos/[id]`
     - 通过`@model/default.ts`返回`null`，阻止插槽自动注入
-    - 从首页打开拦截的照片弹窗，刷新页面将不再被拦截，主动展示详情页 ([查看示例](#路由拦截器实现的案例))
+    - 从首页打开拦截的照片弹窗，刷新页面将不再被拦截，主动展示详情页 ([查看示例](#路由拦截器-案例))
     - ---- 分割线 ----
   - Api路由 ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/api))
     - 静态Api：`@/src/app/api/items/route.tsx`
@@ -144,7 +144,7 @@
     - ~~服务端非表单进行操作：`@/src/app/fetch/server-action/server-cart/noform/page.tsx`~~ (查看：[路由导航总结](#路由导航缓存总结))
     - ---- 附赠应用场景 ----
     - 客户端轮训：`@/src/app/fetch/server-action/client-cart/noform/page.tsx`
-    - 通过`useTransition`实现的实时搜索预览：`@/src/app/fetch/server-action/client-cart/transition/[...slug]` ([预览](#实时搜索预览))
+    - 通过`useTransition`实现的实时搜索预览：`@/src/app/fetch/server-action/client-cart/transition/[...slug]` ([预览](#实时搜索预览-案例))
     - ---- 分割线 ----
 - 缓存 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/cache))
   - 请求树：`@/src/app/fetch/cache/page.tsx`
@@ -331,7 +331,7 @@
 
 ![Api Route在安全设计上的理解](https://github.com/cgfeel/next.v2/assets/578141/22031e79-1026-4e7b-bd79-825648467401)
 
-## 路由拦截器实现的案例
+## 路由拦截器-案例
 
 点开列表图片将会被拦截器阻拦，当打开照片刷新页面，将跳过阻拦进入详情页
 
@@ -357,11 +357,36 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 └── page.tsx
 ```
 
-## 实时搜索预览
+## 实时搜索预览-案例
 
 通过`startTransition`实现的，输入完成后会通过`router`导航到搜索结果页，页面根据导航提供的`slug`展示搜索结果
 
 https://github.com/cgfeel/next.v2/assets/578141/ebd18cec-8ba6-40e6-888f-4b6e74d334cf
+
+## 筛选列表-案例
+
+https://github.com/cgfeel/next.v2/assets/578141/11d3c7ab-5908-47c4-8522-f6c890cf2af9
+
+来自字节大佬的需求：
+
+ - 页面分标签选项和内容列表，选择标签后，内容变换标签位置内容都不变，解决：layout+page
+ - 内容必须是服务端SSR输出静态资源，解决：服务端fetch
+ - 下拉刷新列表，选线不变，头部不刷新，解决：pulltorefreshjs + useTransition + server action
+ - 用户中途断网提示，标签：php、python，解决：not-found + router prefetch、router redirect（两种方法）
+
+ 附赠需求：
+ 
+ - 假设后端接口挂了，服务端拿到一个错误的请求，问题可能并非来自前端，对于前端来说需要捕获这个错误，并提供一个专属的组件提供用户进行reset
+ - 标签：java，通过cookies来模拟错误，可以自行删除cookies和reset
+ - 解决：error-handling
+
+截止目前官方文档都不告诉你的坑点（23.9.20）：
+
+ - error-handling提供一个error，但是不要试图去捕获他的error信息，因为在构建时已经隐藏了
+ - error-handling提供一个reset，用来绑你尝试刷新当前视图，但是却没有告诉你这个只刷新本地视图，在刷新前请先通过server action刷新服务端路由段的视图
+ - 做到这了就OK了吗？并不会，因为你会发现服务端收到刷新视图了，本地还是没有更新？怎么回事？
+ - 重点来了：请记得给所有error.tsx所在路由段下配套添加loading.tsx，否则你刷新视图会因为过程中重复点击而造成本地和服务端视图不一致，或重复渲染
+ - 以上就是2天下来的总结，特地附加一段demo：`@/src/app/fetch/server-action/test/demo1`  ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/test/demo1))
 
 ## not-found.tsx 总结
 
