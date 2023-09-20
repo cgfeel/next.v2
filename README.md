@@ -367,6 +367,8 @@ https://github.com/cgfeel/next.v2/assets/578141/ebd18cec-8ba6-40e6-888f-4b6e74d3
 
 https://github.com/cgfeel/next.v2/assets/578141/11d3c7ab-5908-47c4-8522-f6c890cf2af9
 
+目录：`@/src/app/fetch/server-action/post`  ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/post))
+
 来自字节大佬的需求：
 
  - 页面分标签选项和内容列表，选择标签后，内容变换标签位置内容都不变，解决：layout+page
