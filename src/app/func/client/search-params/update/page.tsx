@@ -1,42 +1,22 @@
-'use client'
+import { Suspense } from "react";
+import RouterCom from "./RouterCom";
 
-import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useCallback } from "react";
+// This component passed as fallback to the Suspense boundary
+// will be rendered in place of the search bar in the initial HTML.
+// When the value is available during React hydration the fallback
+// will be replaced with the `<SearchBar>` component.
+function SearchBarFallback() {
+    return <>placeholder</>
+}
 
 export default function Page() {
-    const router = useRouter();
-    const pathname = usePathname();
-
-    const searchParams = useSearchParams();
-    const searchParamsData = searchParams.toString();
-
-    // Get a new searchParams string by merging the current
-    // searchParams with a provided key/value pair
-    const createQueryString: (name: string, value: string) => string = useCallback((name, value) => {
-        const params = new URLSearchParams(searchParamsData);
-        params.set(name, value);
-
-        return params.toString();
-    }, [searchParamsData]);
-
     return (
         <div>
-            <h1>Update sort by: </h1>
-            <div>
-                <button
-                    onClick={() => router.push(`${pathname}?${createQueryString('sort', 'asc')}`)}
-                >
-                    using useRouter up to asc
-                </button>
-            </div>
-            <div>
-                <Link
-                    href={`${pathname}?${createQueryString('sort', 'desc')}`}
-                >
-                    using link up to desc
-                </Link>
-            </div>
+            <Suspense
+                fallback={<SearchBarFallback />}
+            >
+                <RouterCom />
+            </Suspense>
         </div>
     );
 }
