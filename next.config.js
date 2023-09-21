@@ -47,7 +47,8 @@ const nextConfig = {
     // Experimental features
     experimental: {
         // 如果需要用到并行渲染做子路由，还是要开启实验性功能（通常并行路由下的子路由用于路由拦截）
-        appDir: true,
+        // 13.5 之后彻底废弃，请勿使用
+        // appDir: true,
 
         // customize the cache handler
         // incrementalCacheHandlerPath: require.resolve('./src/utils/cache-handler.js'),

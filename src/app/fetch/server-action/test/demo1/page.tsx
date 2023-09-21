@@ -24,15 +24,17 @@ const getData = async () => {
 };
 
 export default async function Page() {
-    const data = await getData();
-
     // 暂且屏蔽，因为编译可能过不去
-    /*console.log('=======================');
+    /*const data = await getData();
+
+    console.log('=======================');
     console.log('rendering DemoPage', data);
 
     if (data.id % 2 === 0) {
         throw Error(`user id is an even number: ${data.id}`);;
     }*/
+
+    const data = { id: 1, uid: 'test', username: 'levi' };
 
     return (
         <div>
