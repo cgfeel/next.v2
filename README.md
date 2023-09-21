@@ -788,3 +788,5 @@ npm i next@latest react@latest react-dom@latest eslint-config-next@latest
 - `next dev`环境下，不再展示`fetch`的情况，包括缓存激活，丢失的情况，渲染树的情况
 - 修复了上面提到的在`server action`中重定向`redirect`报错
 - 离谱的来了，`Api`路由中必须返回`Response`，这就意味着，请不要试图通过`redirect`或者`NextResponse.redirect`去进行重定向，而是手写一个带有`30*`头部的`Response`（对于这个问题，官方文档到目前还未改动）
+
+这次更新更多内容见官方发布：https://nextjs.org/blog/next-13-5
