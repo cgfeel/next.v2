@@ -212,6 +212,7 @@
     - ---- 分割线 ----
   - 模块重命名见：`@/tsconfig.json`，TS配置放置后面`nextjs.config.js`一起总结
   - src目录，正如你看到当前示例，如果初始项目没有选择src目录，后期直接移动目录即可
+- 更新，见末尾总结 ([查看](#更新))
 - 函数
   - cookies ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/cookies))
     - 包含：获取单个、获取所有、判断存在、设置、删除、设置生命周期、设置有效期
@@ -522,7 +523,7 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 - 例如微信扫码登录，先从`server action`提交`OAUTH`认证，拿到`token`后交给客户端轮训登录状态
 - 以示范文件说原理：先发起`server action`，通过后本地使用`swr`轮训状态
 
-**坑点1：`Server Action` + `redirect`**
+~~**坑点1：`Server Action` + `redirect`**~~(13.5已修复，见末尾更新说明 - [查看](#更新))
 
 - 不要在`Server Action`中直接调用`redirect`，否则会警告`failed to get redirect response TypeError: fetch failed`
 - 正确做法，`Server Action`后通过`revalidateTag`或`revalidatePath`刷新视图，在视图中根据情况`redirect`
@@ -772,3 +773,18 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## 更新
+
+尝试了一次从`13.4.9`更新到`13.5.2`，做一个初步的记录，更新方法如下：
+
+```
+npm i next@latest react@latest react-dom@latest eslint-config-next@latest
+```
+
+一些差异：
+
+- `next.config.js`中`experimental`不再需要设置`appDir`，也支持并行渲染路由段下添加子目录，升级后将其去掉
+- `next dev`环境下，不再展示`fetch`的情况，包括缓存激活，丢失的情况，渲染树的情况
+- 修复了上面提到的在`server action`中重定向`redirect`报错
+- 离谱的来了，`Api`路由中必须返回`Response`，这就意味着，请不要试图通过`redirect`或者`NextResponse.redirect`去进行重定向，而是手写一个带有`30*`头部的`Response`（对于这个问题，官方文档到目前还未改动）
