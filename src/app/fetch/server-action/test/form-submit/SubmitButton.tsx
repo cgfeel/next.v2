@@ -12,7 +12,6 @@ const SubmitButton: FC<{ error: boolean }> = ({ error }) => {
             className="w-20 disabled:opacity-100"
             type="submit"
             disabled={disabled}
-            pend
         >
             {disabled ? "Loading..." : "Join"}
         </button>
