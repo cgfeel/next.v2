@@ -140,7 +140,7 @@
     - 除表单外通过`startTransition`进行操作：`@/src/app/fetch/server-action/client-cart/transition`
     - 除`startTransition`外，非表单操作：`@/src/app/fetch/server-action/custom/[id]`
     - 服务端校验表单 + 设置cookies：`@/src/app/fetch/server-action/validation`
-    - 通过实验性Api (experimental_useFormStatus) + Error处理 + 重定向：`@/src/app/fetch/server-action/test/form-submit`
+    - 通过实验性Api (experimental_useFormStatus) 处理loading + Error处理 + 重定向：`@/src/app/fetch/server-action/test/form-submit`
     - 总结 ([查看](#nextjs-server-action总结))
     - ~~服务端非表单进行操作：`@/src/app/fetch/server-action/server-cart/noform`~~ (查看：[路由导航总结](#路由导航缓存总结))
     - ---- 附赠应用场景 ----
