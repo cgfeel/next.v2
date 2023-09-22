@@ -1,14 +1,30 @@
-'use Client'
+'use client'
 
-import { FC } from "react"
+import { useRouter } from "next/navigation";
+import { FC, memo, useCallback, useState } from "react";
 import SubmitButton from "./SubmitButton";
 import { submitEmail } from "./action";
 
+type errorItem = {
+    error: boolean;
+    message: string;
+};
+
 const Form: FC = () => {
+    const [data, setData] = useState('');
+    const router = useRouter();
+
+    const formAction = useCallback(async (data: FormData) => {
+        const info: errorItem|undefined = await submitEmail(data);
+        if (info?.error) {
+            setData(info.message);
+        }
+    }, [setData]);
+
     return (
         <form
             className="not-prose grid w-full max-w-sm gap-1.5"
-            action={submitEmail}
+            action={formAction}
         >
             <div 
                 className="grid w-full gap-1.5"
@@ -28,16 +44,22 @@ const Form: FC = () => {
                             required
                         />
                     </div>
-                    <SubmitButton />
+                    <SubmitButton error={data !== ''} />
                 </div>
                 <p 
                     className="text-muted-foreground text-xs"
                 >
-                    Enter any fake email schema.
+                    {data === '' ? 'Enter any fake email schema.' : (
+                        <span 
+                            className="text-red-600"
+                        >
+                            {data}
+                        </span>
+                    )}
                 </p>
             </div>
         </form>
     );
 };
 
-export default Form;
+export default memo(Form);

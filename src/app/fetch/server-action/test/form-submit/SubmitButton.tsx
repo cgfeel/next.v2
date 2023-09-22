@@ -4,15 +4,17 @@ import { Button } from "antd";
 import { FC } from "react"
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 
-const SubmitButton: FC = () => {
+const SubmitButton: FC<{ error: boolean }> = ({ error }) => {
     const { pending } = useFormStatus();
+    const disabled = pending && !error;
     return (
         <button
             className="w-20 disabled:opacity-100"
             type="submit"
-            disabled={pending}
+            disabled={disabled}
+            pend
         >
-            {pending ? "Loading..." : "Join"}
+            {disabled ? "Loading..." : "Join"}
         </button>
     );
 };

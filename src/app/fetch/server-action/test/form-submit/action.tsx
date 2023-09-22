@@ -7,8 +7,12 @@ export const submitEmail = async (data: FormData) => {
     const email = data.get('email');
     console.log(email);
     if (email) {
-        revalidatePath('/fetch/server-action/test/form-submit');
+        if (email === 'jht2718@163.com') {
+            return {
+                error: true,
+                message: 'email is subscribed.'
+            };
+        }
         redirect(`/fetch/server-action/test/form-submit?form=success&email=${email}`);
     }
-    return;
 }

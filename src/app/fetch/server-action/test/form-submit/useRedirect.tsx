@@ -12,8 +12,9 @@ const useRedirect: () => RedirectAction = () => {
         const params = new URLSearchParams(searchParams.toString());
         params.delete("email");
         params.delete("form");
-        
-        router.replace(`${pathname}?${params.toString()}`);
+
+        const path = [pathname, params.toString()].filter(i => i);
+        router.replace(`${path.join('?')}`);
     };
 };
 
