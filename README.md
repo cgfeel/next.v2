@@ -116,45 +116,46 @@
     - server components中获取数据：`@/src/app/fetch/page.tsx`
     - 缓存配置
       - 路由段配置：`@/src/app/fetch/revalidate/[id]/page.tsx`
-      - fetch配置：`@/src/app/file/dynamic/(error)/error-fetch/page.tsx`、`@/src/app/file/dynamic/(force-dynamic)/force-dynamic-revalidate/page.tsx`
+      - fetch配置：`@/src/app/file/dynamic/(error)/error-fetch/page.tsx`、`@/src/app/file/dynamic/(force-dynamic)/force-dynamic-revalidate`
       - 更多见路由段配置：`@/src/app/file/dynamic`
     - ---- 分割线 ----
   - 重新验证
-    - `fetch`不缓存：`@/src/app/blog/time/isr/page.tsx`
-    - 定时重新验证：`@/src/app/blog/time/isr/revalidate/page.tsx`
-    - 缓存标签按需验证：`@/src/app/fetch/server-action/revalidation/page.tsx`
-    - 路径按需验证：`@/src/app/file/power/(list)/[slug]/page.tsx`
+    - `fetch`不缓存：`@/src/app/blog/time/isr`
+    - 定时重新验证：`@/src/app/blog/time/isr/revalidate`
+    - 缓存标签按需验证：`@/src/app/fetch/server-action/revalidation`
+    - 路径按需验证：`@/src/app/file/power/(list)/[slug]`
     - ---- 分割线 ----
   - 数据获取模式
-    - 顺序请求+预加载数据：`@/src/app/fetch/sequential/[id]/page.tsx`
-    - 顺序请求+`suspense`优先渲染：`@/src/app/fetch/suspense/[id]/page.tsx`
+    - 顺序请求+预加载数据：`@/src/app/fetch/sequential/[id]`
+    - 顺序请求+`suspense`优先渲染：`@/src/app/fetch/suspense/[id]`
     - 并行请求：`@/src/app/fetch/parallel/[id]/page.tsx`
     - `server-only`仅在服务端：`@/src/app/lang/[slug]/dictionaries.ts`
     - 数据缓存详细见缓存部分：`@/src/app/fetch/cache/`
     - ---- 分割线 ----
   - 服务端操作 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action))
     - 服务端操作（`Server-only Forms`）：`@/src/app/fetch/server-action/server-cart`
-    - 服务端操作提交后重新渲染视图：`@/src/app/fetch/server-action/revalidation/page.tsx`
-    - 本地实验功能`useOptimistic`：`@/src/app/fetch/server-action/optimistic/page.tsx`
-    - 客户端操作：`@/src/app/fetch/server-action/client-cart/page.tsx`
-    - 除表单外通过`startTransition`进行操作：`@/src/app/fetch/server-action/client-cart/transition/page.tsx`
-    - 除`startTransition`外，非表单操作：`@/src/app/fetch/server-action/custom/[id]/page.tsx`
-    - 服务端校验表单、设置cookies：`@/src/app/fetch/server-action/validation/page.tsx`
+    - 服务端操作提交后重新渲染视图：`@/src/app/fetch/server-action/revalidation`
+    - 本地实验功能`useOptimistic`：`@/src/app/fetch/server-action/optimistic`
+    - 客户端操作：`@/src/app/fetch/server-action/client-cart`
+    - 除表单外通过`startTransition`进行操作：`@/src/app/fetch/server-action/client-cart/transition`
+    - 除`startTransition`外，非表单操作：`@/src/app/fetch/server-action/custom/[id]`
+    - 服务端校验表单 + 设置cookies：`@/src/app/fetch/server-action/validation`
+    - 通过实验性Api (experimental_useFormStatus) + Error处理 + 重定向：`@/src/app/fetch/server-action/test/form-submit`
     - 总结 ([查看](#nextjs-server-action总结))
-    - ~~服务端非表单进行操作：`@/src/app/fetch/server-action/server-cart/noform/page.tsx`~~ (查看：[路由导航总结](#路由导航缓存总结))
+    - ~~服务端非表单进行操作：`@/src/app/fetch/server-action/server-cart/noform`~~ (查看：[路由导航总结](#路由导航缓存总结))
     - ---- 附赠应用场景 ----
-    - 客户端轮训：`@/src/app/fetch/server-action/client-cart/noform/page.tsx`
+    - 客户端轮训：`@/src/app/fetch/server-action/client-cart/noform`
     - 通过`useTransition`实现的实时搜索预览：`@/src/app/fetch/server-action/client-cart/transition/[...slug]` ([预览](#实时搜索预览-案例))
     - 标签筛选内容+加载提示+错误fallback+断网fallback：`@/src/app/fetch/server-action/post` ([预览](#筛选列表-案例))
     - ---- 分割线 ----
 - 缓存 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/cache))
   - 请求树：`@/src/app/fetch/cache/page.tsx`
-  - 服务组件到客服组件：`@/src/app/fetch/cache/client/page.tsx`
-  - 不缓存：`@/src/app/fetch/cache/nostore/page.tsx`
-  - POST缓存：`@/src/app/fetch/cache/post/page.tsx`
-  - 预缓存：`@/src/app/fetch/cache/preload/page.tsx`
-  - 通过react缓存：`@/src/app/fetch/cache/react-cache/page.tsx`
-  - ISR：`@/src/app/blog/time/isr/page.tsx`
+  - 服务组件到客服组件：`@/src/app/fetch/cache/client`
+  - 不缓存：`@/src/app/fetch/cache/nostore`
+  - POST缓存：`@/src/app/fetch/cache/post`
+  - 预缓存：`@/src/app/fetch/cache/preload`
+  - 通过react缓存：`@/src/app/fetch/cache/react-cache`
+  - ISR：`@/src/app/blog/time/isr`
   - 总结 ([查看](#nextjs-缓存总结))
 - 组件和优化
   - 图片 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/images))
