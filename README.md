@@ -144,7 +144,7 @@
     - Zod数据校验，提供3个例子：
       - client validate + route validate: `@/src/app/fetch/server-action/test/zod/user-info`
       - server validate + route validate: `@/src/app/fetch/server-action/test/zod/user-info-server`
-      - todolist: `@/src/app/fetch/server-action/test/zod/todolist`
+      - todolist (含错误处理): `@/src/app/fetch/server-action/test/zod/todolist`
     - 总结 ([查看](#nextjs-server-action总结))
     - ~~服务端非表单进行操作：`@/src/app/fetch/server-action/server-cart/noform`~~ (查看：[路由导航总结](#路由导航缓存总结))
     - ---- 附赠应用场景 ----
