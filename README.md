@@ -135,7 +135,6 @@
   - 服务端操作 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action))
     - 服务端操作（`Server-only Forms`）：`@/src/app/fetch/server-action/server-cart`
     - 服务端操作提交后重新渲染视图：`@/src/app/fetch/server-action/revalidation`
-    - 本地实验功能`useOptimistic`：`@/src/app/fetch/server-action/optimistic`
     - 客户端操作：`@/src/app/fetch/server-action/client-cart`
     - 除表单外通过`startTransition`进行操作：`@/src/app/fetch/server-action/client-cart/transition`
     - 除`startTransition`外，非表单操作：`@/src/app/fetch/server-action/custom/[id]`
@@ -145,6 +144,7 @@
       - client validate + route validate: `@/src/app/fetch/server-action/test/zod/user-info`
       - server validate + route validate: `@/src/app/fetch/server-action/test/zod/user-info-server`
       - todolist (含错误处理): `@/src/app/fetch/server-action/test/zod/todolist`
+    - 通过`useOptimistic`乐观更新：`@/src/app/fetch/server-action/optimistic`
     - 总结 ([查看](#nextjs-server-action总结))
     - ~~服务端非表单进行操作：`@/src/app/fetch/server-action/server-cart/noform`~~ (查看：[路由导航总结](#路由导航缓存总结))
     - ---- 附赠应用场景 ----
