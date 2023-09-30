@@ -59,6 +59,12 @@ type H = typeof queryUser.options.headers;
 
 // export const runtime = 'edge';
 
+/*const makeFetch = (url: string) => {
+    return fetch(url).then((res) => res.json());
+};
+
+makeFetch().then(data => {});*/
+
 export default async function Page() {
     const blob = await Api.get<{ hello: string }>('/api/edge/blob', {
         next: { tags: ['user'] }

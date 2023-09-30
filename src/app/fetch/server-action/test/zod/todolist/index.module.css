@@ -1,0 +1,42 @@
+.todo {
+    max-width: 300px;
+    margin: 100px auto 0;
+}
+
+.todo :global(button) {
+    background-color: #fff000;
+    border-radius: 6px;
+    color: #000;
+    font-weight: 600;
+    padding: 10px 15px;
+}
+
+.todo :global(input) {
+    border-radius: 6px;
+    color: #000;
+    padding: 10px 15px;
+    width: 100%;
+}
+
+.todo :global(layout) {
+    width: 100%;
+}
+
+.todo :global(.add-form button) {
+    width: 100%;
+}
+
+.todo :global(.add-form input) {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.todo :global(li) {
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    padding: 10px 15px;
+}
