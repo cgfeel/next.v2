@@ -1,5 +1,4 @@
 import Nav from "@/src/components/nav";
-import { revalidatePath } from "next/cache";
 import { PropsWithChildren } from "react";
 import { flush } from "./action";
 import ClientRouter from "./components/ClientRouter";
