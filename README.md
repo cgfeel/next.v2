@@ -332,6 +332,7 @@
     - 演示地址：https://codesandbox.io/p/sandbox/semi-ui-zhu-ti-qie-huan-45cg5l
     - 包含了主题引入、通过`next-themes`（[查看](https://github.com/pacocoursey/next-themes)）进行主题切换
     - 为了避免主题切换闪烁，采用了`HomeDash`（[查看](https://github.com/hamster1963/HomeDash)）的解决方案，将主题挂载到HTML下，而非官方目前推荐的body下
+    - 主题切换原理：通过`script`阻塞渲染，直到`<html>`挂载主题为止，要验证防闪烁，请拷贝演示代码到本地product (`npm run start`)下运行，因为`dev`在`script`阻塞之前会阻塞所有渲染
     - ---- 分割线 ----
   - swr：`@/src/app/posts/list/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/list/%5Bid%5D/page.tsx))
   - HTTP库，封装`umi-request`，3种模式（SSR、SSG、CSR）下均可使用，对于非`client component`下配合`deviceStorage`能够作为代替`swr`的一种解决方案：`@/src/utils/api.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/api.ts))
