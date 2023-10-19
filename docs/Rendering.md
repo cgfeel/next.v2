@@ -15,4 +15,4 @@
 - Edge运行时，动态图标生成：@/src/app/optimizing/metadata/[id]/icon.tsx [[查看](https://github.com/cgfeel/next.v2/blob/master/src/app/optimizing/metadata/%5Bid%5D/icon.tsx))]
 - Nodejs运行时，仓库中所有没有申明运行时的路由段
 
-<img width="1411" alt="NextJS渲染" src="https://github.com/cgfeel/next.v2/assets/578141/b2d4cc64-0344-4176-8716-7bc527b42b06">
+<img width="1393" alt="NextJS渲染" src="https://github.com/cgfeel/next.v2/assets/578141/dfd3a37d-a5f9-4716-8504-8e03d3963fa5">
