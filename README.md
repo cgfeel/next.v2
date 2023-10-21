@@ -12,12 +12,16 @@
 
 - 安装和运行 ([查看](#getting-started-安装和运行))
 
-### 路由和文件约定
+### 路由和文件约定（Routing & File Conventions）
+
+文件和路由部分建议一起查看，能够相互加深理解：[[Routing](https://nextjs.org/docs/app/building-your-application/routing)]、[[File Conventions](https://nextjs.org/docs/app/api-reference/file-conventions)]
+
 - App模式下路由和目录结构
   - 基础路由 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/features))
-    - 1级目录`@/src/app/features/`
-    - 2级目录`@/src/app/features/metadata/`
     - 文件划分：`layout`、`page`，
+    - 1级目录：`@/src/app/features/`
+    - 2级目录：`@/src/app/features/metadata/`
+    - `_`前缀目录：（目录位置修改中...）
     - ---- 分割线 ----
   - 链接和导航，目录`@/src/app/dashboard/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/dashboard))
     - 包含：link组件，route跳转，usePathname监听路由变化
@@ -76,7 +80,12 @@
     - 只做了本地化词典本分
     - 还剩余两个方法`middleware`和`generateStaticParams`，由于需要调整目录结构会和当前实例冲突，目前不做演示
     - ---- 分割线 ----
-  - not-found ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/file))
+  - default.js
+    - 官方文档一直提示文档整理中
+    - 这里说一个场景，在上面路由拦截中，`@`开头的目录中，为了防止路由段下page默认渲染，添加一个default.tsx，返回`null`来阻塞
+    - 目录整理中。。。
+    - ---- 分割线 ----
+  - not-found.js ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/file))
     - 捕获全局：`@/src/app/not-found.tsx`
     - 捕获当前路段：`@/src/app/file`
     - 捕获：`@/src/app/file/[not]/page.tsx`
