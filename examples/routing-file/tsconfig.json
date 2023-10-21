@@ -5,11 +5,10 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -21,7 +20,7 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@@/*": ["./*"],
+      "@@/*": ["../../*"]
     },
     "typeRoots": [
       "./node_modules/@types",

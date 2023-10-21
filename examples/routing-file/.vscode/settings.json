@@ -1,0 +1,7 @@
+{
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "javascript.validate.enable": true,
+    "typescript.validate.enable": true,
+    "eslint.enable": true,
+    "prettier.enable": true,
+}
