@@ -8,7 +8,11 @@
 
 以下清单基本按照英文官方文档章节顺序，以文档章节最小方式去复现出来。可以运行和直接打开文件查看，不用再去逐字阅读文档。
 
+### 概览
+
 - 安装和运行 ([查看](#getting-started-安装和运行))
+
+### 路由和文件约定
 - App模式下路由和目录结构
   - 基础路由 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/features))
     - 1级目录`@/src/app/features/`
@@ -111,6 +115,9 @@
     - 这部分是文档没有的，因为我发现`NextJS`路由导航缓存存在坑点，单独加了示例
     - 总结 ([查看](#路由导航缓存总结))
     - ---- 分割线 ----
+
+### 其他
+
 - 数据获取
   - 数据获取和缓存 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch))
     - server components中获取数据：`@/src/app/fetch/page.tsx`
@@ -337,6 +344,8 @@
   - swr：`@/src/app/posts/list/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/list/%5Bid%5D/page.tsx))
   - HTTP库，封装`umi-request`，3种模式（SSR、SSG、CSR）下均可使用，对于非`client component`下配合`deviceStorage`能够作为代替`swr`的一种解决方案：`@/src/utils/api.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/api.ts))
   - localStorage封装：`@/src/utils/storage/deviceStorage.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/storage/deviceStorage.ts))
+ 
+---
 
 ## Api Route在安全设计上的理解
 
