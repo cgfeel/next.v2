@@ -14,7 +14,7 @@
 
 ### 路由和文件约定（Routing & File Conventions）
 
-文件和路由部分建议一起查看，能够相互加深理解：[[Routing](https://nextjs.org/docs/app/building-your-application/routing)]、[[File Conventions](https://nextjs.org/docs/app/api-reference/file-conventions)]
+2章放在一起看能够相互加深理解：[[Routing](https://nextjs.org/docs/app/building-your-application/routing)]、[[File Conventions](https://nextjs.org/docs/app/api-reference/file-conventions)]
 
 - App模式下路由和目录结构
   - 基础路由 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/features))
@@ -119,13 +119,10 @@
       - `preferredRegion`：`@/src/app/file/dynamic/(auto)/auto-preferred-region`
       - `maxDuration`：`@/src/app/file/dynamic/(auto)/auto-max-duration`
     - ---- 分割线 ----
-  - 路由导航的缓存和视图刷新 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/link))
-    - 目录：`@/src/app/link`
-    - 这部分是文档没有的，因为我发现`NextJS`路由导航缓存存在坑点，单独加了示例
-    - 总结 ([查看](#路由导航缓存总结))
-    - ---- 分割线 ----
 
-### 其他
+### 数据获取、渲染、缓存（Fetching & Rendering & Caching）
+
+3章放在一起看能够相互加深理解：[[Fetching](https://nextjs.org/docs/app/building-your-application/data-fetching)]、[[Rendering](https://nextjs.org/docs/app/building-your-application/rendering)]、[[caching](https://nextjs.org/docs/app/building-your-application/caching)]
 
 - 数据获取
   - 数据获取和缓存 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch))
@@ -180,6 +177,19 @@
   - 通过react缓存：`@/src/app/fetch/cache/react-cache`
   - ISR：`@/src/app/blog/time/isr`
   - 总结 ([查看](#nextjs-缓存总结))
+  - ---- 附加案例 ----
+  - 路由导航的缓存和视图刷新 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/link))
+    - 目录：`@/src/app/link`
+    - 这部分是文档没有的，因为我发现`NextJS`路由导航缓存存在坑点，单独加了示例
+    - 总结 ([查看](#路由导航缓存总结))
+    - ---- 分割线 ----
+  - antd，演示服务器渲染中通过Provider提供context
+    - 服务端渲染配置文件：`@/src/lib`、`@/src/app/layout.tsx` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/lib))
+    - 实时搜索示例：`@/src/app/fetch/server-action/client-cart/transition/[...slug]` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/client-cart/transition/%5B...slug%5D))
+    - ---- 分割线 ----
+ 
+### 其他
+
 - 组件和优化
   - 图片 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/images))
     - 图片相关配置信息：`@/next.config.js`，见`nextConfig.images`
@@ -339,10 +349,6 @@
     - ---- 分割线 ----
     - 坑点1：`mdx`和`nextjs`的TS体操标准不一样，见：`@/src/app/mdx/custom/page.tsx`
     - 坑点2：本地`mdx`必须`client component`否则报错，远程`mdx`基于`next-mdx-remote`，需要`server component`否则报错（或者至少把数据获取`fetch`和`MDXRemote`分开）
-    - ---- 分割线 ----
-  - antd，包含服务端渲染配置，和一个示例
-    - 配置文件：`@/src/lib`、`@/src/app/layout.tsx` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/lib))
-    - 实时搜索示例：`@/src/app/fetch/server-action/client-cart/transition/[...slug]` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/client-cart/transition/%5B...slug%5D))
     - ---- 分割线 ----
   - semi，由于仓库使用了antd作为演示，另起了一个服务做semi演示
     - 演示地址：https://codesandbox.io/p/sandbox/semi-ui-zhu-ti-qie-huan-45cg5l
