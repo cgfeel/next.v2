@@ -204,9 +204,11 @@
  
 ### 样式、优化、组件、函数（Styling & Optimizing & Compoonents & Functions）
 
-4章放在一起看能够相互加深理解：[[Fetching](https://nextjs.org/docs/app/building-your-application/data-fetching)]、[[Rendering](https://nextjs.org/docs/app/building-your-application/rendering)]、[[caching](https://nextjs.org/docs/app/building-your-application/caching)]
+4章放在一起看能够相互加深理解：[[Styling](https://nextjs.org/docs/app/building-your-application/styling)]、[[Optimizing](https://nextjs.org/docs/app/building-your-application/optimizing)]、[[Components](https://nextjs.org/docs/app/api-reference/components)]、[[Functions](https://nextjs.org/docs/app/api-reference/functions)]
 
-其中函数这部分作为本篇章和以上所有内容的概述，更适合Optimizing（优化）所以归纳在一起；而样式和组件关联系更大，组件仍旧和优化紧密关联，因此也放在一起总结；而优化中元数据（Metadata）在文件约定也有相关内容，为了便于理解也归纳在优化分类中
+> 其中函数这部分作为本篇章和以上所有内容的概述，更适合Optimizing（优化）所以归纳在一起；而样式和组件关联系更大，组件仍旧和优化紧密关联，因此也放在一起总结；而优化中元数据（Metadata）在文件约定也有相关内容，为了便于理解也归纳在优化分类中
+>
+> 由于在渲染中展示了antd，这一章将引入semi作为附加案例
 
 （清单待整理）
 
