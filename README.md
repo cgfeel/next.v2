@@ -177,7 +177,11 @@
     - ISR模式：`@/src/app/blog/time/isr/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/isr/%5Bid%5D/page.tsx))
       - 访问时`[id] = 1`，则`page`和`fetch`均为`SSG`
       - 访问时`[id] > 1`，则通过`revalidate`缓存为`ISR`
-      - ---- 分割线 ----
+  - ---- 附加案例 ----
+  - antd，演示服务器渲染中通过Provider提供context
+    - 服务端渲染配置文件：`@/src/lib`、`@/src/app/layout.tsx` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/lib))
+    - 实时搜索示例：`@/src/app/fetch/server-action/client-cart/transition/[...slug]` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/client-cart/transition/%5B...slug%5D))
+    - ---- 分割线 ----
 - 缓存 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/cache))
   - 请求树：`@/src/app/fetch/cache/page.tsx`
   - 服务组件到客服组件：`@/src/app/fetch/cache/client`
@@ -192,10 +196,6 @@
     - 目录：`@/src/app/link`
     - 这部分是文档没有的，因为我发现`NextJS`路由导航缓存存在坑点，单独加了示例
     - 总结 ([查看](#路由导航缓存总结))
-    - ---- 分割线 ----
-  - antd，演示服务器渲染中通过Provider提供context
-    - 服务端渲染配置文件：`@/src/lib`、`@/src/app/layout.tsx` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/lib))
-    - 实时搜索示例：`@/src/app/fetch/server-action/client-cart/transition/[...slug]` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/client-cart/transition/%5B...slug%5D))
     - ---- 分割线 ----
  
 ### 其他
