@@ -1,7 +1,5 @@
-import Api from "@/src/utils/api";
 import Link from "next/link";
 import List from "../../../components/List";
-import { TimeType } from "../../layout";
 
 export const dynamic = 'auto';
 
