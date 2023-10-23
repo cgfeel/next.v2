@@ -11,6 +11,7 @@
 ### 概览
 
 - 安装和运行 ([查看](#getting-started-安装和运行))
+- 更新，见末尾总结 ([查看](#更新))
 
 ### 路由和文件约定（Routing & File Conventions）
 
@@ -256,7 +257,6 @@
     - ---- 分割线 ----
   - 模块重命名见：`@/tsconfig.json`，TS配置放置后面`nextjs.config.js`一起总结
   - src目录，正如你看到当前示例，如果初始项目没有选择src目录，后期直接移动目录即可
-- 更新，见末尾总结 ([查看](#更新))
 - 函数
   - cookies ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/cookies))
     - 包含：获取单个、获取所有、判断存在、设置、删除、设置生命周期、设置有效期
