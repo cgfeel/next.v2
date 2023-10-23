@@ -168,6 +168,16 @@
 - 渲染
   - 整理内容过长，单独总结一章 ([查看](https://github.com/cgfeel/next.v2/blob/master/docs/Rendering.md))
   - 其中包括的案例有：仅供服务器、客户端操作、上下文配置主题、esbuild配置、服务器组件和客户端组件交叉嵌套、运行时
+  - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
+    - SSR模式：`@/src/app/blog/time/page.tsx`，`page`和`fetch`均为`SSR` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
+    - CSR模式：`@/src/app/blog/time/client/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/client/page.tsx))
+    - SSG模式：`@/src/app/blog/time/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/%5Bid%5D/page.tsx))
+      - 访问时`[id] = 1`，则`page`和`fetch`均为`SSG`
+      - 访问时`[id] > 1`，则`page`为`SSR`，`fetch`缓存为`SSG`
+    - ISR模式：`@/src/app/blog/time/isr/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/isr/%5Bid%5D/page.tsx))
+      - 访问时`[id] = 1`，则`page`和`fetch`均为`SSG`
+      - 访问时`[id] > 1`，则通过`revalidate`缓存为`ISR`
+      - ---- 分割线 ----
 - 缓存 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/cache))
   - 请求树：`@/src/app/fetch/cache/page.tsx`
   - 服务组件到客服组件：`@/src/app/fetch/cache/client`
@@ -324,17 +334,6 @@
     - `transpilePackages`没有实现，本次按照`multiplerepo`方式并非`monorepo`，注释列举了示例URL
     - `turbo`没有实现，因为和目前和`server action`冲突
     - `webVitalsAttribution`留个坑
-    - ---- 分割线 ----
-- 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
-  - SSR模式：`@/src/app/blog/time/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
-    - `page`和`fetch`均为`SSR`
-  - CSR模式：`@/src/app/blog/time/client/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/client/page.tsx))
-  - SSG模式：`@/src/app/blog/time/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/%5Bid%5D/page.tsx))
-    - 访问时`[id] = 1`，则`page`和`fetch`均为`SSG`
-    - 访问时`[id] > 1`，则`page`为`SSR`，`fetch`缓存为`SSG`
-  - ISR模式：`@/src/app/blog/time/isr/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/isr/%5Bid%5D/page.tsx))
-    - 访问时`[id] = 1`，则`page`和`fetch`均为`SSG`
-    - 访问时`[id] > 1`，则通过`revalidate`缓存为`ISR`
     - ---- 分割线 ----
 - 其他
   - mdx：`@/src/app/mdx` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/mdx))
