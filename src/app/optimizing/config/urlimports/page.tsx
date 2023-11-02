@@ -4,8 +4,8 @@ import Canvas from "./Canvas";
 import styles from "./index.module.css";
 
 export default function Page() {
-    // const square = new URL('http://up1.yii.so/jianli/static/square.js', import.meta.url);
-    const square = new URL('http://up1.yii.so/canvas-confetti', import.meta.url);
+    const square = new URL('http://up1.yii.so/jianli/static/square.js', import.meta.url);
+    // const square = new URL('http://up1.yii.so/canvas-confetti', import.meta.url);
     return (
         <div>
             <h1>

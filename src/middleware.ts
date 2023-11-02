@@ -36,10 +36,6 @@ export function middleware(request: NextRequest) {
         return NextResponse.rewrite(new URL('/photo', request.url));
     }
 
-    if (request.nextUrl.pathname.startsWith('/optimizing-dashboard')) {
-        return NextResponse.rewrite(new URL('/optimizing/link/dashboard', request.url));
-    }
-
     if (request.nextUrl.pathname.startsWith('/optimizing/script/csp')) {
         // res.headers.set('Content-Security-Policy', "script-src 'nonce-5fAifFSghuhdf'");
     }
