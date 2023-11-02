@@ -1,6 +1,0 @@
-{
-  "http://up1.yii.so/-/canvas-confetti@v1.6.0-t438JJTXIbBReqvLtDua/dist=es2019,mode=imports/optimized/canvas-confetti.js": { "integrity": "sha512-T+ygFeP2ADTDybURbkD7r/nXyF4SsWLChx2t6cHPxWmPPYKtV4uAJpylyWaeLtrgxgwIG3Z274B0NnhIugtvCw==", "contentType": "text/javascript" },
-  "http://up1.yii.so/canvas-confetti": { "integrity": "sha512-zGbOkdKnWPWCHzRsAads5SBrVdTUw5f3vgma13EJTA32fzSKaKGHu9S5bQRDexlgNtI5smB8syBwTKl87TtWIA==", "contentType": "text/javascript" },
-  "http://up1.yii.so/jianli/static/vercel.png": { "integrity": "sha512-wV/8OUV+65FApYYS91UEYd0cjFIECid4IPIJcfWUKNN71ZgAWUNCguvvx7NvBbqRyfy682Ji+ywJVoRw8S10BA==", "contentType": "image/png" },
-  "version": 1
-}
