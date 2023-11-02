@@ -210,10 +210,6 @@
 >
 > 由于在渲染中展示了antd，这一章将引入semi作为附加案例
 
-（清单待整理）
-
-### 其他
-
 - 组件和优化
   - 图片 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/images))
     - 图片相关配置信息：`@/next.config.js`，见`nextConfig.images`
@@ -262,14 +258,6 @@
     - 服务端懒加载：`@/src/app/optimizing/lazy/server/page.tsx`
     - 懒加载外部库：`@/src/app/optimizing/lazy/external/page.tsx`
     - ---- 分割线 ----
-- 配置文件
-  - 环境变量 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/env))
-    - 示例：`@/src/app/env`，配置文件：`@/.env*`
-    - Node环境变量：开发环境、生产环境、默认环境、覆盖环境变量、环境变量分组
-    - 浏览器环境变量：服务端组件下调用，客户端组件下调用
-    - ---- 分割线 ----
-  - 模块重命名见：`@/tsconfig.json`，TS配置放置后面`nextjs.config.js`一起总结
-  - src目录，正如你看到当前示例，如果初始项目没有选择src目录，后期直接移动目录即可
 - 函数
   - cookies ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/cookies))
     - 包含：获取单个、获取所有、判断存在、设置、删除、设置生命周期、设置有效期
@@ -322,6 +310,24 @@
     - 借助`google analytics`：监听路由`web vitals`作为非交互事件、发送交互事件、监听路由发送监听事件
     - 案例中`NEXT_PUBLIC_GA_ID`，请将自己的`google analytics`代码添加到`env.local`中，仓库没有提供
     - ---- 分割线 ----
+- 案例
+  - semi，由于仓库使用了antd作为演示，另起了一个服务做semi演示
+    - 演示地址：https://codesandbox.io/p/sandbox/semi-ui-zhu-ti-qie-huan-45cg5l
+    - 包含了主题引入、通过`next-themes`（[查看](https://github.com/pacocoursey/next-themes)）进行主题切换
+    - 为了避免主题切换闪烁，采用了`HomeDash`（[查看](https://github.com/hamster1963/HomeDash)）的解决方案，将主题挂载到HTML下，而非官方目前推荐的body下
+    - 主题切换原理：通过`script`阻塞渲染，直到`<html>`挂载主题为止，要验证防闪烁，请拷贝演示代码到本地product (`npm run start`)下运行，因为`dev`在`script`阻塞之前会阻塞所有渲染
+    - ---- 分割线 ----
+
+### 环境配置
+
+- 配置文件
+  - 环境变量 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/env))
+    - 示例：`@/src/app/env`，配置文件：`@/.env*`
+    - Node环境变量：开发环境、生产环境、默认环境、覆盖环境变量、环境变量分组
+    - 浏览器环境变量：服务端组件下调用，客户端组件下调用
+    - ---- 分割线 ----
+  - 模块重命名见：`@/tsconfig.json`，TS配置放置后面`nextjs.config.js`一起总结
+  - src目录，正如你看到当前示例，如果初始项目没有选择src目录，后期直接移动目录即可
 - `next.config.js`配置 ([查看](https://github.com/cgfeel/next.v2/blob/master/next.config.js))
   - 配置文件按照属性名先后顺序排列，函数属性放置在属性名后
   - 包括：`appDir`、`assetPrefix`、`basePath`、`compress`、`devIndicators`、`distDir`、`env`、`eslint`、`generateEtags`、`keepAlive`、`mdxRs`、`onDemandEntries`、`poweredByHeader`、`productionBrowserSourceMaps`、`reactStrictMode`、`trailingSlash`
@@ -361,12 +367,6 @@
     - ---- 分割线 ----
     - 坑点1：`mdx`和`nextjs`的TS体操标准不一样，见：`@/src/app/mdx/custom/page.tsx`
     - 坑点2：本地`mdx`必须`client component`否则报错，远程`mdx`基于`next-mdx-remote`，需要`server component`否则报错（或者至少把数据获取`fetch`和`MDXRemote`分开）
-    - ---- 分割线 ----
-  - semi，由于仓库使用了antd作为演示，另起了一个服务做semi演示
-    - 演示地址：https://codesandbox.io/p/sandbox/semi-ui-zhu-ti-qie-huan-45cg5l
-    - 包含了主题引入、通过`next-themes`（[查看](https://github.com/pacocoursey/next-themes)）进行主题切换
-    - 为了避免主题切换闪烁，采用了`HomeDash`（[查看](https://github.com/hamster1963/HomeDash)）的解决方案，将主题挂载到HTML下，而非官方目前推荐的body下
-    - 主题切换原理：通过`script`阻塞渲染，直到`<html>`挂载主题为止，要验证防闪烁，请拷贝演示代码到本地product (`npm run start`)下运行，因为`dev`在`script`阻塞之前会阻塞所有渲染
     - ---- 分割线 ----
  
 ---
