@@ -15,7 +15,12 @@
 
 ### 路由和文件约定（Routing & File Conventions）
 
-2章放在一起看能够相互加深理解：[[Routing](https://nextjs.org/docs/app/building-your-application/routing)]、[[File Conventions](https://nextjs.org/docs/app/api-reference/file-conventions)]
+**包含章节：**：
+
+- [[Routing](https://nextjs.org/docs/app/building-your-application/routing)]
+- [[File Conventions](https://nextjs.org/docs/app/api-reference/file-conventions)]
+
+**示例：**：
 
 - App模式下路由和目录结构
   - 基础路由 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/features))
@@ -123,7 +128,13 @@
 
 ### 数据获取、渲染、缓存（Fetching & Rendering & Caching）
 
-3章放在一起看能够相互加深理解：[[Fetching](https://nextjs.org/docs/app/building-your-application/data-fetching)]、[[Rendering](https://nextjs.org/docs/app/building-your-application/rendering)]、[[caching](https://nextjs.org/docs/app/building-your-application/caching)]
+**包含章节：**：
+
+- [[Fetching](https://nextjs.org/docs/app/building-your-application/data-fetching)]
+- [[Rendering](https://nextjs.org/docs/app/building-your-application/rendering)]
+- [[caching](https://nextjs.org/docs/app/building-your-application/caching)]
+
+**示例：**：
 
 - 数据获取
   - 数据获取和缓存 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch))
@@ -204,11 +215,19 @@
  
 ### 样式、优化、组件、函数（Styling & Optimizing & Compoonents & Functions）
 
-4章放在一起看能够相互加深理解：[[Styling](https://nextjs.org/docs/app/building-your-application/styling)]、[[Optimizing](https://nextjs.org/docs/app/building-your-application/optimizing)]、[[Components](https://nextjs.org/docs/app/api-reference/components)]、[[Functions](https://nextjs.org/docs/app/api-reference/functions)]
+**包含章节：**：
 
-> 其中函数这部分作为本篇章和以上所有内容的概述，更适合Optimizing（优化）所以归纳在一起；而样式和组件关联系更大，组件仍旧和优化紧密关联，因此也放在一起总结；而优化中元数据（Metadata）在文件约定也有相关内容，为了便于理解也归纳在优化分类中
->
+- [[Styling](https://nextjs.org/docs/app/building-your-application/styling)]
+- [[Optimizing](https://nextjs.org/docs/app/building-your-application/optimizing)]
+- [[Components](https://nextjs.org/docs/app/api-reference/components)]
+- [[Functions](https://nextjs.org/docs/app/api-reference/functions)]
+
+> 其中函数这部分作为本篇章和以上所有内容的概述，更适合Optimizing（优化）所以归纳在一起；
+> 而样式和组件关联系更大，组件仍旧和优化紧密关联，因此也放在一起总结；
+> 而优化中元数据（Metadata）在文件约定也有相关内容，为了便于理解也归纳在优化分类中
 > 由于在渲染中展示了antd，这一章将引入semi作为附加案例
+
+**示例：**：
 
 - 组件和优化
   - 图片 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/images))
@@ -318,7 +337,14 @@
     - 主题切换原理：通过`script`阻塞渲染，直到`<html>`挂载主题为止，要验证防闪烁，请拷贝演示代码到本地product (`npm run start`)下运行，因为`dev`在`script`阻塞之前会阻塞所有渲染
     - ---- 分割线 ----
 
-### 环境配置
+### 环境配置（Configuring & next.config.js）
+
+**包含章节：**
+
+- [[Configuring](https://nextjs.org/docs/app/building-your-application/configuring)]
+- [[next.config.js](https://nextjs.org/docs/app/api-reference/next-config-js)]
+
+**示例：**
 
 - 配置文件
   - 环境变量 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/env))
