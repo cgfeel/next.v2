@@ -15,63 +15,76 @@
 
 ### 路由和文件约定（Routing & File Conventions）
 
-**包含章节：**：
+**包含章节：**
 
 - [[Routing](https://nextjs.org/docs/app/building-your-application/routing)]
 - [[File Conventions](https://nextjs.org/docs/app/api-reference/file-conventions)]
 
-**示例：**：
+**示例：**routing-file
+
+**示例：**
 
 - App模式下路由和目录结构
-  - 基础路由 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/features))
-    - 文件划分：`layout`、`page`，
-    - 1级目录：`@/src/app/features/`
-    - 2级目录：`@/src/app/features/metadata/`
-    - `_`前缀目录：（目录位置修改中...）
+  - 基础路由 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/features))
+    - 包含：`layout`、`page`，
+    - 1级目录：`/routing-file/src/app/features`
+    - 2级目录：`/routing-file/src/app/features/metadata`
+    - `_`前缀目录：`/routing-file/src/app/features/%5Fuser_post-info`
     - ---- 分割线 ----
-  - 链接和导航，目录`@/src/app/dashboard/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/dashboard))
+  - 链接和导航 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/dashboard))
     - 包含：link组件，route跳转，usePathname监听路由变化
+    - 目录：`@/src/app/dashboard/`
     - ---- 分割线 ----
-  - 路由组 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/group))
-    - 路由分组，目录`@/src/app/group/`
-    - 嵌套布局，目录`@/src/app/group/(marketing)/blog`、`@/src/app/group/(shop)/cart`
+  - 路由组 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/group))
+    - 路由分组：`/routing-file/src/app/group`
+    - 嵌套布局：
+      - `/routing-file/src/app/group/(marketing)`
+      - `/routing-file/src/app/group/(shop)`
     - ---- 分割线 ----
-  - 动态路由`@/src/app/posts/` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/posts))
-    - 监听动态路由变化：`@/src/app/posts/[pid]/layout.tsx`
-    - 动态路由：`@/src/app/posts/[pid]`
-    - 嵌套路由：`@/src/app/posts/user/[...uid]`
-    - 可选嵌套路由：`@/src/app/posts/shop/[[...slug]]`
+  - 动态路由 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/posts))
+    - 目录：`/routing-file/src/app/posts`
+    - 监听动态路由变化：
+      - `/routing-file/src/app/posts/layout.tsx`
+      - `/routing-file/src/app/posts/components/NavigationEvent.ts`
+      - 注意：`usePathname`所在的组件需要通过`Suspense`包裹，以便拿到叶子节点的`pathname`
+    - 动态路由：`/routing-file/src/app/posts/[pid]`
+    - 嵌套路由：`/routing-file/src/app/posts/user/[...uid]`
+    - 可选嵌套路由：`routing-file/src/app/posts/shop/[[...slug]]`
     - ---- 分割线 ----
-  - loading和自定义数据流
-    - loading，目录：`@/src/app/posts/[pid]` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/posts/%5Bpid%5D))
-    - 自定义数据流，目录：`@/src/app/posts/user/[...uid]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/user/%5B...uid%5D/page.tsx))
+  - loading和自定义数据流 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/posts))
+    - loading，目录：`/routing-file/src/app/posts/[pid]`
+    - 自定义数据流，目录：`/routing-file/src/app/posts/user/[...uid]`
+    - ---- 附加案例 ----
+    - 标签筛选内容+加载提示+错误fallback+断网fallback (包含cookies设置)： ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/post))
+      - 目录：`/rendering/src/app/fetch/server-action/post` ([预览](#筛选列表-案例))
     - ---- 分割线 ----
-  - error组件 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/error))
-    - 捕获子级layout，目录：`@/src/app/error/global`
-    - 捕获同级page，目录：`@/src/app/error/path`
-    - 向上抛出异常，目录：`@/src/app/error/up`
-    - 跟目录捕获子级异常，目录：`@/src/app/error.tsx`
-    - 捕获跟目录异常，目录：`@/src/app/global-error.tsx`
+  - error组件 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/error))
+    - 捕获子级layout错误：`/routing-file/src/app/error/global`
+    - 捕获同级page，目录：`/routing-file/src/app/error/path`
+    - 向上抛出异常，目录：`/routing-file/src/app/error/up`
+    - ---- `app`根目录 ----
+    - 跟目录捕获子级异常，目录：`/routing-file/src/app/error.tsx`
+    - 捕获跟目录异常，目录：`/routing-file/src/app/global-error.tsx`
     - ---- 分割线 ----
-  - 插槽和平行路由 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/dashboard))
-    - 平行路由，目录`@/src/app/dashboard`
-    - 插槽：`@/src/app/dashboard/layout.tsx`
-    - 平行路由和`subroot`下的`page.tsx`会自动注入到`dashboard`下的`layout.tsx`
+  - 插槽和平行路由 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/dashboard))
+    - 目录：`/routing-file/src/app/dashboard`
+    - 平行路由下的`page.tsx`会自动注入到`dashboard`下的`layout.tsx`
     - ---- 分割线 ----
-  - 路由拦截 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/photo))
-    - 目录下`@/src/app/photo/@model/(.)photos/[id]`会主动拦截上级目录`@/src/app/photo/photos/[id]`
-    - 通过`@model/default.ts`返回`null`，阻止插槽自动注入
-    - 从首页打开拦截的照片弹窗，刷新页面将不再被拦截，主动展示详情页 ([查看示例](#路由拦截器-案例))
+  - 路由拦截 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/photo))
+    - 拦截目录：`@/src/app/photo/@model/(.)photos/[id]`
+    - 拦截目标：`@/src/app/photo/photos/[id]`，（`noscript`和直接访问）
+    - 通过`/routing-file/src/app/photo/@modal/default.tsx`返回`null`，阻止插槽自动注入
+    - 总结 ([查看示例](#路由拦截器-案例))
     - ---- 分割线 ----
-  - Api路由 ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/api))
-    - 静态Api：`@/src/app/api/items/route.tsx`
-    - 模拟错误：`@/src/app/api/error/route.tsx`
+  - Api路由 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/api))
+    - 静态Api：`/routing-file/src/app/api/items/route.ts`
+    - 模拟错误：`/routing-file/src/app/api/error`
     - 包含：不同请求处理（`POST`、`GET`）、获取`URI`、获取`COOKIES`、获取`header`
     - ---- 分割线 ----
-    - 动态Api、获取请求、跨域：`@/src/app/api/items/[slug]/route.tsx`
-    - 跳转Api：`@/src/app/api/redirect/route.tsx`
-    - Api数据流：`@/src/app/api/stream/route.tsx`
-    - 静态资源响应：`@/src/app/api/rss.xml/route.tsx`
+    - 动态Api、获取请求、跨域：`/routing-file/src/app/api/items/[slug]`
+    - 跳转Api：`/routing-file/src/app/api/redirect`
+    - 数据流：`/routing-file/src/app/api/stream`
+    - 静态资源响应：`/routing-file/src/app/api/rss.xml`
     - ---- 分割线 ----
     - Api Route在安全设计上的理解 ([查看](#api-route在安全设计上的理解))
     - ---- 分割线 ----
