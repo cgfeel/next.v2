@@ -85,58 +85,59 @@
     - 跳转Api：`/routing-file/src/app/api/redirect`
     - 数据流：`/routing-file/src/app/api/stream`
     - 静态资源响应：`/routing-file/src/app/api/rss.xml`
+    - 总结：Api Route在安全设计上的理解 ([查看](#api-route在安全设计上的理解))
     - ---- 分割线 ----
-    - Api Route在安全设计上的理解 ([查看](#api-route在安全设计上的理解))
-    - ---- 分割线 ----
-    - 草稿模式：`@/src/app/api/draft` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/api/draft))
-    - 测试Page：`@/src/app/blog/draft/page.tsx`
-    - 文档中草稿模式归类在配置文件，但更符合Api路由
-    - ---- 分割线 ----
-  - 中间件：`@/src/middleware.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/middleware.ts))
+  - 中间件 ([查看](https://github.com/cgfeel/next.v2/blob/master/routing-file/src/middleware.ts))
+    - 目录：`/routing-file/src/middleware.ts`
     - 包含：路由重定向、重写url、获取header、设置header、设置cookies
     - ---- 分割线 ----
-  - 本地化，目录：`@/src/app/lang/[slug]` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/lang/%5Bslug%5D))
-    - 只做了本地化词典本分
+  - 本地化，只做了本地化词典本分 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/lang/%5Bslug%5D))
+    - 目录：`/routing-file/src/app/lang/[slug]`
     - 还剩余两个方法`middleware`和`generateStaticParams`，由于需要调整目录结构会和当前实例冲突，目前不做演示
     - ---- 分割线 ----
-  - default.js
-    - 官方文档一直提示文档整理中
-    - 这里说一个场景，在上面路由拦截中，`@`开头的目录中，为了防止路由段下page默认渲染，添加一个default.tsx，返回`null`来阻塞
-    - 目录整理中。。。
+  - default.js ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/photo))
+    - 案例，路由拦截：`/routing-file/src/app/photo/@modal`
+    - 这里说一个场景，在路由拦截中（`@`开头的目录），为了防止路由段下page默认渲染，添加一个`default.tsx`，返回`null`来阻塞
     - ---- 分割线 ----
-  - not-found.js ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/file))
-    - 捕获全局：`@/src/app/not-found.tsx`
-    - 捕获当前路段：`@/src/app/file`
-    - 捕获：`@/src/app/file/[not]/page.tsx`
-    - 捕获全局404：`@/src/app/[...slug]`
-    - 场景复现：`@/src/app/power`
+  - not-found.js ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/file))
+    - 捕获当前路段：`/routing-file/src/app/file`
+    - 发起捕获：`/routing-file/src/app/file/[not]`
+    - 权限场景示范：`/routing-file/src/app/file/power`
+    - --- `app`根目录 ---
+    - 捕获全局：`/routing-file/src/app/not-found.tsx`
+    - 捕获全局404：`/routing-file/src/app/[...slug]`
+    - 区别：全局捕获用于接受所有路由段下抛出的`not-found`，而全局404用于捕获未知路由段提供统一展示页面
+    - ---- 分割线 ----
     - 总结 ([查看](#not-foundtsx-总结))
     - ---- 分割线 ----
-  - 路由段配置 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/file/dynamic))
+  - 路由段配置 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/file/dynamic))
     - `dynamic`
-      - 默认情况：`@/src/app/file/dynamic/(auto)`
-      - 强制不缓存、强制请求不缓存：`@/src/app/file/dynamic/(force-dynamic)`
-      - `error`静态模式、请求静态模式、`SSG`静态模式下允许动态参数（默认`error`模式下为静态）：`@/src/app/file/dynamic/(error)`
-      - 强制静态模式（`cookie`、`header`、`searchParams`为空）：`@/src/app/file/dynamic/(force-static)`
+      - 默认情况：`/routing-file/src/app/file/dynamic/(auto)`
+      - 强制不缓存、强制请求不缓存：`/routing-file/src/app/file/dynamic/(force-dynamic)`
+      - `error`静态模式、请求静态模式、`SSG`静态模式下允许动态参数（默认`error`模式下为静态）：`/routing-file/src/app/file/dynamic/(error)`
+      - 强制静态模式（`cookie`、`header`、`searchParams`为空）：`/routing-file/src/app/file/dynamic/(force-static)`
     - `dynamicParams`：
-      - `SSG`静态模式下允许动态参数：`@/src/app/file/dynamic/(dynamic-params)/in-dynmic-params/[slug]`
-      - `SSG`静态模式下超出参数范围404：`@/src/app/file/dynamic/(dynamic-params)/not-in-dynmic-params/[slug]`
-    - `revalidate`：`@/src/app/file/dynamic/(revalidate)`
+      - `SSG`静态模式下允许动态参数：`/routing-file/src/app/file/dynamic/(dynamic-params)/in-dynmic-params/[slug]`
+      - `SSG`静态模式下超出参数范围404：`/routing-file/src/app/file/dynamic/(dynamic-params)/not-in-dynmic-params/[slug]`
+    - `revalidate`
+      - 目录：`/routing-file/src/app/file/dynamic/(revalidate)`
       - 包含：默认强制缓存、每次请求重新验证、ISR定时重新验证
     - `fetchCache`高级设置覆盖默认缓存行为
-      - 以缓存设置为准：`@/src/app/file/dynamic/(fetch-cache)/fetch-cache`
-      - 默认缓存行为：`@/src/app/file/dynamic/(fetch-cache)/fetch-cache-default-cache`
-      - 使用缓存行为：`@/src/app/file/dynamic/(fetch-cache)/fetch-cache-only-cache`
-      - 强制缓存行为：`@/src/app/file/dynamic/(fetch-cache)/fetch-cache-force-cache`
-      - 默认不缓存行为：`@/src/app/file/dynamic/(fetch-cache)/fetch-cache-default-no-store`
-      - 使用不缓存行为：`@/src/app/file/dynamic/(fetch-cache)/fetch-cache-only-no-store`
-      - 强制不缓存行为：`@/src/app/file/dynamic/(fetch-cache)/fetch-cache-force-no-store`
-    - `runtime`（见元数据优化）：`@/src/app/optimizing/metadata/opengraph/[id]/opengraph-image.tsx`
-    - `generateStaticParams`（`SSG`静态模式），见下方4种模式
-      - `@/src/app/blog/time/[id]/page.tsx`
+      - 以缓存设置为准：`/routing-file/src/app/file/dynamic/(fetch-cache)/fetch-cache`
+      - 默认缓存行为：`/routing-file/src/app/file/dynamic/(fetch-cache)/fetch-cache-default-cache`
+      - 使用缓存行为：`/routing-file/src/app/file/dynamic/(fetch-cache)/fetch-cache-only-cache`
+      - 强制缓存行为：`/routing-file/src/app/file/dynamic/(fetch-cache)/fetch-cache-force-cache`
+      - 默认不缓存行为：`/routing-file/src/app/file/dynamic/(fetch-cache)/fetch-cache-default-no-store`
+      - 使用不缓存行为：`/routing-file/src/app/file/dynamic/(fetch-cache)/fetch-cache-only-no-store`
+      - 强制不缓存行为：`/routing-file/src/app/file/dynamic/(fetch-cache)/fetch-cache-force-no-store`
+    - `runtime`（见元数据优化） ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/optimizing/metadata/opengraph/%5Bid%5D))
+      - 目录：`/optimizing/src/app/optimizing/metadata/opengraph/[id]/opengraph-image.tsx`
+    - `generateStaticParams` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/blog/time/%5Bid%5D))
+      - `/rendering/src/app/blog/time/[id]`
+      - 详细见“数据获取、渲染、缓存”中4种模式
     - 其他，因为是单一例子所以放在`dynamic`的`auto`下
-      - `preferredRegion`：`@/src/app/file/dynamic/(auto)/auto-preferred-region`
-      - `maxDuration`：`@/src/app/file/dynamic/(auto)/auto-max-duration`
+      - `preferredRegion`：`/routing-file/src/app/file/dynamic/(auto)/auto-preferred-region/page.tsx`
+      - `maxDuration`：`/routing-file/src/app/file/dynamic/(auto)/auto-max-duration/page.tsx`
     - ---- 分割线 ----
 
 ### 数据获取、渲染、缓存（Fetching & Rendering & Caching）
@@ -296,6 +297,9 @@
     - 备注：用`get`代替`has`判断cookies，否则在`server action`下报错
     - ---- 分割线 ----
   - draft，草稿模式见当前清单：Api路由 - 草稿模式 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/api/draft))
+    - 草稿模式：`@/src/app/api/draft` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/api/draft))
+    - 测试Page：`@/src/app/blog/draft/page.tsx`
+    - 等待更新中...
   - fetch ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/fetch))
     - 包含：缓存设置、重新校验
     - 视图标签和刷新见当前清单：服务端操作 - 服务端校验表单、设置cookies ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/revalidation))
