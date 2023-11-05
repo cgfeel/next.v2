@@ -20,7 +20,7 @@
 - [[Routing](https://nextjs.org/docs/app/building-your-application/routing)]
 - [[File Conventions](https://nextjs.org/docs/app/api-reference/file-conventions)]
 
-**示例：**routing-file
+**示例：** routing-file
 
 **示例：**
 
