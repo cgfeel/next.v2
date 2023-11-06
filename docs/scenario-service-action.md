@@ -37,3 +37,15 @@ https://github.com/cgfeel/next.v2/assets/578141/11d3c7ab-5908-47c4-8522-f6c890cf
  - 以上就是2天下来的总结，特地附加一段demo：`@/src/app/fetch/server-action/test/demo1`  ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/test/demo1))
 
 > 注：官方文档中有提到，能够使用`not-found`解决的场景优先使用`not-found`
+
+## 案例3-迭代更新
+
+现已知Server Action有两种方式，一种是函数式放在components中，一种是单独的文件式。那么他们有什么区别呢？官方文档没有说明，我通过下面的场景来告诉你。
+
+还是字节大佬提供的场景，在一个超大型的环境情况下去更新线上版本，可能会遇到下面几个问题：
+
+1. 在线几万人的项目，当你修改了action（例如: form submit, click event），那么在之前版本中，没有来得及刷新网页的在线用户，如何正确操作和反馈？
+2. 在一个超大的项目中，一次版本迭代，可能来自不同项目，不同链路，一次发版就是2小时，那么不同区域的用户如何真确操作和反馈？
+3. 如果更新需要启用新的URL怎么办？
+
+在思考问题前，先要明白
