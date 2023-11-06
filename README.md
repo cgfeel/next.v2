@@ -212,7 +212,7 @@
     - localStorage封装：`/rendering/src/utils/storage` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/utils/storage))
     - ---- 分割线 ----
 - 渲染
-  - 整理内容过长，单独总结一章 ([查看](https://github.com/cgfeel/next.v2/blob/master/docs/Rendering.md))
+  - 整理内容过长，单独总结一章 ([查看](https://github.com/cgfeel/next.v2/blob/master/docs/rendering.md))
   - 其中包括的案例有：仅供服务器、客户端操作、上下文配置主题、esbuild配置、服务器组件和客户端组件交叉嵌套、运行时
   - 不同的渲染模式 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/blog/time))
     - 总结和关系图：
