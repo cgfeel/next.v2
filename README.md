@@ -60,7 +60,7 @@
     - 自定义数据流，目录：`/routing-file/src/app/posts/user/[...uid]`
     - ---- 附加案例 ----
     - 标签筛选内容：loading在error fallback中reset的用处： ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/post))
-      - 目录：`/rendering/src/app/fetch/server-action/post` ([预览](#案例2-筛选列表))
+      - 目录：`/rendering/src/app/fetch/server-action/post` ([预览](https://github.com/cgfeel/next.v2/blob/master/docs/scenario-service-action.md#%E6%A1%88%E4%BE%8B2-%E7%AD%9B%E9%80%89%E5%88%97%E8%A1%A8))
     - ---- 分割线 ----
   - error组件 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/error))
     - 捕获子级layout错误：`/routing-file/src/app/error/global`
@@ -200,8 +200,8 @@
     - ~~服务端非表单进行操作：`/rendering/src/app/fetch/server-action/server-cart/noform`~~ (查看：[路由导航总结](#路由导航缓存总结))
     - ---- 附赠应用场景 ----
     - 客户端轮训：`/rendering/src/app/fetch/server-action/client-cart/noform`
-    - 通过`useTransition`实现的实时搜索预览：`/rendering/src/app/fetch/server-action/client-cart/transition/[...slug]` ([预览](#案例1-实时搜索预览))
-    - 标签筛选内容+加载提示+错误fallback+断网fallback (包含cookies设置)：`/rendering/src/app/fetch/server-action/post` ([预览](#案例2-筛选列表))
+    - 通过`useTransition`实现的实时搜索预览：`/rendering/src/app/fetch/server-action/client-cart/transition/[...slug]` ([预览](https://github.com/cgfeel/next.v2/blob/master/docs/scenario-service-action.md#%E6%A1%88%E4%BE%8B1-%E5%AE%9E%E6%97%B6%E6%90%9C%E7%B4%A2%E9%A2%84%E8%A7%88))
+    - 标签筛选内容+加载提示+错误fallback+断网fallback (包含cookies设置)：`/rendering/src/app/fetch/server-action/post` ([预览](https://github.com/cgfeel/next.v2/blob/master/docs/scenario-service-action.md#%E6%A1%88%E4%BE%8B2-%E7%AD%9B%E9%80%89%E5%88%97%E8%A1%A8))
     - 迭代更新，官网文档不会告诉你的技巧：(总结中...)
     - ---- 分割线 ----
   - 附加案例
@@ -250,7 +250,7 @@
       - 目录：`/rendering/src/app/link`
       - 总结 ([查看](#路由导航缓存总结))
     - 刷新error fallback视图 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/post))
-      - 目录：`/rendering/src/app/fetch/server-action/post` ([预览](#案例2-筛选列表))
+      - 目录：`/rendering/src/app/fetch/server-action/post` ([预览](https://github.com/cgfeel/next.v2/blob/master/docs/scenario-service-action.md#%E6%A1%88%E4%BE%8B2-%E7%AD%9B%E9%80%89%E5%88%97%E8%A1%A8))
     - ---- 分割线 ----
 
 以下清单目录还在继续整理...
