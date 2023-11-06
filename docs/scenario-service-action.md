@@ -1,6 +1,6 @@
 # Server Action应用场景
 
-## 实时搜索预览-案例
+## 案例1：实时搜索预览
 
 目录：`@/src/app/fetch/server-action/client-cart/transition/[...slug]` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/client-cart/transition/%5B...slug%5D))
 
