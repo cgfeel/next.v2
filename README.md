@@ -20,7 +20,11 @@
 - [[Routing](https://nextjs.org/docs/app/building-your-application/routing)]
 - [[File Conventions](https://nextjs.org/docs/app/api-reference/file-conventions)]
 
-**示例：** routing-file
+**运行环境：** 
+
+- 路径：`/routing-file` ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file))
+- NodeJS：`v18.13.0`
+- NextJS：`13.5.6`
 
 **示例：**
 
@@ -140,8 +144,6 @@
       - `maxDuration`：`/routing-file/src/app/file/dynamic/(auto)/auto-max-duration/page.tsx`
     - ---- 分割线 ----
 
-以下清单目录还在继续整理...
-
 ### 数据获取、渲染、缓存（Fetching & Rendering & Caching）
 
 **包含章节：**：
@@ -150,84 +152,108 @@
 - [[Rendering](https://nextjs.org/docs/app/building-your-application/rendering)]
 - [[caching](https://nextjs.org/docs/app/building-your-application/caching)]
 
-**示例：**：
+**运行环境：** 
+
+- 路径：`/rendering` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering))
+- NodeJS：`v18.13.0`
+- NextJS：`13.5.6`
+
+**示例：**
 
 - 数据获取
-  - 数据获取和缓存 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch))
-    - server components中获取数据：`@/src/app/fetch/page.tsx`
+  - 数据获取和缓存 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch))
+    - server components中获取数据：`/rendering/src/app/fetch/page.tsx`
     - 缓存配置
-      - 路由段配置：`@/src/app/fetch/revalidate/[id]/page.tsx`
-      - fetch配置：`@/src/app/file/dynamic/(error)/error-fetch/page.tsx`、`@/src/app/file/dynamic/(force-dynamic)/force-dynamic-revalidate`
-      - 更多见路由段配置：`@/src/app/file/dynamic`
+      - 路由段配置：`/rendering/src/app/fetch/revalidate/[id]`
+      - ---- routing-file ----
+      - fetch配置强制缓存：`/routing-file/src/app/file/dynamic/(error)/error-fetch/page.tsx`
+      - fetch配置不缓存：`/routing-file/src/app/file/dynamic/(force-dynamic)/force-dynamic-revalidate`
+      - 更多见路由段配置： ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/file/dynamic))
     - ---- 分割线 ----
   - 重新验证
-    - `fetch`不缓存：`@/src/app/blog/time/isr`
-    - 定时重新验证：`@/src/app/blog/time/isr/revalidate`
-    - 缓存标签按需验证：`@/src/app/fetch/server-action/revalidation`
-    - 路径按需验证：`@/src/app/file/power/(list)/[slug]`
+    - 定时重新验证：`/rendering/src/app/blog/time/isr/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/blog/time/isr/%5Bid%5D))
+    - 缓存标签按需验证：`/rendering/src/app/fetch/server-action/revalidation` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/revalidation))
+    - 路径按需验证：`/routing-file/src/app/file/power/(list)/[slug]` ([查看](https://github.com/cgfeel/next.v2/blob/master/routing-file/src/app/file/power/(list)/%5Bslug%5D/page.tsx))
     - ---- 分割线 ----
-  - 数据获取模式
-    - 顺序请求+预加载数据：`@/src/app/fetch/sequential/[id]`
-    - 顺序请求+`suspense`优先渲染：`@/src/app/fetch/suspense/[id]`
-    - 并行请求：`@/src/app/fetch/parallel/[id]/page.tsx`
-    - `server-only`仅在服务端：`@/src/app/lang/[slug]/dictionaries.ts`
-    - 数据缓存详细见缓存部分：`@/src/app/fetch/cache/`
+  - 数据获取模式 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch))
+    - 顺序请求+预加载数据：`/rendering/src/app/fetch/sequential/[id]`
+    - 顺序请求+`suspense`优先渲染：`/rendering/src/app/fetch/suspense/[id]`
+    - 并行请求：`/rendering/src/app/fetch/parallel/[id]`
+    - 数据缓存详细见：`/rendering/src/app/fetch/cache`
+    - ---- 附加案例 ----
+    - `server-only`仅在服务端：`/routing-file/src/app/lang/[slug]` ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/lang/%5Bslug%5D))
     - ---- 分割线 ----
-  - 服务端操作 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action))
-    - 服务端操作（`Server-only Forms`）：`@/src/app/fetch/server-action/server-cart`
-    - 服务端操作提交后重新渲染视图：`@/src/app/fetch/server-action/revalidation`
-    - 客户端操作：`@/src/app/fetch/server-action/client-cart`
-    - 除表单外通过`startTransition`进行操作：`@/src/app/fetch/server-action/client-cart/transition`
-    - 除`startTransition`外，非表单操作：`@/src/app/fetch/server-action/custom/[id]`
-    - 服务端校验表单 + 设置cookies：`@/src/app/fetch/server-action/validation`
-    - 通过实验性Api (experimental_useFormStatus) 处理loading + Error处理 + 重定向：`@/src/app/fetch/server-action/test/form-submit`
+  - 服务端操作 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action))
+    - 服务端操作（`Server-only Forms`）：`/rendering/src/app/fetch/server-action/server-cart`
+    - 服务端操作提交后重新渲染视图：`/rendering/src/app/fetch/server-action/revalidation`
+    - 客户端操作：`/rendering/src/app/fetch/server-action/client-cart`
+    - 除表单外通过`startTransition`进行操作：`/rendering/src/app/fetch/server-action/client-cart/transition`
+    - 除`startTransition`外，非表单操作：`/rendering/src/app/fetch/server-action/custom/[id]`
+    - 服务端校验表单 + 设置cookies：`/rendering/src/app/fetch/server-action/validation`
+    - 通过实验性Api (experimental_useFormStatus) 处理loading + Error处理 + 重定向：`/rendering/src/app/fetch/server-action/test/form-submit`
     - Zod数据校验，提供3个例子：
-      - client validate + route validate: `@/src/app/fetch/server-action/test/zod/user-info`
-      - server validate + route validate: `@/src/app/fetch/server-action/test/zod/user-info-server`
-      - todolist (含错误处理): `@/src/app/fetch/server-action/test/zod/todolist`
-    - 通过`useOptimistic`乐观更新：`@/src/app/fetch/server-action/optimistic`
+      - client validate + route validate: `/rendering/src/app/fetch/server-action/test/zod/user-info`
+      - server validate + route validate: `/rendering/src/app/fetch/server-action/test/zod/user-info-server`
+      - todolist (含错误处理): `/rendering/src/app/fetch/server-action/test/zod/todolist`
+    - 通过`useOptimistic`乐观更新：`/rendering/src/app/fetch/server-action/optimistic`
     - 总结 ([查看](#nextjs-server-action总结))
-    - ~~服务端非表单进行操作：`@/src/app/fetch/server-action/server-cart/noform`~~ (查看：[路由导航总结](#路由导航缓存总结))
+    - ~~服务端非表单进行操作：`/rendering/src/app/fetch/server-action/server-cart/noform`~~ (查看：[路由导航总结](#路由导航缓存总结))
     - ---- 附赠应用场景 ----
-    - 客户端轮训：`@/src/app/fetch/server-action/client-cart/noform`
-    - 通过`useTransition`实现的实时搜索预览：`@/src/app/fetch/server-action/client-cart/transition/[...slug]` ([预览](#实时搜索预览-案例))
-    - 标签筛选内容+加载提示+错误fallback+断网fallback (包含cookies设置)：`@/src/app/fetch/server-action/post` ([预览](#筛选列表-案例))
-  - ---- 附加案例 ----
-  - swr：`@/src/app/posts/list/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/posts/list/%5Bid%5D/page.tsx))
-  - HTTP库，封装`umi-request`，3种模式（SSR、SSG、CSR）下均可使用，对于非`client component`下配合`deviceStorage`能够作为代替`swr`的一种解决方案：`@/src/utils/api.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/api.ts))
-  - localStorage封装：`@/src/utils/storage/deviceStorage.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/storage/deviceStorage.ts))
+    - 客户端轮训：`/rendering/src/app/fetch/server-action/client-cart/noform`
+    - 通过`useTransition`实现的实时搜索预览：`/rendering/src/app/fetch/server-action/client-cart/transition/[...slug]` ([预览](#实时搜索预览-案例))
+    - 标签筛选内容+加载提示+错误fallback+断网fallback (包含cookies设置)：`/rendering/src/app/fetch/server-action/post` ([预览](#筛选列表-案例))
+    - 迭代更新，官网文档不会告诉你的技巧：(总结中...)
+    - ---- 分割线 ----
+  - 附加案例
+    - swr：`/rendering/src/app/fetch/client/list/[id]` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/client/list/%5Bid%5D))
+    - HTTP库，封装`umi-request` ([查看](https://github.com/cgfeel/next.v2/blob/master/rendering/src/utils/api.ts))
+      - 目录：`/rendering/src/utils/api.ts`
+      - 3种模式（SSR、SSG、CSR）下均可使用，对于非`client component`下配合`deviceStorage`能够作为代替`swr`的一种解决方案
+    - localStorage封装：`/rendering/src/utils/storage` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/utils/storage))
+    - ---- 分割线 ----
 - 渲染
   - 整理内容过长，单独总结一章 ([查看](https://github.com/cgfeel/next.v2/blob/master/docs/Rendering.md))
   - 其中包括的案例有：仅供服务器、客户端操作、上下文配置主题、esbuild配置、服务器组件和客户端组件交叉嵌套、运行时
-  - 4个不同的模式，说明和关系图 ([查看](#nextjs-4个模式的关系))
-    - SSR模式：`@/src/app/blog/time/page.tsx`，`page`和`fetch`均为`SSR` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/page.tsx))
-    - CSR模式：`@/src/app/blog/time/client/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/client/page.tsx))
-    - SSG模式：`@/src/app/blog/time/[id]/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/%5Bid%5D/page.tsx))
+  - 不同的渲染模式 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/blog/time))
+    - 总结和关系图：
+      - 23.11.6更新总结（更新中...）
+      - nextjs-4个模式的关系 ([查看](#nextjs-4个模式的关系))
+    - SSR模式：`/rendering/src/app/blog/time/page.tsx`
+    - CSR模式：`/rendering/src/app/blog/time/client`
+    - SSG模式：`/rendering/src/app/blog/time/[id]`
       - 访问时`[id] = 1`，则`page`和`fetch`均为`SSG`
       - 访问时`[id] > 1`，则`page`为`SSR`，`fetch`缓存为`SSG`
-    - ISR模式：`@/src/app/blog/time/isr/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/blog/time/isr/%5Bid%5D/page.tsx))
+    - ISR模式：`/rendering/src/app/blog/time/isr/[id]`
       - 访问时`[id] = 1`，则`page`和`fetch`均为`SSG`
       - 访问时`[id] > 1`，则通过`revalidate`缓存为`ISR`
-  - ---- 附加案例 ----
-  - antd，演示服务器渲染中通过Provider提供context
-    - 服务端渲染配置文件：`@/src/lib`、`@/src/app/layout.tsx` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/lib))
-    - 实时搜索示例：`@/src/app/fetch/server-action/client-cart/transition/[...slug]` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/client-cart/transition/%5B...slug%5D))
+    - 补充：SSG超出范围404 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/file/dynamic/(dynamic-params)/not-in-dynmic-params/%5Bslug%5D))
+      - 目录：`/routing-file/src/app/file/dynamic/(dynamic-params)/not-in-dynmic-params/[slug]`
+  - 附加案例
+    - antd，演示服务器渲染中通过Provider提供context
+      - 渲染配置：`/rendering/src/lib` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/lib))
+      - 根布局引入：`/rendering/src/app/layout.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/rendering/src/app/layout.tsx))
+      - 案例，实时搜索：`/rendering/src/app/fetch/server-action/client-cart/transition` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/client-cart/transition))
     - ---- 分割线 ----
-- 缓存 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/cache))
-  - 请求树：`@/src/app/fetch/cache/page.tsx`
-  - 服务组件到客服组件：`@/src/app/fetch/cache/client`
-  - 不缓存：`@/src/app/fetch/cache/nostore`
-  - POST缓存：`@/src/app/fetch/cache/post`
-  - 预缓存：`@/src/app/fetch/cache/preload`
-  - 通过react缓存：`@/src/app/fetch/cache/react-cache`
-  - ISR：`@/src/app/blog/time/isr`
+- 缓存 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/cache))
+  - 请求树：
+    - `/rendering/src/app/fetch/cache/layout.tsx`
+    - `/rendering/src/app/fetch/cache/page.tsx`
+  - 服务组件到客服组件：`/rendering/src/app/fetch/cache/client`
+  - 不缓存：`/rendering/src/app/fetch/cache/nostore`
+  - POST缓存：`/rendering/src/app/fetch/cache/post`
+  - 预缓存：`/rendering/src/app/fetch/cache/preload`
+  - 通过react缓存：`/rendering/src/app/fetch/cache/react-cache`
+  - ISR：`/rendering/src/app/blog/time/isr/[id]` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/blog/time/isr/%5Bid%5D))
   - 总结 ([查看](#nextjs-缓存总结))
-  - ---- 附加案例 ----
-  - 路由导航的缓存和视图刷新 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/link))
-    - 目录：`@/src/app/link`
-    - 这部分是文档没有的，因为我发现`NextJS`路由导航缓存存在坑点，单独加了示例
-    - 总结 ([查看](#路由导航缓存总结))
+  - 附加案例
+    - 路由导航的缓存和视图刷新 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/link))
+      - 目录：`/rendering/src/app/link`
+      - 总结 ([查看](#路由导航缓存总结))
+    - 刷新error fallback视图 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/post))
+      - 目录：`/rendering/src/app/fetch/server-action/post` ([预览](#筛选列表-案例))
     - ---- 分割线 ----
+
+以下清单目录还在继续整理...
  
 ### 样式、优化、组件、函数（Styling & Optimizing & Compoonents & Functions）
 
