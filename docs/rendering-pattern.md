@@ -8,7 +8,7 @@
   - 动态目录：`/demo/[slug]`[[总结-目录部分](https://github.com/cgfeel/next.v2/blob/master/README.md#%E8%B7%AF%E7%94%B1%E5%92%8C%E6%96%87%E4%BB%B6%E7%BA%A6%E5%AE%9Arouting--file-conventions)]
   - 路由段声明：`export const dynamic = 'force-dynamic';` [[总结-路由段部分](https://github.com/cgfeel/next.v2/blob/master/README.md#%E8%B7%AF%E7%94%B1%E5%92%8C%E6%96%87%E4%BB%B6%E7%BA%A6%E5%AE%9Arouting--file-conventions)]
   - 动态函数：`header`、`cookies`... [[总结-函数部分](https://github.com/cgfeel/next.v2/blob/master/README.md#%E6%A0%B7%E5%BC%8F%E4%BC%98%E5%8C%96%E7%BB%84%E4%BB%B6%E5%87%BD%E6%95%B0styling--optimizing--compoonents--functions)]
-- 关于服务端`fetch`
+- 关于服务端`fetch` [[总结](https://github.com/cgfeel/next.v2/blob/master/README.md#%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96%E6%B8%B2%E6%9F%93%E7%BC%93%E5%AD%98fetching--rendering--caching)]
   - `fetch`和视图(component tree)是两条单独的缓存路线
   - `fetch`默认也是在构建时静态缓存，一旦缓存之后所有请求都直接从缓存中读取给出响应
   - 除非声明fetch动态渲染：`cache`、`revalidate`
