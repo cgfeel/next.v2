@@ -202,7 +202,7 @@
     - 客户端轮训：`/rendering/src/app/fetch/server-action/client-cart/noform`
     - 通过`useTransition`实现的实时搜索预览：`/rendering/src/app/fetch/server-action/client-cart/transition/[...slug]` ([预览](https://github.com/cgfeel/next.v2/blob/master/docs/scenario-service-action.md#%E6%A1%88%E4%BE%8B1-%E5%AE%9E%E6%97%B6%E6%90%9C%E7%B4%A2%E9%A2%84%E8%A7%88))
     - 标签筛选内容+加载提示+错误fallback+断网fallback (包含cookies设置)：`/rendering/src/app/fetch/server-action/post` ([预览](https://github.com/cgfeel/next.v2/blob/master/docs/scenario-service-action.md#%E6%A1%88%E4%BE%8B2-%E7%AD%9B%E9%80%89%E5%88%97%E8%A1%A8))
-    - 迭代更新，官网文档不会告诉你的技巧：(总结中...)
+    - 迭代更新，`Server Action`函数式和文件式有什么不同 ([预览](https://github.com/cgfeel/next.v2/blob/master/docs/scenario-service-action.md#%E6%A1%88%E4%BE%8B3-%E8%BF%AD%E4%BB%A3%E6%9B%B4%E6%96%B0))
     - ---- 分割线 ----
   - 附加案例
     - swr：`/rendering/src/app/fetch/client/list/[id]` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/client/list/%5Bid%5D))
