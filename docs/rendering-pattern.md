@@ -3,7 +3,7 @@
 - 总结：NextJS默认以静态模式，或试图最大化静态模式进行渲染
 - 区别
   - 静态渲染：是指在构建时或请求前预先缓存，在下次请求优先读取缓存作为响应
-  - 动态渲染：需要经过服务器进行计算渲染，给出相应结果
+  - 动态渲染：需要经过服务器进行计算渲染，给出响应结果
 - 3种动态渲染行为：
   - 动态目录：`/demo/[slug]`[[总结-目录部分](https://github.com/cgfeel/next.v2/blob/master/README.md#%E8%B7%AF%E7%94%B1%E5%92%8C%E6%96%87%E4%BB%B6%E7%BA%A6%E5%AE%9Arouting--file-conventions)]
   - 路由段声明：`export const dynamic = 'force-dynamic';` [[总结-路由段部分](https://github.com/cgfeel/next.v2/blob/master/README.md#%E8%B7%AF%E7%94%B1%E5%92%8C%E6%96%87%E4%BB%B6%E7%BA%A6%E5%AE%9Arouting--file-conventions)]
