@@ -138,3 +138,10 @@ https://github.com/cgfeel/next.v2/assets/578141/6b3d6ef7-e362-4412-871b-4f240389
 进去后访问`/demo/sub-domain`会重写`/demo/sub`，他们的`server action`指向是一样的
 
 ![2331699347811_ pic_hd](https://github.com/cgfeel/next.v2/assets/578141/1e8b0974-90c8-4944-9634-e84b9e5ef65b)
+
+**写在最后：**
+
+以上能够有效解决`serer action`寻址的问题，为了规范避免出现问题，建议为`componse`下的`server action`规范固定的名字，避免后期因为更新造成寻址操作，重现上述问题。
+
+- 例如可以按照接口分，比如有个动作是关于抢购的，可以叫做：`handle_buyer`，之后无论怎么区分，只要还是抢购这块的请求都统一在`handle_buyer`中处理，除非这个功能不再需要
+- 而至于`componse`下的`server action`引用的`server action`，请随意，他并不会因为版本迭代造成错误
