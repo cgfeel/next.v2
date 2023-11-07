@@ -8,7 +8,7 @@
 - `no-store`模式下，通过`revalidate`实现`ISR`
 - `SSR` + `use client`实现`CSR`，`SSG`在`build`后可采用`CSR`方式对边缘计算做交互
 
-
+---
 
 **~~SSG的坑点：~~**
 
