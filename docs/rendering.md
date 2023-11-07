@@ -1,3 +1,5 @@
+# NextJS渲染
+
 思维导图中的案例：
 
 - 代码仅供服务端使用，多语言字典：@/src/app/lang/[slug] [[查看](https://github.com/cgfeel/next.v2/tree/master/src/app/lang/%5Bslug%5D)]
