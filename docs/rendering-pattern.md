@@ -12,7 +12,7 @@
 
 **~~SSG的坑点：~~**
 
-<font color="red">随着NextJS 14增加的PPR模式，这个坑点将可能不复存在，案例测试后附上</font>
+> ### 随着NextJS 14增加的PPR模式，这个坑点将可能不复存在，案例测试后附上
 
 一旦通过`generateStaticParams`去声明`SSG`渲染，无论是在`page`中，还是在`page`上方的布局中，请不要在服务端去调用`cookies`和`headers`这样的动态函数，否则会报错`[NEXT-1181] DynamicServerError: Dynamic server usage: cookies`，见issue：https://github.com/vercel/next.js/issues/49373
 
