@@ -10,7 +10,7 @@
   - 动态函数：`header`、`cookies`... [[总结-函数部分](https://github.com/cgfeel/next.v2/blob/master/README.md#%E6%A0%B7%E5%BC%8F%E4%BC%98%E5%8C%96%E7%BB%84%E4%BB%B6%E5%87%BD%E6%95%B0styling--optimizing--compoonents--functions)]
 - 关于服务端`fetch`
   - `fetch`和视图(component tree)是两条单独的缓存路线
-  - `fetch`默认也是在构建时静态缓存
+  - `fetch`默认也是在构建时静态缓存，一旦缓存之后所有请求都直接从缓存中读取给出响应
   - 除非声明fetch动态渲染：`cache`、`revalidate`
 - 综上所述，如何判断当前路由段是动态还是静态：
   - 看url对应的目录、看路由段声明、看动态函数、看`fetch`是否有额外声明
