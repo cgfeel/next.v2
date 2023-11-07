@@ -40,7 +40,7 @@ https://github.com/cgfeel/next.v2/assets/578141/11d3c7ab-5908-47c4-8522-f6c890cf
 
 ## 案例3-迭代更新
 
-现已知Server Action有两种方式，一种是函数式放在components中，一种是单独的文件式。那么他们有什么区别呢？官方文档没有说明，我通过下面的场景来告诉你。
+现已知Server Action有两种方式，一种是函数式放在components中，一种是单独的文件式。那么有什么区别呢？官方文档没有说明，我通过下面的场景来告诉你。
 
 还是字节大佬提供的场景，在一个超大型的环境情况下去更新线上版本，可能会遇到下面几个问题：
 
@@ -48,4 +48,78 @@ https://github.com/cgfeel/next.v2/assets/578141/11d3c7ab-5908-47c4-8522-f6c890cf
 2. 在一个超大的项目中，一次版本迭代，可能来自不同项目，不同链路，一次发版就是2小时，那么不同区域的用户如何正确操作和反馈？
 3. 如果更新需要启用新的URL怎么办？
 
-在思考问题前，先要明白
+在思考问题前，先对比下传统方法和Server Action有什么不同
+
+**传统方法：**
+
+- 指定URL接受CURD操作，当一个项目做了变更，只要接受的URL不变，以及请求和返回的数据没有变化，就不受以上3个情况影响
+- 拿到数据后在本地做反馈
+
+**Server Action：**
+
+- 接受一个带有`use server`的函数，不需要第三方URL，提交时指向当前路由端的URL
+- 在发起请求时，会将components tree通过`Next-Router-State-Tree`作为header发送到服务器
+- 发送请求时，会将server action对应的ID通过payload发送作为寻址
+
+![2241699345133_ pic](https://github.com/cgfeel/next.v2/assets/578141/ec298861-d9b7-4f3d-9f61-d986c728f036)
+
+![2251699345134_ pic](https://github.com/cgfeel/next.v2/assets/578141/9219e6fc-a40f-4f59-99d3-1acb9869e3f3)
+
+**产生的问题：**
+
+- 一旦文件发生变更，编译后寻址也将改变，造成之前的用户无法提交
+
+**解决办法：**
+
+- 将`server action`放置在当前的component中去调用
+- 可以是components下的`server action`，也可以是通过components下的`server action`去调用独立的`server action`文件中的函数
+- 这样无论版本如何迭代，`server action`寻址不变
+
+**示例：** `rendering/src/app/fetch/server-action/sub`
+
+**演示：**
+
+- 左边终端第一次编译打印：`form: ${time} -action-1`，退出
+- 进入dev环境，修改文件重新编译，退出
+- 重新进入start环境，发起请求打印：`form: ${time} -subaction`
+- 手动刷新，视图更新，为了证明视图我已更新
+
+https://github.com/cgfeel/next.v2/assets/578141/4a1cdb48-9487-4e27-85ac-2f7823924afd
+
+第一次编译时`page`调用如下
+
+![2271699345655_ pic](https://github.com/cgfeel/next.v2/assets/578141/2890b04e-29ef-4713-9c0b-46d49c225ada)
+
+
+第二次编译时`page`调用如下
+
+![2281699345664_ pic](https://github.com/cgfeel/next.v2/assets/578141/0f68d05a-7ce0-4c99-b37d-ccf1adf75b61)
+
+执行结果：
+
+![2291699345743_ pic](https://github.com/cgfeel/next.v2/assets/578141/94e595c8-a377-4dc2-a4a5-d8b56ac05a98)
+
+**衍生问题1：**
+
+- 如何改变视图，接受的请求和调用的方法不变呢？
+
+**解决：**
+
+- components下的`server action`调用的方法不变即可
+- 结论：组件更新，还是 action 更新，还是两者都更新，在原始页面的在线用户都可以不受影响
+
+https://github.com/cgfeel/next.v2/assets/578141/e60d65b2-ca66-474a-9e9d-aecbbf38c523
+
+**衍生问题2：**
+
+- 那在更新前，在线的用户怎么正确得到反馈呢？
+
+**解决：**
+
+- `server action`正常情况下也不会返回任何数据
+- 服务器需要跟新视图，可以通过`redirect`跳转或`revalidate`去刷新视图
+- 本地通过`router.reflush`更新视图
+
+**NextJS无感刷新视图：**
+
+https://github.com/cgfeel/next.v2/assets/578141/6b3d6ef7-e362-4412-871b-4f240389945b
