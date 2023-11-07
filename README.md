@@ -442,6 +442,14 @@
  
 ---
 
+## 额外总结
+
+- NextJS渲染总结思维导图 ([查看](https://github.com/cgfeel/next.v2/blob/master/docs/rendering.md))
+- NextJS动态渲染和静态渲染总结 ([查看](https://github.com/cgfeel/next.v2/blob/master/docs/rendering-pattern.md))
+- `Server Action`实际应用场景案例 ([查看](https://github.com/cgfeel/next.v2/blob/master/docs/scenario-service-action.md))
+
+---
+
 ## Api Route在安全设计上的理解
 
 - 通过`Api Route`搭建起`BFF`，通过容器内网IP和微服务进行交互，宿主机和外部都不可直接访问微服务容器
