@@ -19,7 +19,7 @@
 - 通过以上总结再来看NextJS的几个渲染模式
   - SSG：静态渲染，包括有`generateStaticParams`和静态的`single page`
   - SSR：含动态路由、方法、声明、动态`fetch`
-  - ISR：缓存带有时间间隔的SSR
+  - ISR：带有时间间隔的缓存SSR
   - CSR：`hydrate`后在`client side`进行`interactive`部分
   - PPR：混合动态和静态渲染部分
 
