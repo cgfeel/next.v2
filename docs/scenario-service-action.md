@@ -75,7 +75,7 @@ https://github.com/cgfeel/next.v2/assets/578141/11d3c7ab-5908-47c4-8522-f6c890cf
 - 可以是components下的`server action`，也可以是通过components下的`server action`去调用独立的`server action`文件中的函数
 - 这样无论版本如何迭代，`server action`寻址不变
 
-**示例：** `rendering/src/app/fetch/server-action/sub`
+**示例：** `rendering/src/app/fetch/server-action/sub` [[查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/sub)]
 
 **演示：**
 
