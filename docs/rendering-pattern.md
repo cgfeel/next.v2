@@ -1,3 +1,28 @@
+## 重新总结
+
+- 总结：NextJS默认以静态模式，或试图最大化静态模式进行渲染
+- 区别
+  - 静态渲染：是指在构建时或请求预先缓存，在下次请求优先读取缓存作为响应
+  - 动态渲染：需要经过服务器进行计算渲染，给出相应结果
+- 3种动态渲染行为：
+  - 动态目录：`/demo/[slug]`[[总结-目录部分](https://github.com/cgfeel/next.v2/blob/master/README.md#%E8%B7%AF%E7%94%B1%E5%92%8C%E6%96%87%E4%BB%B6%E7%BA%A6%E5%AE%9Arouting--file-conventions)]
+  - 路由段声明：`export const dynamic = 'force-dynamic';` [[总结-路由段部分](https://github.com/cgfeel/next.v2/blob/master/README.md#%E8%B7%AF%E7%94%B1%E5%92%8C%E6%96%87%E4%BB%B6%E7%BA%A6%E5%AE%9Arouting--file-conventions)]
+  - 动态函数：`header`、`cookies`... [[总结-函数部分](https://github.com/cgfeel/next.v2/blob/master/README.md#%E6%A0%B7%E5%BC%8F%E4%BC%98%E5%8C%96%E7%BB%84%E4%BB%B6%E5%87%BD%E6%95%B0styling--optimizing--compoonents--functions)]
+- 关于服务端`fetch`
+  - `fetch`和视图(component tree)是两条单独的缓存路线
+  - `fetch`默认也是在构建时静态缓存
+  - 除非声明fetch动态渲染：`cache`、`revalidate`
+- 综上所述，如何判断当前路由段是动态还是静态：
+  - 看url对应的目录、看路由段声明、看动态函数、看`fetch`是否有额外声明
+  - 如果都没有，那么就是静态
+  - 再回下自己的业务页面所需哪些功能，采用哪种渲染是不是清晰多了？
+- 通过以上总结再来看NextJS的几个渲染模式
+  - SSG：静态渲染，包括有`generateStaticParams`和静态的`single page`
+  - SSR：含动态路由、方法、声明、动态`fetch`
+  - ISR：缓存带有时间间隔的SSR
+  - CSR：`hydrate`后在`client side`进行`interactive`部分
+  - PPR：混合动态和静态渲染部分
+
 ## NextJS 4个模式的关系
 
 ![NextJS 4个模式的关系](https://github.com/cgfeel/next.v2/assets/578141/8a4cd4c1-c07b-4782-a506-bdfd2c2690c5)
