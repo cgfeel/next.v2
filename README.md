@@ -323,12 +323,14 @@
       - 目录：`@/src/app/optimizing/metadata/multiple/[id]`
     - 动态单个`OG image`，引入特殊字体
       - 目录：`/optimizing/src/app/optimizing/metadata/multiple/[id]`
-    - `robot`，动态`sitemap`，目录：
+    - `robot`，动态`sitemap`，目录 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app))
       - `/optimizing/src/app/robots.ts`
       - `/optimizing/src/app/sitemap.ts`
-    - 静态`robot`，静态`sitemap`
+    - 静态`robot`，静态`sitemap` ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/%40metadata))
       - 目录：`/optimizing/src/app/@metadata`
       - 使用移动到`app`根目录，和动态资源不能并存
+    - `manifest`资源路由`Api Router` ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/api/manifest))
+      - 目录：`/optimizing/src/app/api/manifest`
     - ---- 分割线 ----
   - 懒加载 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/optimizing/lazy))
     - 及时懒加载、按需懒加载、客户端懒加载、加载loading、按命名懒加载
