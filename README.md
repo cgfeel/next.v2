@@ -272,8 +272,8 @@
 **运行环境：** 
 
 - 路径：`/optimizing` ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing))
-- NodeJS：`v18.13.0`
-- NextJS：`13.5.6`
+- NodeJS：`v20.9.0`
+- NextJS：`14.0.0`
 
 **示例：**：
 
