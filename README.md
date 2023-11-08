@@ -229,7 +229,7 @@
     - 补充：SSG超出范围404 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/file/dynamic/(dynamic-params)/not-in-dynmic-params/%5Bslug%5D))
       - 目录：`/routing-file/src/app/file/dynamic/(dynamic-params)/not-in-dynmic-params/[slug]`
   - 附加案例
-    - antd，演示服务器渲染中通过Provider提供context
+    - UI库：antd，演示服务器渲染中通过Provider提供context
       - 渲染配置：`/rendering/src/lib` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/lib))
       - 根布局引入：`/rendering/src/app/layout.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/rendering/src/app/layout.tsx))
       - 案例，实时搜索：`/rendering/src/app/fetch/server-action/client-cart/transition` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/client-cart/transition))
@@ -252,8 +252,6 @@
     - 刷新error fallback视图 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/post))
       - 目录：`/rendering/src/app/fetch/server-action/post` ([预览](https://github.com/cgfeel/next.v2/blob/master/docs/scenario-service-action.md#%E6%A1%88%E4%BE%8B2-%E7%AD%9B%E9%80%89%E5%88%97%E8%A1%A8))
     - ---- 分割线 ----
-
-以下清单目录还在继续整理...
  
 ### 样式、优化、组件、函数（Styling & Optimizing & Compoonents & Functions）
 
@@ -373,43 +371,61 @@
     - 限定路段的静态路由 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/file/dynamic/(dynamic-params)/not-in-dynmic-params/%5Bslug%5D))
       - 目录：`/routing-file/src/app/file/dynamic/(dynamic-params)/not-in-dynmic-params/[slug]`
     - ---- 分割线 ----
-  - headers ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/headers))
-  - ImageResponse，见当前清单：组件和优化 - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/metadata))
+  - headers ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/func/headers))
+    - 目录：`/optimizing/src/app/func/headers`
+  - ImageResponse，见当前清单：组件和优化 - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/optimizing/metadata))
+    - 目录：`/optimizing/src/app/optimizing/metadata`
   - NextRequest
-    - `@/src/middleware.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/middleware.ts))
-    - 获取、更新、删除Cookies同上方cookies方法一致 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/cookies))
+    - middleware：`/optimizing/src/middleware.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/optimizing/src/middleware.ts))
+    - 获取、更新、删除Cookies，同上方cookies方法一致 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/func/cookies))
+      - 目录：`/optimizing/src/app/func/cookies`
     - ---- 分割线 ----
   - NextReponse
-    - cookies操作、`rewrite`和`next`：`@/src/middleware.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/middleware.ts))
-    - 输出JSON：`@/src/app/api/data/posts/route.ts`
-    - `redirect`：`@/src/app/api/draft/route.ts`
+    - cookies操作`rewrite`和`next`：`/optimizing/src/middleware.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/optimizing/src/middleware.ts))
+    - 输出JSON：`/routing-file/src/app/api/data/posts` ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/api/data/posts))
+    - `redirect`：`/optimizing/src/app/api/draft` ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/api/draft))
     - ---- 分割线 ----
-  - notFound，见当前清单：App模式下路由和目录结构 - not-found ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/file))
+  - notFound，见清单：路由和文件约定，not-found ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/file))
+    - 目录：`/routing-file/src/app/file`
     - 从官方文档提供的案例中，这个模式更青睐于找不到时的UI渲染，比如说：用户找不到，文章找不到，没有权限等，而404只是这个特性附带的一个功能
     - 总结 ([查看](#not-foundtsx-总结))
     - ---- 分割线 ----
-  - redirect：`@/src/app/api/redirect/route.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/api/redirect/route.ts))
+  - redirect ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/api/redirect))
+    - 目录：`/routing-file/src/app/api/redirect`
     - 如果定向到404，官方建议用`not-found`代替
-    - 不要在代用`fetch`的路由段中的`server action`去执行`redirect`，可能会抛出异常，建议通过`revalidateTag`代替
     - ---- 分割线 ----
-  - revalidatePath、revalidateTag：`@/src/app/link/fetch/page.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/app/link/fetch/page.tsx))
-  - 本地组件hooks ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/client))
-    - `useParams`、`revalidateTag`：`@/src/app/func/client`，包含：静态路由、动态路由、多级路由、路由全局捕获
-    - `useRouter`：`@/src/app/func/client/router`，包含：监听路由变化、路由预取、路由跳转（不滚动页面）、替换页面、路由刷新、回退、前进
-    - `useSearchParams`：`@/src/app/func/client/search-params`，包含：获取和判断参数，客户端静态获取、客户端静动态获取、服务端获取、更新查询参数
-    - `useSelectedLayoutSegment`、`useSelectedLayoutSegments`：`@/src/app/func/client/components`，包含：一级路由、二级路由
+  - revalidatePath、revalidateTag ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/link/fetch))
+    - 目录：`/rendering/src/app/link/fetch`
+  - 客户端组件hooks ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/func/client))
+    - `useParams`，包含：静态路由、动态路由、多级路由、路由全局捕获
+      - 目录：`/optimizing/src/app/func/client`
+    - `useRouter`，包含：监听路由变化、路由预取、路由跳转（不滚动页面）、替换页面、路由刷新、回退、前进
+      - 目录：`/optimizing/src/app/func/client/router`
+    - `useSearchParams`，包含：获取和判断参数，客户端静态获取、客户端静动态获取、服务端获取、更新查询参数
+      - 目录：：`/optimizing/src/app/func/client/search-params`
+    - 一级路由、二级路由
+      - `useSelectedLayoutSegment`：`/optimizing/src/app/func/client/components/ActiveSegment.tsx`
+      - `useSelectedLayoutSegments`：`/optimizing/src/app/func/client/components/Breadcrumbs.tsx`
     - ---- 分割线 ----
-  - `useReportWebVitals`：`@/src/app/func/web-vitals` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/web-vitals))
+  - 网页指标：`useReportWebVitals` ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/func/web-vitals))
+    - 目录：`/optimizing/src/app/func/web-vitals`
     - 借助`google analytics`：监听路由`web vitals`作为非交互事件、发送交互事件、监听路由发送监听事件
     - 案例中`NEXT_PUBLIC_GA_ID`，请将自己的`google analytics`代码添加到`env.local`中，仓库没有提供
     - ---- 分割线 ----
 - 案例
-  - semi，由于仓库使用了antd作为演示，另起了一个服务做semi演示
-    - 演示地址：https://codesandbox.io/p/sandbox/semi-ui-zhu-ti-qie-huan-45cg5l
-    - 包含了主题引入、通过`next-themes`（[查看](https://github.com/pacocoursey/next-themes)）进行主题切换
+  - UI库：semi + [next-theme](https://github.com/pacocoursey/next-themes)主题切换 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app))
+    - 包含：
+      - 配置`transpilePackages`：`/optimizing/next.config.js`
+      - 服务端主题配置，目的在CSP中获取动态nonce，不需要启动CSP无需使用：`/optimizing/src/lib/Providers.tsx`
+      - 客户端主题配置+next-theme主题切换：`/optimizing/src/lib/ProvidersClient.tsx`
+      - 包裹主题：`/optimizing/src/app/layout.tsx`
+      - 引入主题包：`/optimizing/src/app/globals.css`
+      - 将主题切换挂载到`<html>`上避免闪缩：`/optimizing/src/app/semi.css`
     - 为了避免主题切换闪烁，采用了`HomeDash`（[查看](https://github.com/hamster1963/HomeDash)）的解决方案，将主题挂载到HTML下，而非官方目前推荐的body下
     - 主题切换原理：通过`script`阻塞渲染，直到`<html>`挂载主题为止，要验证防闪烁，请拷贝演示代码到本地product (`npm run start`)下运行，因为`dev`在`script`阻塞之前会阻塞所有渲染
     - ---- 分割线 ----
+
+以下清单目录还在继续整理...
 
 ### 环境配置（Configuring & next.config.js）
 
