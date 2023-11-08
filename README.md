@@ -916,6 +916,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ### 更新
 
+#### 13.5.2
+
 尝试了一次从`13.4.9`更新到`13.5.2`，做一个初步的记录，更新方法如下：
 
 ```
@@ -930,3 +932,7 @@ npm i next@latest react@latest react-dom@latest eslint-config-next@latest
 - 离谱的来了，`Api`路由中必须返回`Response`，这就意味着，请不要试图通过`redirect`或者`NextResponse.redirect`去进行重定向，而是手写一个带有`30*`头部的`Response`（对于这个问题，官方文档到目前还未改动）
 
 这次更新更多内容见官方发布：https://nextjs.org/blog/next-13-5
+
+#### 14.0.0
+
+**废弃的Metadata属性：** `colorScheme`、`themeColor`、`viewport`
