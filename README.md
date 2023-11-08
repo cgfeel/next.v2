@@ -686,13 +686,23 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 
 假定你远程调用`echart`，完成后有个全局的`echat`对象，编译时会异常提醒`echat`这个对象不存在，于是我将代码用字符的形式包裹起来，用`event`调用，编译通过，这样就埋下第3个坑
 
-**坑点3：CSP**
+~~**坑点3：CSP**~~（并入CSP总结）
+
+<details>
+
+<summary>展开此前的记录</summary>
 
 - 对于`script-src`和`style-src`，默认要求配置`self`，而对于有在组件上写CSS的情况，`style-src`还需要设置`unsafe-inline`
 - 对于`script-src`，如果有客户端组件用到JS的情况（例如：`useEffect`），必须设置`unsafe-inline`才能执行
 - 对应坑点2，有使用到`eval`、`setTimeout`、`setInterval`和`Function`等函数，必须设置`unsafe-eval`才能执行
 
-**坑点4：CSP-nonce模式**
+</details>
+
+~~**坑点4：CSP-nonce模式**~~（并入CSP总结）
+
+<details>
+
+<summary>展开此前的记录</summary>
 
 > NextJS加载动态脚本分两部分：①通过`link`元素将远程的`script`下载下来；②按照组件情况插入`script`
 
@@ -703,6 +713,12 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 - 由于第一点问题，`nonce`模式下，`onLoad`和`onReady`，同样不会执行
 
 总结：如果需要使用`csp`的`nonce`模式需要自行考虑了。如果不考虑引入外部脚本，那么`csp`完全可以解决`XSS`的问题。对于图片组件安全，配置安全作用域，对于脚本安全，可以采用`csp`作为安全解决方案
+
+</details>
+
+## `urlImport`的一个坑
+
+在启用`urlImport`导入外部的`script`后，请不要同时在`next.config.js`中启用`transpilePackages`，否则会提示一段：`undefinde export {default} ...`之类的错误，留一个坑待日后再观察
 
 ## 路由导航缓存总结
 
