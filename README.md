@@ -269,80 +269,109 @@
 > - 而优化中元数据（Metadata）在文件约定也有相关内容，为了便于理解也归纳在优化分类中
 > - 由于在渲染中展示了antd，这一章将引入semi作为附加案例
 
+**运行环境：** 
+
+- 路径：`/optimizing` ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing))
+- NodeJS：`v18.13.0`
+- NextJS：`13.5.6`
+
 **示例：**：
 
 - 组件和优化
-  - 图片 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/images))
-    - 图片相关配置信息：`@/next.config.js`，见`nextConfig.images`
-    - 基础操作：`@/src/app/optimizing/images/page.tsx`，包含：内部图片、外部图片、图片加载器、图片事件
-    - 背景图片：`@/src/app/optimizing/images/background`
-    - 图片占位符图片：`@/src/app/optimizing/images/color/page.tsx`
-    - 设置断点处理图片自适应：`@/src/app/optimizing/images/fill-container/page.tsx`
-    - 根据父容器填充图片：`@/src/app/optimizing/images/fill-container/list/page.tsx`
-    - 默认模糊占位符图片：`@/src/app/optimizing/images/placeholder/page.tsx`
-    - 自适应图片：`@/src/app/optimizing/images/responsive`
-    - svg占位符图片：`@/src/app/optimizing/images/shimmer/page.tsx`
+  - 图片 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/optimizing/images))
+    - 图片相关配置信息：`/optimizing/next.config.js`
+      - 见`nextConfig.images`
+    - 基础操作：`/optimizing/src/app/optimizing/images/page.tsx`
+      - 包含：内部图片、外部图片、图片加载器、图片事件
+    - 背景图片：`/optimizing/src/app/optimizing/images/background`
+    - 图片占位符图片：`/optimizing/src/app/optimizing/images/color`
+    - 设置断点处理图片自适应：`/optimizing/src/app/optimizing/images/fill-container`
+    - 根据父容器填充图片：`/optimizing/src/app/optimizing/images/fill-container/list`
+    - 默认模糊占位符图片：`/optimizing/src/app/optimizing/images/placeholder`
+    - 自适应图片：`/optimizing/src/app/optimizing/images/responsive`
+    - svg占位符图片：`/optimizing/src/app/optimizing/images/shimmer`
     - 备注：nextjs推荐在生产环境和独立模式下通过`sharp`进行优化 ([查看](https://nextjs.org/docs/messages/sharp-missing-in-production))
     - ---- 分割线 ----
-  - 字体 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/font/google))
-    - 多页共享字体库：`@/src/utils/fonts.ts`
-    - 字体包含：可变字体、不可变字体、
+  - 字体 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/optimizing/font/google))
+    - 多页共享字体库：`/optimizing/src/utils/fonts.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/optimizing/src/utils/fonts.ts))
+    - 字体包含：可变字体、不可变字体
     - 组件修改字体：字体子集加载替换、通过样式名修改字体（含子组件字体），通过样式修改字体
     - 通过styled-jsx修改字体：`:root`托管全局字体变量，`:global`设置子组件字体
     - 通过字体别名设置字体、使用本地字体
     - 通过`Tailwind CSS`设置字体
     - ---- 分割线 ----
-  - 链接 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/link))
-    - 目录：`@/src/app/optimizing/link`
+  - 链接 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/optimizing/link))
     - 包含：链接、对象链接、链接替换、阻止预加载、中间件
-    - 导航监听和跳转：`@/src/app/optimizing/link/demo`
+    - 目录：`/optimizing/src/app/optimizing/link`
+    - 导航监听和跳转：`/optimizing/src/app/optimizing/link/demo`
     - ---- 分割线 ----
-  - 动态脚本 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/script))
-    - 引入脚本，包含策略2个策略、2个内联模式：`@/src/app/optimizing/script/page.tsx`
-    - 加载成功事件：`@/src/app/optimizing/script/group/chart/page.tsx`
-    - 加载失败事件：`@/src/app/optimizing/script/group/onerror/page.tsx`
-    - CSP组件：`@/src/app/optimizing/script/cspe/page.tsx`
-    - CSP配置：`@/next.config.js`，见`nextConfig.headers`中`script`部分
+  - 动态脚本 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/optimizing/script))
+    - 引入脚本，包含策略2个策略、2个内联模式：`/optimizing/src/app/optimizing/script/page.tsx`
+    - 加载成功事件：`/optimizing/src/app/optimizing/script/group/chart`
+    - 加载失败事件：`/optimizing/src/app/optimizing/script/group/onerror`
+    - CSP组件：`/optimizing/src/app/optimizing/script/cspe/page.tsx`
+    - CSP配置：`/optimizing/src/middleware.ts`
+    - `urlImport`和`CSP`的坑点（整理中...）
     - 总结 ([查看](#nextjs-动态加载脚本总结))
     - ---- 分割线 ----
-  - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/metadata))
-    - 元数据重写、继承，提供`JSON-LD`，`open graph`共享，静态单个`icon`和`apple-icon`：`@/src/app/optimizing/metadata`
-    - 动态生成描述信息，`open graph`继承、共享、覆盖，动态单个`icon`：`@/src/app/optimizing/metadata/[id]`
-    - 静态多个`icon`，静态单个`OG image`和`twitter image`：`@/src/app/optimizing/metadata`
-    - 动态多个`icon`，动态多个`OG image`：`@/src/app/optimizing/metadata/multiple/[id]`
-    - 动态单个`OG image`，引入特殊字体：`@/src/app/optimizing/metadata/opengraph/[id]`
-    - 动态`robot`，动态`sitemap`：`@/src/app/robots.ts`和`@/src/app/sitemap.ts`
-    - 静态`robot`，静态`sitemap`（使用移动到`app`根目录）：`@/src/app/@metadata`
+  - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/optimizing/metadata))
+    - 元数据重写、继承，提供`JSON-LD`，`open graph`共享，静态单个`icon`和`apple-icon`
+      - 目录：`/optimizing/src/app/optimizing/metadata`
+    - 动态生成描述信息，`open graph`继承、共享、覆盖，动态单个`icon`
+      - 目录：`/optimizing/src/app/optimizing/metadata/[id]`
+    - 静态多个`icon`，静态单个`OG image`和`twitter image`
+      - 目录：`/optimizing/src/app/optimizing/metadata/multiple`
+    - 动态多个`icon`，动态多个`OG image`
+      - 目录：`@/src/app/optimizing/metadata/multiple/[id]`
+    - 动态单个`OG image`，引入特殊字体
+      - 目录：`/optimizing/src/app/optimizing/metadata/multiple/[id]`
+    - `robot`，动态`sitemap`，目录：
+      - `/optimizing/src/app/robots.ts`
+      - `/optimizing/src/app/sitemap.ts`
+    - 静态`robot`，静态`sitemap`
+      - 目录：`/optimizing/src/app/@metadata`
+      - 使用移动到`app`根目录，和动态资源不能并存
     - ---- 分割线 ----
-  - 懒加载 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/lazy))
-    - 及时懒加载、按需懒加载、客户端懒加载、加载loading、按命名懒加载：`@/src/app/optimizing/lazy/page.tsx`
-    - 服务端懒加载：`@/src/app/optimizing/lazy/server/page.tsx`
-    - 懒加载外部库：`@/src/app/optimizing/lazy/external/page.tsx`
+  - 懒加载 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/optimizing/lazy))
+    - 及时懒加载、按需懒加载、客户端懒加载、加载loading、按命名懒加载
+      - 目录：`/optimizing/src/app/optimizing/lazy/page.tsx`
+    - 服务端懒加载：`/optimizing/src/app/optimizing/lazy/server`
+    - 懒加载外部库：`/optimizing/src/app/optimizing/lazy/external`
     - ---- 分割线 ----
 - 函数
-  - cookies ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/cookies))
+  - cookies ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/func/cookies))
+    - 目录：`/optimizing/src/app/func/cookies`
     - 包含：获取单个、获取所有、判断存在、设置、删除、设置生命周期、设置有效期
     - 备注：用`get`代替`has`判断cookies，否则在`server action`下报错
     - ---- 分割线 ----
-  - draft，草稿模式见当前清单：Api路由 - 草稿模式 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/api/draft))
-    - 草稿模式：`@/src/app/api/draft` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/api/draft))
-    - 测试Page：`@/src/app/blog/draft/page.tsx`
-    - 等待更新中...
-  - fetch ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/fetch))
+  - draft，草稿模式见当前清单
+    - Api路由 - 草稿模式 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/api/draft))
+      - 目录：`/optimizing/src/app/api/draft`
+    - 草稿模式 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/optimizing/draft))
+      - 目录：`/optimizing/src/app/optimizing/draft`
+  - fetch ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/func/fetch))
+    - 目录：`/optimizing/src/app/func/fetch`
     - 包含：缓存设置、重新校验
-    - 视图标签和刷新见当前清单：服务端操作 - 服务端校验表单、设置cookies ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/revalidation))
+    - 视图标签和刷新，见当前清单：服务端操作 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/revalidation))
+      - 目录：`/rendering/src/app/fetch/server-action/revalidation`
     - ---- 分割线 ----
-  - 动态生成icon，见当前清单：组件和优化 - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/metadata))
+  - 动态生成icon，见当前清单：组件和优化 - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/optimizing/metadata))
+    - 目录：`/optimizing/src/app/optimizing/metadata`
+    - ---- 分割线 ----
   - metadata，元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/metadata))
-    - 动态生成函数（含metadata的TS类型），见当前清单：组件和优化 - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/metadata))
+    - 目录：`/optimizing/src/app/func/metadata`
     - 包含：title、description、baseic fields、metadataBase、openGraph、robots、icons、themeColor、manifest、twitter、viewport、verification、appleWebApp、alternates、appLinks、archives、assets、bookmarks、category、other custom、resource hints
+    - 动态生成函数（含metadata的TS类型）
+      - 目录：`/optimizing/src/app/optimizing/metadata`
+      - 见当前清单：组件和优化 - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/optimizing/metadata))
     - ---- 分割线 ----
-  - SSG，见当前清单：4个不同的模式 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/blog))
-    - 动态路段生成静态路由(一级路段)：`@/src/app/blog/[slug]/page.tsx`
-    - 限定路段的静态路由：`@/src/app/file/dynamic/(dynamic-params)/not-in-dynmic-params/[slug]/page.tsx`
-    - 从下至上生成（多级路段）：`@/src/app/blog/list/[category]/[product]/page.tsx`
-    - 捕获全路段：`@/src/app/blog/list/info/[...slug]/page.tsx`
-    - 从上至下生成路段：`@/src/app/blog/products/[category]`
+  - SSG，见当前清单：4个不同的模式 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/blog))
+    - 动态路段生成静态路由(一级路段)：`/rendering/src/app/blog/[slug]`
+    - 从下至上生成（多级路段）：`/rendering/src/app/blog/list/[category]/[product]`
+    - 捕获全路段：`/rendering/src/app/blog/list/info/[...slug]`
+    - 从上至下生成路段：`/rendering/src/app/blog/products/[category]`
+    - 限定路段的静态路由 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/file/dynamic/(dynamic-params)/not-in-dynmic-params/%5Bslug%5D))
+      - 目录：`/routing-file/src/app/file/dynamic/(dynamic-params)/not-in-dynmic-params/[slug]`
     - ---- 分割线 ----
   - headers ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/headers))
   - ImageResponse，见当前清单：组件和优化 - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/metadata))
