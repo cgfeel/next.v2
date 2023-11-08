@@ -8,7 +8,7 @@ export async function GET() {
         status: 307,
         headers: {
             'Content-Type': 'application/json',
-            'Location': '/blog/draft',
+            'Location': '/optimizing/draft',
             'X-Atlassian-Token': 'no-check'
         },
     });

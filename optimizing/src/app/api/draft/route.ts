@@ -4,7 +4,7 @@ import { draftMode } from "next/headers";
 function getPostBySulg(slug: string): Promise<{ slug: string }|undefined> {
     return new Promise(resolve => {
         setTimeout(
-            () => resolve(slug === 'fail' ? undefined : { slug: '/blog/draft' }), 
+            () => resolve(slug === 'fail' ? undefined : { slug: '/optimizing/draft' }), 
             slug.length * 100 || 500
         );
     });
