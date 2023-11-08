@@ -657,9 +657,11 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 - 例如微信扫码登录，先从`server action`提交`OAUTH`认证，拿到`token`后交给客户端轮训登录状态
 - 以示范文件说原理：先发起`server action`，通过后本地使用`swr`轮训状态
 
+~~**坑点1：`Server Action` + `redirect`**~~(13.5已修复，见末尾更新说明 - [查看](#更新))
+
 <details>
 
-<summary>~~**坑点1：`Server Action` + `redirect`**~~(13.5已修复，见末尾更新说明 - [查看](#更新))</summary>
+<summary>展开此前的记录</summary>
 
 - 不要在`Server Action`中直接调用`redirect`，否则会警告`failed to get redirect response TypeError: fetch failed`
 - 正确做法，`Server Action`后通过`revalidateTag`或`revalidatePath`刷新视图，在视图中根据情况`redirect`
