@@ -310,7 +310,7 @@
     - CSP组件：`/optimizing/src/app/optimizing/script/cspe/page.tsx`
     - CSP配置：`/optimizing/src/middleware.ts`
     - 动态脚本总结 ([查看](#nextjs-动态加载脚本总结))
-    - `CSP`总结 ([查看](#nextjs-动态加载脚本总结))
+    - `CSP`总结 ([查看](#csp总结))
     - ---- 分割线 ----
   - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/optimizing/metadata))
     - 元数据重写、继承，提供`JSON-LD`，`open graph`共享，静态单个`icon`和`apple-icon`
