@@ -358,7 +358,7 @@
     - ---- 分割线 ----
   - `metadata`元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/func/metadata))
     - 目录：`/optimizing/src/app/func/metadata`
-    - 包含：title、description、baseic fields、metadataBase、openGraph、robots、icons、themeColor、manifest、twitter、viewport、verification、appleWebApp、alternates、appLinks、archives、assets、bookmarks、category、other custom、resource hints
+    - 包含：`title`、`description`、`baseic fields`、`metadataBase`、`openGraph`、`robots`、`icons`、`manifest`、`twitter`、`verification`、`appleWebApp`、`alternates`、`appLinks`、`archives、assets`、`bookmarks`、`category`、`other custom`、`resource hints`
     - 动态生成函数（含metadata的TS类型）
       - 目录：`/optimizing/src/app/optimizing/metadata`
       - 见当前清单：组件和优化 - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/optimizing/metadata))
