@@ -718,6 +718,26 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 
 </details>
 
+### CSP总结
+
+**规范标准**（驳回：动态加载脚本坑点3）
+
+- 使用上没有特定的规范标准，按实际情况来，通过调试工具查看错误信息进行调整
+- 难点肯定不在NextJS，而是在于项目中引入的第三方库
+- --- 仓库案例中遇到的问题 ---
+- next-theme
+  - 支持`unsafe-inline`或`nonce`，需要开启`unsafe-event`，无第三方CSS
+- echart
+  - 支持`unsafe-inline`或`nonce`，需要开启`unsafe-event`，不能启用严格模式`strict-dynamic`，否则url报错，目前暂无解
+  - 动态引入的CSS不支持`nonce`，所以`style-src`不支持`nonce`
+- google analytics
+  - 适配度最好，会根据当前页面自动匹配`nonce`，需要开启`unsafe-event`
+  - 由于会引入第三方资源，需要在`img-src`和`default-src`启用安全域名
+ 
+**坑点1：nonce**（对应：动态加载脚本坑点4）
+
+目前不用纠结是否要使用`nonce`，因为NextJS目前为止（14.0.0），在构建后`start`环境下会丢失`nonce`的值。详细见：https://github.com/vercel/next.js/issues/55638
+
 ### `urlImport`的一个坑
 
 在启用`urlImport`导入外部的`script`后，请不要同时在`next.config.js`中启用`transpilePackages`，否则会提示一段：`undefinde export {default} ...`之类的错误，留一个坑待日后再观察
