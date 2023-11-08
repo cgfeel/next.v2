@@ -495,7 +495,9 @@
 
 ---
 
-## Api Route在安全设计上的理解
+## 总结
+
+### Api Route在安全设计上的理解
 
 - 通过`Api Route`搭建起`BFF`，通过容器内网IP和微服务进行交互，宿主机和外部都不可直接访问微服务容器
 - 外网用户只能通过网关和NextJS的`Api Route`，获取微服务数据，不能直接访问微服务，也猜不到接口真实地址和具体入参信息
@@ -505,7 +507,7 @@
 
 ![Api Route在安全设计上的理解](https://github.com/cgfeel/next.v2/assets/578141/22031e79-1026-4e7b-bd79-825648467401)
 
-## 路由拦截器-案例
+### 路由拦截器-案例
 
 目录：`@/src/app/photo` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/photo))
 
@@ -533,7 +535,7 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 └── page.tsx
 ```
 
-## not-found.tsx 总结
+### not-found.tsx 总结
 
 ![not-found tsx](https://github.com/cgfeel/next.v2/assets/578141/cd01ffa2-9c9a-41e6-be36-85a029f67c46)
 
@@ -592,7 +594,7 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 
 备注：复现时分别发现两个坑点，请分别查看`server action`([查看](#nextjs-server-action总结))和NextJS 4个模式的关系([查看](https://github.com/cgfeel/next.v2/blob/master/docs/rendering-pattern.md#nextjs-4%E4%B8%AA%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%85%B3%E7%B3%BB))
 
-## NextJS 缓存总结
+### NextJS 缓存总结
 
 ![image](https://github.com/cgfeel/next.v2/assets/578141/f0e49045-cd9d-480a-94ab-93e06a3743d8)
 
@@ -633,7 +635,7 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 
 > `fetch()` caches requests automatically, so you don't need to wrap functions that use `fetch()` with `cache()`. See automatic request deduping for more information.
 
-## NextJS Server Action总结
+### NextJS Server Action总结
 
 `use server`：
 
@@ -673,7 +675,7 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 - 不要在`Server Action`后去判断`cookies().has()`，会提示`has`这个方法补存在，也不要用`get`后去转换成`boolean`，因为删除`cookies`后对象依旧存在，只是值为空了
 - 解决办法：`@/src/app/file/power/lib.ts`
 
-## NextJS 动态加载脚本总结
+### NextJS 动态加载脚本总结
 
 示例采用[`cdn.jsdelivr.net`](https://www.jsdelivr.com/)作为外部脚本公共库，查看演示前先确保能够正常访问仓库资源。
 
@@ -716,11 +718,11 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 
 </details>
 
-## `urlImport`的一个坑
+### `urlImport`的一个坑
 
 在启用`urlImport`导入外部的`script`后，请不要同时在`next.config.js`中启用`transpilePackages`，否则会提示一段：`undefinde export {default} ...`之类的错误，留一个坑待日后再观察
 
-## 路由导航缓存总结
+### 路由导航缓存总结
 
 **问题：** 在`server components`下3个模式：(`SSR`、`SSG`、`ISR`)的缓存和重新验证，在官方文档所有说明中，只针对新开、刷新当前路由，而不包括路由导航之间的跳转。这就意味着，所有非单一用户产生的状态，需要在路由跳转后实时返回状态信息的页面，不能及时同步状态。
 
@@ -809,7 +811,7 @@ App Dir模式下不支持`waitUntil`
 2. `Api Route`异步`fetch`，有效但设置很繁琐；
 3. `middleware`发起异步`fetch`（推荐），因为一个页面内容可以`no data`，但是绝对不会没有`header`；
 
-## NextJS构建时导出总结
+### NextJS构建时导出总结
 
 构建导出包含3个模式：`default`、`export`、`standalone`
 
@@ -844,7 +846,7 @@ App Dir模式下不支持`waitUntil`
 
 > 对于`default`模式和`standalone`模式，如果项目中有使用`next\image`加载器的情况，构建时官方建议安装`sharp`依赖 ([查看](https://nextjs.org/docs/app/api-reference/next-config-js/output#automatically-copying-traced-files))
 
-## Getting Started (安装和运行)
+### Getting Started (安装和运行)
 
 当前默认认为看的用户能力均能本地安装和运行，所以这里直接采用官方提供的内容，不做额外说明，对于我运行的环境补充一下。
 
