@@ -362,7 +362,7 @@
     - 动态生成函数（含metadata的TS类型）
       - 目录：`/optimizing/src/app/optimizing/metadata`
       - 见当前清单：组件和优化 - 元数据 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/optimizing/metadata))
-    - 废弃的`metadata`见`14.0.0`更新部分 ([查看](#))
+    - 废弃的`metadata`见`14.0.0`更新部分 ([查看](#1400))
     - ---- 分割线 ----
   - SSG，见当前清单：4个不同的模式 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/blog))
     - 动态路段生成静态路由(一级路段)：`/rendering/src/app/blog/[slug]`
