@@ -894,7 +894,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-## 更新
+### 更新
 
 尝试了一次从`13.4.9`更新到`13.5.2`，做一个初步的记录，更新方法如下：
 
