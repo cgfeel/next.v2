@@ -391,7 +391,7 @@
   - notFound，见清单：路由和文件约定，not-found ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/file))
     - 目录：`/routing-file/src/app/file`
     - 从官方文档提供的案例中，这个模式更青睐于找不到时的UI渲染，比如说：用户找不到，文章找不到，没有权限等，而404只是这个特性附带的一个功能
-    - 总结 ([查看](#not-foundtsx-总结))
+    - 总结 ([查看](#))
     - ---- 分割线 ----
   - redirect ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/api/redirect))
     - 目录：`/routing-file/src/app/api/redirect`
@@ -459,19 +459,25 @@
   - 包括：`appDir`、`assetPrefix`、`basePath`、`compress`、`devIndicators`、`distDir`、`env`、`eslint`、`generateEtags`、`keepAlive`、`mdxRs`、`onDemandEntries`、`poweredByHeader`、`productionBrowserSourceMaps`、`reactStrictMode`、`trailingSlash`
   - `generateBuildId`，生成`build-id`方法 ([查看](https://github.com/cgfeel/next.v2/blob/master/configuring/src/utils/build-id.js))
     - 目录：`/configuring/src/utils/build-id.js`
-  - `header`：标头覆盖行为、路径匹配、通配符匹配、正则匹配、`header`匹配、`cookies`匹配、`query`匹配、`basePath`支持、`i18n`支持、可选属性（见`source: '/blog/:post(\\d{1,})'`）-待整理
+  - `header` ([查看](https://github.com/cgfeel/next.v2/blob/master/rendering/next.config.js))
+    - 目录：`/rendering/next.config.js`
+    - 包含：标头覆盖行为、路径匹配、通配符匹配、正则匹配、`header`匹配、`cookies`匹配、`query`匹配、`basePath`支持、`i18n`支持、可选属性（见`source: '/blog/:post(\\d{1,})'`）
   - `images`：`remotePatterns`、`unoptimized`、`domains`、`deviceSizes`、`imageSizes`、图片输出格式、`ttl`、文件导入、外部svg安全策略(csp)
     - 包含本地图片加载器(`loader`、`loaderFile`): `/optimizing/src/utils/myImageLoader.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/optimizing/src/utils/myImageLoader.ts))
   - `incrementalCacheHandlerPath`：增量缓存处理器，实验功能，默认采用文件缓存 ([查看](https://github.com/cgfeel/next.v2/blob/master/configuring/src/utils/cache-handler.js))
     - 目录：`/configuring/src/utils/cache-handler.js`
   - `output`：([查看总结](#nextjs构建时导出总结))
   - `pageExtensions`：文件扩展
-  - `redirects`：基础匹配、路径匹配、通配符匹配、正则匹配、特殊字符匹配、`header`匹配、`cookies`匹配、`query`匹配、`basePath`支持、`i18n`支持-待整理
-  - `rewrites`：-待整理
-    - 匹配周期：`beforeFiles`、`afterFiles`、`fallback`（注意配置文件中missing案例），`fallback`一个坑点和全局not-fount相关 ([查看](#not-foundtsx-总结))
+  - `redirects` ([查看](https://github.com/cgfeel/next.v2/blob/master/rendering/next.config.js))
+    - 目录：`/rendering/next.config.js`
+    - 包含：基础匹配、路径匹配、通配符匹配、正则匹配、特殊字符匹配、`header`匹配、`cookies`匹配、`query`匹配、`basePath`支持、`i18n`支持
+  - `rewrites` ([查看](https://github.com/cgfeel/next.v2/blob/master/rendering/next.config.js))
+    - 目录：`/rendering/next.config.js`
+    - 匹配周期：`beforeFiles`、`afterFiles`、`fallback`（注意配置文件中missing案例）
     - 匹配参数：自动匹配路径、路径转换至`query`、手动匹配
     - 外部重写：路径匹配、尾斜线匹配、增量匹配
     - 其他：基础重写、路径重写、通配符重写、正则重写、特殊字符重写、`header`匹配、`cookies`匹配、`query`匹配、`basePath`支持、`i18n`支持
+    - 坑点总结 ([查看](#))
     - ---- 分割线 ----
   - `experimental`实验性功能：
     - 文件注释包含详细说明：`appDir`、`serverActions`、`serverComponentsExternalPackages`、`trailingSlash`、`typedRoutes`、`typescript`
@@ -582,10 +588,6 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 - 在`app`根目录下创建一个动态路由`[...slug]`，并且在按照上面的规则创建`page.tsx`和`not-found.tsx`，这样所有找不到路由段的404，都默认向下在`[...slug]`中进行捕获并渲染
 - UML绘图使用了[revenote](https://revenote.com/)
 
-**埋下的问题：**
-
-如果按照上面去匹配全站404，那么会导致在`next.config.js`中使用`rewrites`的`fallback`失效。因为在根目录设置全局`not-found`匹配本身就是一种`fallback`，它属于filesystem，按照文档说法优先级高于`rewrites`的`fallback`。如果要两者并存，建议将全局`not-found`在`rewrites`外部的网站进行匹配，这样就相当于`location` - `external site` - `not-found`
-
 **备注：**
 
 - 抛出`notFound()`时，无论如何都会去执行`app`根目录`not-found.tsx`除非这个文件也不存在。
@@ -610,6 +612,25 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 - 当叶子节点`page`抛出`notFound`，将会一层一层进行捕获，最终会在最接近`page`层级下的`notFound`捕获进行渲染
 
 备注：复现时分别发现两个坑点，请分别查看`server action`([查看](#nextjs-server-action总结))和NextJS 4个模式的关系([查看](https://github.com/cgfeel/next.v2/blob/master/docs/rendering-pattern.md#nextjs-4%E4%B8%AA%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%85%B3%E7%B3%BB))
+
+### NextJS rewrite坑点
+
+**not-found埋下的问题：**
+
+如果使用`not-found`去匹配全站404，那么会导致在`next.config.js`中使用`rewrites`的`fallback`失效。因为在根目录设置全局`not-found`匹配本身就是一种`fallback`，它属于filesystem，按照文档说法优先级高于`rewrites`的`fallback`。如果要两者并存，建议将全局`not-found`在`rewrites`外部的网站进行匹配，这样就相当于`location` - `external site` - `not-found`
+
+**只能动态匹配服务器组件**
+
+在source动态匹配中，只会将动态的pathnae传递给服务器组件作为searchParams，不会传递到客户端组件
+
+ - 验证示例：`/rendering/src/app/antd/client` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/antd/client))
+ - 但是作为重写路由段，URL本身是接受searchParams的，这样就会造成实际和预期不符
+
+为了避免这个问题请注意一下几点：
+
+- 检查重写的路由段下的`components tree`中是否用到了`useSearchParams`
+- 如果有，就不要通过pathname作为动态参数传递给searchParams
+- 尽量不要在服务器组件的`props`去捕获`searchParams`同时，又使用客户端组件去捕获`useSearchParams`，统一获取规范
 
 ### NextJS 缓存总结
 
