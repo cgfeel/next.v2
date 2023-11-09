@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { FC, Suspense } from "react";
 import SearchParams from "./SearchParams";
 
 const SearchBarFallback: FC = () => {
