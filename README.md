@@ -36,8 +36,8 @@
     - `_`前缀目录：`/routing-file/src/app/features/%5Fuser_post-info`
     - ---- 分割线 ----
   - 链接和导航 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/dashboard))
+    - 目录：`/routing-file/src/app/dashboard`
     - 包含：link组件，route跳转，usePathname监听路由变化
-    - 目录：`@/src/app/dashboard/`
     - ---- 分割线 ----
   - 路由组 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/group))
     - 路由分组：`/routing-file/src/app/group`
@@ -75,8 +75,8 @@
     - 平行路由下的`page.tsx`会自动注入到`dashboard`下的`layout.tsx`
     - ---- 分割线 ----
   - 路由拦截 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/photo))
-    - 拦截目录：`@/src/app/photo/@model/(.)photos/[id]`
-    - 拦截目标：`@/src/app/photo/photos/[id]`，（`noscript`和直接访问）
+    - 拦截目录：`/routing-file/src/app/photo/@modal/(.)photos/[id]`
+    - 拦截目标：`/routing-file/src/app/photo/photos/[id]`，（`noscript`和直接访问）
     - 通过`/routing-file/src/app/photo/@modal/default.tsx`返回`null`，阻止插槽自动注入
     - 总结 ([查看示例](#路由拦截器-案例))
     - ---- 分割线 ----
@@ -320,7 +320,7 @@
     - 静态多个`icon`，静态单个`OG image`和`twitter image`
       - 目录：`/optimizing/src/app/optimizing/metadata/multiple`
     - 动态多个`icon`，动态多个`OG image`
-      - 目录：`@/src/app/optimizing/metadata/multiple/[id]`
+      - 目录：`/optimizing/src/app/optimizing/metadata/multiple/[id]`
     - 动态单个`OG image`，引入特殊字体
       - 目录：`/optimizing/src/app/optimizing/metadata/multiple/[id]`
     - `robot`，动态`sitemap`，目录 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app))
@@ -497,6 +497,7 @@
     - `webVitalsAttribution`留个坑
     - ---- 分割线 ----
 - `eslintrc.json`配置 ([参考](https://stackoverflow.com/questions/68163385/parsing-error-cannot-find-module-next-babel))
+  - 目录：`/configuring/.eslintrc.json`
   - NextJS项目安装之后，在编辑js文件头部的时候会报错：`Cannot find module 'next/babel'`
   - 解决办法是找到`eslintrc.json`中的`extends`属性，修改为：`"extends": ["next/babel","next/core-web-vitals"]`
 - 其他
@@ -511,7 +512,7 @@
       - 局部配置：`/configuring/src/app/mdx/custom`
       - 不能并存，通过`next.config.js`配置中`withMDX`的`providerImportSource`开启局部配置
     - 备注1：`mdx`的图片资源支持内部和外部
-    - 坑点1：`mdx`和`nextjs`的TS体操标准不一样，见：`@/src/app/mdx/custom/page.tsx`
+    - 坑点1：`mdx`和`nextjs`的TS体操标准不一样，见上方mdx的“自定义组件元素”
     - 坑点2：本地`mdx`必须`client component`否则报错，远程`mdx`基于`next-mdx-remote`，需要`server component`否则报错（或者至少把数据获取`fetch`和`MDXRemote`分开）
     - ---- 分割线 ----
  
@@ -539,7 +540,7 @@
 
 ### 路由拦截器-案例
 
-目录：`@/src/app/photo` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/photo))
+目录：`/routing-file/src/app/photo` ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/photo))
 
 点开列表图片将会被拦截器阻拦，当打开照片刷新页面，将跳过阻拦进入详情页
 
@@ -605,7 +606,7 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 
 https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88ec55
 
-目录：`@/src/app/file/power` ([查看](src/app/file/power))
+目录：`/routing-file/src/app/file/power` ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/file/power))
 
 步骤：
 
@@ -647,19 +648,20 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 - 如果要刷新缓存，通过`fetch`设置`no-store`或`export const revalidate = 0`
 - 在请求树中相同链接的请求，只要有1个请求设置了重新验证，整个树所有请求都将重新向服务端发起请求（注1）
 - 关于`POST`请求缓存的一处错误（注2）
-- `POST`和`GET`缓存不同在于，`POST`如果链接相同，请求参数不同，将视作新的请求而不从缓存中获取，而`GET`没有，见`@/src/app/fetch/cache/post`
+- `POST`和`GET`缓存不同在于，`POST`如果链接相同，请求参数不同，将视作新的请求而不从缓存中获取，而`GET`没有
+  - 目录：`/rendering/src/app/fetch/cache/post` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/cache/post))
 - 对于预存取的用法，在官方文档有提到（注3）
 - 对于react的`cache`组件缓存（注3）
 - 对于客户端组件，它本身和服务端组件不是一套组件，所以在客服端组件中，无论怎么刷新时间，都不重新渲染服务端，也不会使用服务端的缓存
 
-**注1：** `@/src/app/fetch/cache/post/revalidate`
+**注1：** `/rendering/src/app/fetch/cache/post/revalidate` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/cache/post/revalidate))
 
 - 包含两个Api：`worldtimeapi`、`timeapi`
 - 请求树链路：`cache/layout.tsx` - `cache/post/layout.tsx` - `cache/post/revalidate/page.tsx`
 - 在`page.tsx`刷新缓存，整个树全部刷新，无论链接、请求方式，参数、层级，整个请求树缓存都重新请求
 - 在重新请求过程中遵循缓存规则，后一条请求获取第一条请求结果的缓存
 
-**注2：** `@/src/app/fetch/cache/post`
+**注2：** `/rendering/src/app/fetch/cache/post` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/cache/post))
 
 文档是这么说的
 
@@ -718,7 +720,7 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 **坑点2：`Server Action` + `cookies().has()`**
 
 - 不要在`Server Action`后去判断`cookies().has()`，会提示`has`这个方法补存在，也不要用`get`后去转换成`boolean`，因为删除`cookies`后对象依旧存在，只是值为空了
-- 解决办法：`@/src/app/file/power/lib.ts`
+- 解决办法：`/routing-file/src/app/file/power/lib.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/routing-file/src/app/file/power/lib.ts))
 
 ### NextJS 动态加载脚本总结
 
@@ -794,7 +796,7 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 
 **问题：** 在`server components`下3个模式：(`SSR`、`SSG`、`ISR`)的缓存和重新验证，在官方文档所有说明中，只针对新开、刷新当前路由，而不包括路由导航之间的跳转。这就意味着，所有非单一用户产生的状态，需要在路由跳转后实时返回状态信息的页面，不能及时同步状态。
 
-**示例：** `@/src/app/link` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/link))
+**示例：** `/rendering/src/app/link` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/link))
 
 **解决办法：** 
 
@@ -856,7 +858,7 @@ function linkClicked(e, router, href, as, replace, shallow, scroll, locale, isAp
 
 **高级用法：**
 
-- 目录：`@/src/app/link/server-action` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/link/server-action))
+- 目录：`/rendering/src/app/link/server-action` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/link/server-action))
 - 原理：服务端通过`server action`刷新，客户端通过异步发起请求，并通过`React Cache`或`zustand`这类状态机记录请求步骤
 
 **解决的问题：**
