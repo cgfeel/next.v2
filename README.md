@@ -492,6 +492,9 @@
     - `turbo`没有实现，目前和`server action`冲突
     - `webVitalsAttribution`留个坑
     - ---- 分割线 ----
+- `eslintrc.json`配置 ([参考](https://stackoverflow.com/questions/68163385/parsing-error-cannot-find-module-next-babel))
+  - NextJS项目安装之后，在编辑js文件头部的时候会报错：`Cannot find module 'next/babel'`
+  - 解决办法是找到`eslintrc.json`中的`extends`属性，修改为：`"extends": ["next/babel","next/core-web-vitals"]`
 - 其他
   - mdx ([查看](https://github.com/cgfeel/next.v2/tree/master/configuring/src/app/mdx))
     - 目录：`/configuring/src/app/mdx`
