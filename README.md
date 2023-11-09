@@ -477,7 +477,7 @@
     - 匹配参数：自动匹配路径、路径转换至`query`、手动匹配
     - 外部重写：路径匹配、尾斜线匹配、增量匹配
     - 其他：基础重写、路径重写、通配符重写、正则重写、特殊字符重写、`header`匹配、`cookies`匹配、`query`匹配、`basePath`支持、`i18n`支持
-    - 坑点总结 ([查看](#))
+    - 坑点总结 ([查看](#nextjs-rewrite坑点))
     - ---- 分割线 ----
   - `experimental`实验性功能：
     - 文件注释包含详细说明：`appDir`、`serverActions`、`serverComponentsExternalPackages`、`trailingSlash`、`typedRoutes`、`typescript`
@@ -619,7 +619,7 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 
 如果使用`not-found`去匹配全站404，那么会导致在`next.config.js`中使用`rewrites`的`fallback`失效。因为在根目录设置全局`not-found`匹配本身就是一种`fallback`，它属于filesystem，按照文档说法优先级高于`rewrites`的`fallback`。如果要两者并存，建议将全局`not-found`在`rewrites`外部的网站进行匹配，这样就相当于`location` - `external site` - `not-found`
 
-**只能动态匹配服务器组件**
+**只能动态匹配服务器组件：**
 
 在source动态匹配中，只会将动态的pathnae传递给服务器组件作为searchParams，不会传递到客户端组件
 
