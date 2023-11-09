@@ -453,6 +453,10 @@
   - 模块重命名见：`/configuring/tsconfig.json`
   - src目录，正如你看到当前示例，目前通过`npx`脚手架创建项目时默认会提示选择src目录
     - 如果初始项目没有选择src目录，后期直接移动目录即可
+- `.vscode`配置 ([查看](https://github.com/cgfeel/next.v2/tree/master/configuring/.vscode))
+  - 目录：`/configuring/.vscode`
+  - `typescript.tsdk`：用于统一TS版本管理
+  - 其他，因为我把全局默认的TS类型检查关闭了，所以在项目里单独开启
 - `next.config.js`配置 ([查看](https://github.com/cgfeel/next.v2/blob/master/configuring/next.config.mjs))
   - 目录：`/configuring/next.config.mjs`（使用mdx，使用为esbuild配置）
   - 配置文件按照属性名先后顺序排列，函数属性放置在属性名后
