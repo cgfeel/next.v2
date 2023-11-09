@@ -437,27 +437,39 @@
 - [[Configuring](https://nextjs.org/docs/app/building-your-application/configuring)]
 - [[next.config.js](https://nextjs.org/docs/app/api-reference/next-config-js)]
 
+**运行环境：** 
+
+- 路径：`/configuring` ([查看](https://github.com/cgfeel/next.v2/tree/master/configuring/src/app))
+- NodeJS：`v20.9.0`
+- NextJS：`14.0.0`
+
 **示例：**
 
 - 配置文件
-  - 环境变量 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/env))
-    - 示例：`@/src/app/env`，配置文件：`@/.env*`
+  - 环境变量 ([查看](https://github.com/cgfeel/next.v2/tree/master/configuring/src/app/env))
+    - 目录：`/configuring/src/app/env`
+    - 配置文件：`/configuring/.env*`（缺少`.env.local`，包含安全信息，自行配置）
     - Node环境变量：开发环境、生产环境、默认环境、覆盖环境变量、环境变量分组
     - 浏览器环境变量：服务端组件下调用，客户端组件下调用
     - ---- 分割线 ----
-  - 模块重命名见：`@/tsconfig.json`，TS配置放置后面`nextjs.config.js`一起总结
-  - src目录，正如你看到当前示例，如果初始项目没有选择src目录，后期直接移动目录即可
-- `next.config.js`配置 ([查看](https://github.com/cgfeel/next.v2/blob/master/next.config.js))
+  - 模块重命名见：`/configuring/tsconfig.json`
+  - src目录，正如你看到当前示例，目前通过`npx`脚手架创建项目时默认会提示选择src目录
+    - 如果初始项目没有选择src目录，后期直接移动目录即可
+- `next.config.js`配置 ([查看](https://github.com/cgfeel/next.v2/blob/master/configuring/next.config.mjs))
+  - 目录：`/configuring/next.config.mjs`（使用mdx，使用为esbuild配置）
   - 配置文件按照属性名先后顺序排列，函数属性放置在属性名后
   - 包括：`appDir`、`assetPrefix`、`basePath`、`compress`、`devIndicators`、`distDir`、`env`、`eslint`、`generateEtags`、`keepAlive`、`mdxRs`、`onDemandEntries`、`poweredByHeader`、`productionBrowserSourceMaps`、`reactStrictMode`、`trailingSlash`
-  - `generateBuildId`，生成`build-id`方法：`@/src/utils/build-id.js` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/build-id.js))
-  - `header`：标头覆盖行为、路径匹配、通配符匹配、正则匹配、`header`匹配、`cookies`匹配、`query`匹配、`basePath`支持、`i18n`支持、可选属性（见`source: '/blog/:post(\\d{1,})'`）
-  - `images`：`remotePatterns`、`unoptimized`、`domains`、`deviceSizes`、`imageSizes`、图片输出格式、`ttl`、文件导入、外部svg安全策略(csp)、本地图片加载器(`loader`、`loaderFile`): `@/src/utils/myImageLoader.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/myImageLoader.ts))
-  - `incrementalCacheHandlerPath`：增量缓存处理器，实验功能，默认采用文件缓存 `@/src/utils/cache-handler.js` ([查看](https://github.com/cgfeel/next.v2/blob/master/src/utils/cache-handler.js))
+  - `generateBuildId`，生成`build-id`方法 ([查看](https://github.com/cgfeel/next.v2/blob/master/configuring/src/utils/build-id.js))
+    - 目录：`/configuring/src/utils/build-id.js`
+  - `header`：标头覆盖行为、路径匹配、通配符匹配、正则匹配、`header`匹配、`cookies`匹配、`query`匹配、`basePath`支持、`i18n`支持、可选属性（见`source: '/blog/:post(\\d{1,})'`）-待整理
+  - `images`：`remotePatterns`、`unoptimized`、`domains`、`deviceSizes`、`imageSizes`、图片输出格式、`ttl`、文件导入、外部svg安全策略(csp)
+    - 包含本地图片加载器(`loader`、`loaderFile`): `/optimizing/src/utils/myImageLoader.ts` ([查看](https://github.com/cgfeel/next.v2/blob/master/optimizing/src/utils/myImageLoader.ts))
+  - `incrementalCacheHandlerPath`：增量缓存处理器，实验功能，默认采用文件缓存 ([查看](https://github.com/cgfeel/next.v2/blob/master/configuring/src/utils/cache-handler.js))
+    - 目录：`/configuring/src/utils/cache-handler.js`
   - `output`：([查看总结](#nextjs构建时导出总结))
-  - `pageExtensions`：文件扩展、`NextConfig`
-  - `redirects`：基础匹配、路径匹配、通配符匹配、正则匹配、特殊字符匹配、`header`匹配、`cookies`匹配、`query`匹配、`basePath`支持、`i18n`支持
-  - `rewrites`：
+  - `pageExtensions`：文件扩展
+  - `redirects`：基础匹配、路径匹配、通配符匹配、正则匹配、特殊字符匹配、`header`匹配、`cookies`匹配、`query`匹配、`basePath`支持、`i18n`支持-待整理
+  - `rewrites`：-待整理
     - 匹配周期：`beforeFiles`、`afterFiles`、`fallback`（注意配置文件中missing案例），`fallback`一个坑点和全局not-fount相关 ([查看](#not-foundtsx-总结))
     - 匹配参数：自动匹配路径、路径转换至`query`、手动匹配
     - 外部重写：路径匹配、尾斜线匹配、增量匹配
@@ -465,25 +477,29 @@
     - ---- 分割线 ----
   - `experimental`实验性功能：
     - 文件注释包含详细说明：`appDir`、`serverActions`、`serverComponentsExternalPackages`、`trailingSlash`、`typedRoutes`、`typescript`
-    - `mdxRs`详细见下方`mdx`说明 ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/mdx))
+    - `mdxRs`详细见下方`mdx`说明 ([查看](https://github.com/cgfeel/next.v2/tree/master/configuring/src/app/mdx))
     - output相关：`outputFileTracingExcludes`、`outputFileTracingIncludes`、`outputFileTracingRoot` ([查看总结](#nextjs构建时导出总结))
-    - `urlImports`，除了配置外提供的示例：`@/src/app/optimizing/config/urlimports` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/optimizing/config/urlimports))；TS开启`urlImports`需要添加导入类型，见`tsconfig.json`中`typeRoots` ([查看](https://github.com/cgfeel/next.v2/blob/master/tsconfig.json))
-    - `webpack`包含：配置函数、引入第三方包`withMDX`
-    - `transpilePackages`没有实现，本次按照`multiplerepo`方式并非`monorepo`，注释列举了示例URL
-    - `turbo`没有实现，因为和目前和`server action`冲突
+    - `urlImports`
+      - 示例：`/configuring/src/app/optimizing/config/urlimports` ([查看](https://github.com/cgfeel/next.v2/tree/master/configuring/src/app/optimizing/config/urlimports))；
+      - TS开启`urlImports`需要添加导入类型，见`tsconfig.json`中`typeRoots`：`/configuring/types` ([查看](https://github.com/cgfeel/next.v2/tree/master/configuring/types))
+      - 坑点 ([查看](#urlimport的一个坑))
+    - `webpack`配置函数
+    - `transpilePackages`，见semi配置：`/optimizing/next.config.js` ([查看](https://github.com/cgfeel/next.v2/blob/master/optimizing/next.config.js))
+    - `turbo`没有实现，目前和`server action`冲突
     - `webVitalsAttribution`留个坑
     - ---- 分割线 ----
 - 其他
-  - mdx：`@/src/app/mdx` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/mdx))
-    - 官方文档归类在配置里，但是引用的全是第三方包，配置文件：`@/next.config.js`
+  - mdx ([查看](https://github.com/cgfeel/next.v2/tree/master/configuring/src/app/mdx))
+    - 目录：`/configuring/src/app/mdx`
+    - 配置文件：`/configuring/next.config.mjs` ([查看](https://github.com/cgfeel/next.v2/blob/master/configuring/next.config.mjs))
     - 额外用到的库：`@next/mdx`、`@mdx-js/loader`、`@mdx-js/react`、`@types/mdx`、`next-mdx-remote`
-    - 本地解析（包含layout布局）：`@/src/app/mdx/page.tsx`
-    - 远程解析：`@/src/app/mdx/remote`
-    - 自定义组件元素：`@/src/app/mdx/custom`
-    - 不包含插件`remark`（需要修改配置文件到`mjs`），不包含`mdxRs`（需要配置`rust`），当前文档主要总结`nextjs`
-    - ---- 分割线 ----
-    - 备注1：`mdx`的图片资源支持内部和外部，见：组件和优化-图片
-    - ---- 分割线 ----
+    - 本地解析（包含layout布局）：`/configuring/src/app/mdx`
+    - 远程解析：`/configuring/src/app/mdx/remote`
+    - 自定义组件元素
+      - 全局配置：`/configuring/src/mdx-components.tsx`
+      - 局部配置：`/configuring/src/app/mdx/custom`
+      - 不能并存，通过`next.config.js`配置中`withMDX`的`providerImportSource`开启局部配置
+    - 备注1：`mdx`的图片资源支持内部和外部
     - 坑点1：`mdx`和`nextjs`的TS体操标准不一样，见：`@/src/app/mdx/custom/page.tsx`
     - 坑点2：本地`mdx`必须`client component`否则报错，远程`mdx`基于`next-mdx-remote`，需要`server component`否则报错（或者至少把数据获取`fetch`和`MDXRemote`分开）
     - ---- 分割线 ----
@@ -743,7 +759,10 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 
 ### `urlImport`的一个坑
 
-在启用`urlImport`导入外部的`script`后，请不要同时在`next.config.js`中启用`transpilePackages`，否则会提示一段：`undefinde export {default} ...`之类的错误，留一个坑待日后再观察
+- 在启用`urlImport`导入外部的`script`后，请不要同时在`next.config.js`中启用`transpilePackages`，否则会提示一段：`undefinde export {default} ...`之类的错误。
+- 假定你有使用semi这样的UI库，可能`urlImport`就无法正常使用，好在`urlImport`目前是一个实验性功能，并非必要功能。
+
+留一个坑待日后再观察
 
 ### 路由导航缓存总结
 
