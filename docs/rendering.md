@@ -17,7 +17,7 @@
   - 目录：`rendering/src/app/fetch/server-action/client-cart/transition/[...slug]`
 - 组件嵌套，客户端组件包裹服务器组件，下拉刷新 [[查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/post)]
   - `/rendering/src/app/fetch/server-action/post`
-- 客户端上通过组件嵌套避免副作用，颜色选择：https://codesandbox.io/s/she-wei-zi-ji-gao-bie-fu-zuo-yong-w8dqmc?file=/src/App.js:599-618
+- 客户端上通过组件嵌套避免副作用，颜色选择 [[codeSandbox](https://codesandbox.io/s/she-wei-zi-ji-gao-bie-fu-zuo-yong-w8dqmc?file=/src/App.js:599-618)]
 - Edge运行时，动态图标生成 [[查看](https://github.com/cgfeel/next.v2/blob/master/optimizing/src/app/optimizing/metadata/%5Bid%5D/icon.tsx))]
   - 目录：`/optimizing/src/app/optimizing/metadata/[id]/icon.tsx`
 - Nodejs运行时，仓库中所有没有申明运行时的路由段
