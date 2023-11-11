@@ -1,18 +1,18 @@
 # Server Action应用场景
 
-## 案例1-实时搜索预览
+## 案例1-实时搜索预览 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/client-cart/transition/%5B...slug%5D))
 
-目录：`@/src/app/fetch/server-action/client-cart/transition/[...slug]` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/client-cart/transition/%5B...slug%5D))
+目录：`/rendering/src/app/fetch/server-action/client-cart/transition/[...slug]`
 
 通过`startTransition`实现的，输入完成后会通过`router`导航到搜索结果页，页面根据导航提供的`slug`展示搜索结果
 
 https://github.com/cgfeel/next.v2/assets/578141/ebd18cec-8ba6-40e6-888f-4b6e74d334cf
 
-## 案例2-筛选列表
+## 案例2-筛选列表 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/post))
 
 https://github.com/cgfeel/next.v2/assets/578141/11d3c7ab-5908-47c4-8522-f6c890cf2af9
 
-目录：`@/src/app/fetch/server-action/post` ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/post))
+目录：`/rendering/src/app/fetch/server-action/post`
 
 来自字节大佬的需求：
 
@@ -34,7 +34,8 @@ https://github.com/cgfeel/next.v2/assets/578141/11d3c7ab-5908-47c4-8522-f6c890cf
  - error-handling提供一个reset，用来帮你尝试刷新当前视图，但是却没有告诉你这个只刷新本地视图，在刷新前请先通过server action刷新服务端路由段的视图
  - 做到这了就OK了吗？并不会，因为你会发现服务端收到刷新视图了，本地还是没有更新？怎么回事？
  - 重点来了：请记得给所有error.tsx所在路由段下配套添加loading.tsx，否则你刷新视图会因为过程中重复点击而造成本地和服务端视图不一致，或重复渲染
- - 以上就是2天下来的总结，特地附加一段demo：`@/src/app/fetch/server-action/test/demo1`  ([查看](https://github.com/cgfeel/next.v2/tree/master/src/app/fetch/server-action/test/demo1))
+ - 以上就是2天下来的总结，特地附加一段demo ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/test/demo1))
+   - 目录：`/rendering/src/app/fetch/server-action/test/demo1`
 
 > 注：官方文档中有提到，能够使用`not-found`解决的场景优先使用`not-found`
 
@@ -75,7 +76,7 @@ https://github.com/cgfeel/next.v2/assets/578141/11d3c7ab-5908-47c4-8522-f6c890cf
 - 可以是components下的`server action`，也可以是通过components下的`server action`去调用独立的`server action`文件中的函数
 - 这样无论版本如何迭代，`server action`寻址不变
 
-**示例：** `rendering/src/app/fetch/server-action/sub` [[查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/sub)]
+**示例：** `/rendering/src/app/fetch/server-action/sub` [[查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/sub)]
 
 **演示：**
 
