@@ -13,7 +13,7 @@
 - 关于服务端`fetch` [[总结](https://github.com/cgfeel/next.v2/blob/master/README.md#%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96%E6%B8%B2%E6%9F%93%E7%BC%93%E5%AD%98fetching--rendering--caching)]
   - `fetch`和视图(component tree)是两条单独的缓存路线
   - `fetch`默认也是在构建时静态缓存，一旦缓存之后所有请求都直接从缓存中读取给出响应
-  - 除非声明fetch动态渲染：`cache`、`revalidate`
+  - 除非声明fetch动态渲染：`no-store`、`revalidate`
 - 综上所述，如何判断当前路由段是动态还是静态：
   - 看url对应的目录、看路由段声明、看动态函数、看`fetch`是否有额外声明
   - 如果都没有，那么就是静态
