@@ -515,6 +515,24 @@
     - 坑点1：`mdx`和`nextjs`的TS体操标准不一样，见上方mdx的“自定义组件元素”
     - 坑点2：本地`mdx`必须`client component`否则报错，远程`mdx`基于`next-mdx-remote`，需要`server component`否则报错（或者至少把数据获取`fetch`和`MDXRemote`分开）
     - ---- 分割线 ----
+
+### next-partial-prerendering
+
+NextJS 14提供的PPR功能预览，来自[[vercel-labs/next-partial-prerendering](https://github.com/vercel-labs/next-partial-prerendering)]
+
+**运行环境：** 
+
+- 路径：`/canary` ([查看](https://github.com/cgfeel/next.v2/tree/master/canary))
+- NodeJS：`v20.9.0`
+- NextJS：`Next.js 14.0.3-canary.5`
+
+**示例：**
+
+- partial-prerendering ([查看](https://github.com/cgfeel/next.v2/tree/master/canary/src/app/ppr))
+  - 目录：`/canary/src/app/ppr`
+  - 包含：[dinero.js](https://v2.dinerojs.com/docs)
+
+https://github.com/cgfeel/next.v2/assets/578141/a44235f6-2628-4583-b4b4-672e9cb23fab
  
 ---
 
