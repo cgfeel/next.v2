@@ -1,8 +1,9 @@
 'use client'
 
+import { RouterContext } from "next/dist/shared/lib/router-context.shared-runtime";
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import { FC, useEffect } from "react";
+import { FC, useContext, useEffect } from "react";
 
 const link = '/fetch/server-action/post/6';
 
@@ -10,6 +11,10 @@ const ClientLink: FC = () => {
     const pathname = usePathname();
     const { slug } = useParams<{ slug: string }>();
     const currently = pathname === link;
+
+    const dsl = useContext(AppRouterContext)
+
+    dsl?.events.on('beforeHistoryChange');
 
     const router = useRouter();
     useEffect(() => {

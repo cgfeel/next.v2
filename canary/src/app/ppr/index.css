@@ -1,0 +1,49 @@
+[multiple], [type=date], [type=datetime-local], [type=email], [type=month], [type=number], [type=password], [type=search], [type=tel], [type=text], [type=time], [type=url], [type=week], input:where(:not([type])), select, textarea {
+    appearance: none;
+    border-color: #71717a;
+    border-width: 1px;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    --tw-shadow: 0 0 #0000;
+}
+
+.bg-gray-600 {
+    background-color: rgb(82 82 91/var(--tw-bg-opacity));
+}
+
+.bg-gray-800 {
+    background-color: rgb(39 39 42/var(--tw-bg-opacity));
+}
+
+.bg-gray-900 {
+    background-color: rgb(24 24 27/var(--tw-bg-opacity));
+}
+
+.bg-vercel-blue {
+    --tw-bg-opacity: 1;
+    background-color: rgb(0 112 243/var(--tw-bg-opacity));
+}
+
+.bg-vercel-cyan {
+    --tw-bg-opacity: 1;
+    background-color: rgb(80 227 194/var(--tw-bg-opacity));
+}
+
+.bg-vercel-pink {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 0 128/var(--tw-bg-opacity));
+}
+
+.bg-vc-border-gradient {
+    background-image: radial-gradient(at left top,#71717a,50px,#27272a 50%);
+}
+
+.blur, .grayscale {
+    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.text-vercel-cyan {
+    --tw-text-opacity: 1;
+    color: rgb(80 227 194/var(--tw-text-opacity));
+}
