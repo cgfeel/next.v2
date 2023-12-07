@@ -228,6 +228,8 @@
       - 访问时`[id] > 1`，则通过`revalidate`缓存为`ISR`
     - 补充：SSG超出范围404 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/file/dynamic/(dynamic-params)/not-in-dynmic-params/%5Bslug%5D))
       - 目录：`/routing-file/src/app/file/dynamic/(dynamic-params)/not-in-dynmic-params/[slug]`
+    - PPR模式： ([查看](#next-partial-prerendering))
+      - 新增模式，目前是实验性功能，单独开一个项目展示
   - 附加案例
     - UI库：antd，演示服务器渲染中通过Provider提供context
       - 渲染配置：`/rendering/src/lib` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/lib))
@@ -546,7 +548,7 @@ NextJS 14提供的PPR功能预览，来自[[vercel-labs/next-partial-prerenderin
 
 在`Suspense`中包含了2个组件`AddToCart`，`AddToCartFromCookies`，这里分别用到了：
 
-- `useTransition`：监听操作过程
+- `useTransition`：监听加购过程
 - `useRouter`：写入cookies后`refresh`本地视图
 - 回到`Suspense`边界，在服务端通过`AddToCartFromCookies`更新视图
 
