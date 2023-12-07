@@ -1,21 +1,9 @@
 import { Currency, DineroSnapshot } from "dinero.js";
 
-/*type Currency = {
-    base: number;
-    code: string;
-    scale: number;
-};*/
-
 type Discount = {
     percent: number;
     expires?: number;
 };
-
-/*type Price = {
-    amount: number;
-    currency: Currency;
-    scale: number;
-};*/
 
 type Price = DineroSnapshot<number>;
 
