@@ -536,7 +536,7 @@ NextJS 14提供的PPR功能预览，来自[[vercel-labs/next-partial-prerenderin
 
 打开购物车组件`/canary/src/components/product/pricing/index.tsx` [[查看](https://github.com/cgfeel/next.v2/blob/master/canary/src/components/product/pricing/index.tsx)]
 
-```
+```tsx
             <Suspense
                 fallback={<AddToCart initialCartCount={0} />}
             >
