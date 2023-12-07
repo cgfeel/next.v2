@@ -532,6 +532,24 @@ NextJS 14提供的PPR功能预览，来自[[vercel-labs/next-partial-prerenderin
   - 目录：`/canary/src/app/ppr`
   - 包含：[dinero.js](https://v2.dinerojs.com/docs)
 
+**划重点：**
+
+打开购物车组件`/canary/src/components/product/pricing/index.tsx` [[查看](https://github.com/cgfeel/next.v2/blob/master/canary/src/components/product/pricing/index.tsx)]
+
+```
+            <Suspense
+                fallback={<AddToCart initialCartCount={0} />}
+            >
+                <AddToCartFromCookies />
+            </Suspense>
+```
+
+在`Suspense`中包含了2个组件`AddToCart`，`AddToCartFromCookies`，这里分别用到了：
+
+- `useTransition`：监听操作过程
+- `useRouter`：写入cookies后`refresh`本地视图
+- 回到`Suspense`边界，在服务端通过`AddToCartFromCookies`更新视图
+
 https://github.com/cgfeel/next.v2/assets/578141/a44235f6-2628-4583-b4b4-672e9cb23fab
  
 ---
