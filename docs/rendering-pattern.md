@@ -39,8 +39,12 @@
 
 **~~SSG的坑点：~~**
 
-> - 随着NextJS 14增加的PPR模式，这个坑点将可能不复存在，案例测试后附上
+> - 随着NextJS 14增加的PPR模式，这个坑点将可能不复存在 [[查看ppr模式](https://github.com/cgfeel/next.v2#next-partial-prerendering)]
 
+<details>
+
+<summary>SSG不能动态渲染的问题请通过PPR解决</summary>
+  
 一旦通过`generateStaticParams`去声明`SSG`渲染，无论是在`page`中，还是在`page`上方的布局中，请不要在服务端去调用`cookies`和`headers`这样的动态函数，否则会报错`[NEXT-1181] DynamicServerError: Dynamic server usage: cookies`，见issue：https://github.com/vercel/next.js/issues/49373
 
 阅读整个issue，你会发现有人提供了这样的解决办法：
@@ -66,3 +70,5 @@ export const revalidate = 0
 - 需要鉴权才能展示请不要用`SSG`的方式，用`SSR`代替
 - 如果要`SSG`，又需要做相应的交互，请在`client`中进行，参考案例：淘宝宝贝详情页是SSG，销售数据可以`client`异步获取（仅登录可见），帮助中心文档是SSG，文档点赞和评论可以`client`异步获取（仅登录可操作）
 - 否则请采用解决办法中的第2条解决
+
+</details>
