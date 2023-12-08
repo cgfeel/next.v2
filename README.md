@@ -146,7 +146,7 @@
 
 ### 数据获取、渲染、缓存（Fetching & Rendering & Caching）
 
-**包含章节：**：
+**包含章节：**
 
 - [[Fetching](https://nextjs.org/docs/app/building-your-application/data-fetching)]
 - [[Rendering](https://nextjs.org/docs/app/building-your-application/rendering)]
@@ -257,7 +257,7 @@
  
 ### 样式、优化、组件、函数（Styling & Optimizing & Compoonents & Functions）
 
-**包含章节：**：
+**包含章节：**
 
 - [[Styling](https://nextjs.org/docs/app/building-your-application/styling)]
 - [[Optimizing](https://nextjs.org/docs/app/building-your-application/optimizing)]
@@ -275,7 +275,7 @@
 - NodeJS：`v20.9.0`
 - NextJS：`14.0.0`
 
-**示例：**：
+**示例：**
 
 - 组件和优化
   - 图片 ([查看](https://github.com/cgfeel/next.v2/tree/master/optimizing/src/app/optimizing/images))
@@ -640,7 +640,7 @@ https://github.com/cgfeel/next.v2/assets/578141/238a03f8-d9a3-4f36-8b75-5fdebd1a
 - 只要存在`not-found`文件，那么路由段下无论是否发生错误，这段静态资源就必须输出，如果文件里有`fetch`请求，无论是否错误也会执行
 - 同理，结合这里提到的`cache`缓存部分，当前路段所有的`fetch`请求都会记录缓存，无论是从`layout`到`not-found`，还是从`not-found`到`page`
 
-**not-found场景复现**：复现了需登录登录查看文章的流程
+**not-found场景复现：** 复现了需登录登录查看文章的流程
 
 https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88ec55
 
@@ -729,7 +729,7 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 - 在服务端非表单情况下，可以不使用'use server'交互，但这样就意味着只能只能在构建时生效
 - 反之，所有'use server'都脱离了缓存
   
-**服务端提交后交互**：
+**服务端提交后交互：**
 
 - 文档里写到通过`redirect`、`revalidatePath`、`revalidateTag`（示范中提供了`revalidateTag`）
 - 以示范文件说原理：页面首次fetch，得到未认证的结果，提交表单`revalidateTag`重新验证，视图中的fetch再次请求得到认证状态，重新渲染视图
@@ -739,7 +739,7 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 - 可用于表单，也可以是非表单的操作（诸如：轮训，见示例文件）
 - 对于表单验证，本地验证更符合当下交互习惯
 
-**轮训场景**：
+**轮训场景：**
 
 - 例如微信扫码登录，先从`server action`提交`OAUTH`认证，拿到`token`后交给客户端轮训登录状态
 - 以示范文件说原理：先发起`server action`，通过后本地使用`swr`轮训状态
