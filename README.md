@@ -38,6 +38,7 @@
   - 链接和导航 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/dashboard))
     - 目录：`/routing-file/src/app/dashboard`
     - 包含：link组件，route跳转，usePathname监听路由变化
+    - 附加案例：阻塞导航  ([查看](https://github.com/cgfeel/next.v2/blob/master/docs/navigation.md#%E9%98%BB%E5%A1%9E%E5%AF%BC%E8%88%AA))
     - ---- 分割线 ----
   - 路由组 ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/group))
     - 路由分组：`/routing-file/src/app/group`
@@ -197,7 +198,7 @@
       - todolist (含错误处理): `/rendering/src/app/fetch/server-action/test/zod/todolist`
     - 通过`useOptimistic`乐观更新：`/rendering/src/app/fetch/server-action/optimistic`
     - 总结 ([查看](#nextjs-server-action总结))
-    - ~~服务端非表单进行操作：`/rendering/src/app/fetch/server-action/server-cart/noform`~~ (查看：[路由导航总结](#路由导航缓存总结))
+    - ~~服务端非表单进行操作：`/rendering/src/app/fetch/server-action/server-cart/noform`~~ (查看：[路由导航总结](https://github.com/cgfeel/next.v2/blob/master/docs/navigation.md))
     - ---- 附赠应用场景 ----
     - 客户端轮训：`/rendering/src/app/fetch/server-action/client-cart/noform`
     - 通过`useTransition`实现的实时搜索预览：`/rendering/src/app/fetch/server-action/client-cart/transition/[...slug]` ([预览](https://github.com/cgfeel/next.v2/blob/master/docs/scenario-service-action.md#%E6%A1%88%E4%BE%8B1-%E5%AE%9E%E6%97%B6%E6%90%9C%E7%B4%A2%E9%A2%84%E8%A7%88))
@@ -250,7 +251,7 @@
   - 附加案例
     - 路由导航的缓存和视图刷新 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/link))
       - 目录：`/rendering/src/app/link`
-      - 总结 ([查看](#路由导航缓存总结))
+      - 总结 ([查看](https://github.com/cgfeel/next.v2/blob/master/docs/navigation.md))
     - 刷新error fallback视图 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/post))
       - 目录：`/rendering/src/app/fetch/server-action/post` ([预览](https://github.com/cgfeel/next.v2/blob/master/docs/scenario-service-action.md#%E6%A1%88%E4%BE%8B2-%E7%AD%9B%E9%80%89%E5%88%97%E8%A1%A8))
     - ---- 分割线 ----
@@ -561,6 +562,7 @@ https://github.com/cgfeel/next.v2/assets/578141/a44235f6-2628-4583-b4b4-672e9cb2
 - NextJS渲染总结思维导图 ([查看](https://github.com/cgfeel/next.v2/blob/master/docs/rendering.md))
 - NextJS动态渲染和静态渲染总结 ([查看](https://github.com/cgfeel/next.v2/blob/master/docs/rendering-pattern.md))
 - `Server Action`实际应用场景案例 ([查看](https://github.com/cgfeel/next.v2/blob/master/docs/scenario-service-action.md))
+- NextJS路由导航总结 ([查看](https://github.com/cgfeel/next.v2/blob/master/docs/navigation.md))
 
 ---
 
@@ -829,95 +831,6 @@ https://github.com/cgfeel/next.v2/assets/578141/9c9b89e9-39c1-4ca1-856b-5d520b88
 - 假定你有使用semi这样的UI库，可能`urlImport`就无法正常使用，好在`urlImport`目前是一个实验性功能，并非必要功能。
 
 留一个坑待日后再观察
-
-### 路由导航缓存总结
-
-**问题：** 在`server components`下3个模式：(`SSR`、`SSG`、`ISR`)的缓存和重新验证，在官方文档所有说明中，只针对新开、刷新当前路由，而不包括路由导航之间的跳转。这就意味着，所有非单一用户产生的状态，需要在路由跳转后实时返回状态信息的页面，不能及时同步状态。
-
-**示例：** `/rendering/src/app/link` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/link))
-
-**解决办法：** 
-
- - 服务端渲染，用原生`<a>`标签代替`<Link>`组件，缺点：浏览器会有明显的刷新感，路由中`layout`页会被刷新
- - 客户端渲染，异步给链接添加`hash`值，缺点：导航链接会多出一串随机的`hash`值，路由中`layout`页不会被刷新
- - `server action`，缺点：只接受`post`请求，路由中`layout`页不会被刷新
- - 本地异步获取信息，缺点：不是服务端渲染，服务端不会输出任何静态资源，浏览器必须允许JS执行下才能运行
- - 继续往下看高级用法
-
-**相关链接：** https://segmentfault.com/q/1010000044106831/a-1020000044112750
-
-**附加情况：页面小部件** 
-
-- 例如：个人中心出票状况、最新订单发货进度等等，这种可能在个人中心某一处位置的小部件，它不是整个页面主导部分，但又需要实时同步状态；
-- 那么建议通过本地异步请求状态，而不要使用服务端加载（这就意味着在并行路由中，获取状态需要在本地进行异步`fetch`请求）
-- 或者继续往下看高级用法
-
-> 当然，如果存在非单一用户产生的状态（出票状况，快递进度、订单状态等），而又不需要实时同步信息的页面。无需考虑以上情况。
-> 为何强调非单一用户，因为单一用户产生的状态可以通过`server action`提交信息的同时无感刷新路由视图
-
-**源码解析：**
-
-趴了源码看到这段，会阻止所有`Link`标签的点击事件：
-
-```
-function linkClicked(e, router, href, as, replace, shallow, scroll, locale, isAppRouter, prefetchEnabled) {
-    const { nodeName  } = e.currentTarget;
-    // anchors inside an svg have a lowercase nodeName
-    const isAnchorNodeName = nodeName.toUpperCase() === "A";
-    if (isAnchorNodeName && (isModifiedEvent(e) || // app-router supports external urls out of the box so it shouldn't short-circuit here as support for e.g. `replace` is added in the app-router.
-    !isAppRouter && !(0, _islocalurl.isLocalURL)(href))) {
-        // ignore click for browser’s default behavior
-        return;
-    }
-    e.preventDefault();
-    const navigate = ()=>{
-        // If the router is an NextRouter instance it will have `beforePopState`
-        const routerScroll = scroll != null ? scroll : true;
-        if ("beforePopState" in router) {
-            router[replace ? "replace" : "push"](href, as, {
-                shallow,
-                locale,
-                scroll: routerScroll
-            });
-        } else {
-            router[replace ? "replace" : "push"](as || href, {
-                forceOptimisticNavigation: !prefetchEnabled,
-                scroll: routerScroll
-            });
-        }
-    };
-    if (isAppRouter) {
-        _react.default.startTransition(navigate);
-    } else {
-        navigate();
-    }
-}
-```
-
-**高级用法：**
-
-- 目录：`/rendering/src/app/link/server-action` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/link/server-action))
-- 原理：服务端通过`server action`刷新，客户端通过异步发起请求，并通过`React Cache`或`zustand`这类状态机记录请求步骤
-
-**解决的问题：**
-
-- 能够每次导航后更新当前数据和`page`视图，不刷新整个`layout`，能够做到无感更新数据；
-- 不需要通过给url添加随机`hash`后缀，也不用手动刷新页面；
-
----
-
-**再补充一个群里提到的一个坑点：**
-
-App Dir模式下不支持`waitUntil`
-
-> - https://nextjs.org/docs/pages/api-reference/functions/next-server#nextfetchevent
-> - https://github.com/vercel/next.js/issues/50522
-
-当时给出了3个方案：
-
-1. `server action`非表单默认提交（无效），从上面例子中证实，`server action`并不根据`<Link>`组件跳转而执行；
-2. `Api Route`异步`fetch`，有效但设置很繁琐；
-3. `middleware`发起异步`fetch`（推荐），因为一个页面内容可以`no data`，但是绝对不会没有`header`；
 
 ### NextJS构建时导出总结
 
