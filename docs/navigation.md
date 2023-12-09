@@ -1,4 +1,6 @@
-### 路由导航缓存总结
+# 路由导航缓存总结
+
+## 导航和刷新视图缓存
 
 **问题：** 在`server components`下3个模式：(`SSR`、`SSG`、`ISR`)的缓存和重新验证，在官方文档所有说明中，只针对新开、刷新当前路由，而不包括路由导航之间的跳转。这就意味着，所有非单一用户产生的状态，需要在路由跳转后实时返回状态信息的页面，不能及时同步状态。
 
@@ -72,9 +74,83 @@ function linkClicked(e, router, href, as, replace, shallow, scroll, locale, isAp
 - 能够每次导航后更新当前数据和`page`视图，不刷新整个`layout`，能够做到无感更新数据；
 - 不需要通过给url添加随机`hash`后缀，也不用手动刷新页面；
 
----
+## 阻塞导航
 
-**再补充一个群里提到的一个坑点：**
+来自群友的一个场景，当在表单提交或内容发布页时，需要监听用户离开，并阻塞其行为展开提示信息，待用户决定去留。这项功能在`App router`模式以前，可以监听`router.event`来实现，而在`App router`之后这个事件取消了。于是我通过`usePathname`、`useSearchParams` + `react context`的方式实现用户监听操作
+
+我设想了两个方法：
+
+**方法1：监听router变化阻塞用户**
+
+- 目录：`/routing-file/src/app/leaving/form` ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/leaving/form))
+
+实现原理：
+
+- 监听URL的变化
+- 一旦发生改变发起确认框，点击“取消”之后立即返回前一页
+
+缺点：
+
+- 存在一个闪动的过程
+
+**方法2：代理`router`对象和`Link`组件**（推荐）
+
+- 目录：`/routing-file/src/app/leaving/proxy` ([查看](https://github.com/cgfeel/next.v2/tree/master/routing-file/src/app/leaving/proxy))
+
+实现原理：
+
+- `router`对象，通过`ES6`的`proxy`代理转发调用
+- `Link`组件，通过包装一层`forware`来实现`onClick`转发
+
+**以上两种方法共同用到的技术：**
+
+- 通过`React context`上下文的方式，在子组件中通知什么情况开始阻塞用户，示例采用表单内容发生变化时
+- 通过`useEffect` + `beforeunload`，对浏览器默认行为进行阻塞
+
+> 在`chrome`及相关内核中，要阻塞浏览器默认行为的前提是打开页面后，至少在页面发生或事件才能生效
+
+**这样就监听并阻止了：**
+
+- 点击`Link`组件发生的导航
+- 通过`Router`触发的导航事件
+- 浏览器默认行为：关闭、刷新、前进、后退、更改URL
+
+**写在最后：**
+
+在解决这个需求的时候，我发现了`NProgress.js`，可实现导航切换时顶部加载动画，相关链接
+
+```
+'use client'
+
+import Link from 'next/link'
+import { PropsWithChildren, useEffect } from 'react'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
+export const CustomLink: React.FC<PropsWithChildren<{ href: string }>> = ({
+    href,
+    children
+}) => {
+    useEffect(() => {
+        return () => {
+            NProgress.done()
+        }
+    }, [])
+
+    return (
+        <>
+            <Link href={href} onClick={() => NProgress.start()}>
+                {children}
+            </Link>
+        </>
+    )
+}
+```
+
+- https://ricostacruz.com/nprogress/
+- https://github.com/vercel/next.js/discussions/41934
+
+## 一个坑点
 
 App Dir模式下不支持`waitUntil`
 
