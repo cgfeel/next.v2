@@ -117,7 +117,7 @@ function linkClicked(e, router, href, as, replace, shallow, scroll, locale, isAp
 
 **写在最后：**
 
-在解决这个需求的时候，我发现了`NProgress.js`，可实现导航切换时顶部加载动画，相关链接
+在解决这个需求的时候，我发现了`NProgress.js`，可实现导航切换时顶部加载动画
 
 ```
 'use client'
@@ -146,6 +146,8 @@ export const CustomLink: React.FC<PropsWithChildren<{ href: string }>> = ({
     )
 }
 ```
+
+相关链接：
 
 - https://ricostacruz.com/nprogress/
 - https://github.com/vercel/next.js/discussions/41934
