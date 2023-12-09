@@ -78,6 +78,9 @@ function linkClicked(e, router, href, as, replace, shallow, scroll, locale, isAp
 
 来自群友的一个场景，当在表单提交或内容发布页时，需要监听用户离开，并阻塞其行为展开提示信息，待用户决定去留。这项功能在`App router`模式以前，可以监听`router.event`来实现，而在`App router`之后这个事件取消了。于是我通过`usePathname`、`useSearchParams` + `react context`的方式实现用户监听操作
 
+https://github.com/cgfeel/next.v2/assets/578141/fe1e7f24-054a-4f56-892c-5345ac177a75
+
+
 我设想了两个方法：
 
 **方法1：监听router变化阻塞用户**
