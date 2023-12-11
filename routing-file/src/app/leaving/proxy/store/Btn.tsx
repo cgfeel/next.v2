@@ -1,18 +1,22 @@
 'use client';
 
-import { FC } from "react";
-import { useRouter } from "../../components/useRouter";
+import { useRouter } from "@/src/components/proxyProvider/useRouter";
+import { FC, PropsWithChildren } from "react";
 
-const Btn: FC = () => {
+const Btn: FC<PropsWithChildren<BtnProps>> = ({ children, href }) => {
     const router = useRouter();
     return (
         <button 
             type="button"
-            onClick={() => router.push('/leaving/proxy/test')}
+            onClick={() => href ? router.push(href) : router.back()}
         >
-            click to reback
+            {children}
         </button>
     );
 };
+
+export interface BtnProps {
+    href?: string;
+}
 
 export default Btn;

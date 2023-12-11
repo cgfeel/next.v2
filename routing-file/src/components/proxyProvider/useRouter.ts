@@ -2,7 +2,7 @@
 
 import { useRouter as useRouterRaw } from "next/navigation";
 import { useContext } from "react";
-import { ProxyContext } from "./ProxyProvider";
+import { ProxyContext } from "./index";
 
 export function useRouter() {
     const [tips] = useContext(ProxyContext);

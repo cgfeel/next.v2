@@ -2,7 +2,7 @@
 
 import LinkRaw from "next/link";
 import { FC, PropsWithChildren, forwardRef, useContext } from "react";
-import { ProxyContext } from "./ProxyProvider";
+import { ProxyContext } from "./index";
 
 const Link: LinkType = forwardRef(({ children, onClick, ...props }, ref) => {
     const [tips] = useContext(ProxyContext);

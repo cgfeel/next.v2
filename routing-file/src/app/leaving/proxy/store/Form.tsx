@@ -1,7 +1,7 @@
 'use client';
 
+import { ProxyContext } from "@/src/components/proxyProvider";
 import { FC, PropsWithChildren, useContext } from "react";
-import { ProxyContext } from "../../components/ProxyProvider";
 
 const Form: FC<PropsWithChildren<{}>> = ({ children }) => {
     const [, set] = useContext(ProxyContext);
