@@ -70,7 +70,7 @@ const ProxyProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
                         const script = document.getElementById('proxy-script');
                         if (!script || location.href === script.dataset.href) return;
 
-                        const msg = script ? script.dataset.msg : '';
+                        const msg = script.dataset.msg||'';
                         const confirm = msg == '' ? true : window.confirm(msg);
                         if (!confirm) {
                             event.stopImmediatePropagation();
