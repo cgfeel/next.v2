@@ -48,35 +48,37 @@ const ProxyProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
                 strategy="afterInteractive"
                 id="proxy-script"
                 dangerouslySetInnerHTML={{
-                    __html: `const originalPushState = history.pushState.bind(history);
-                    window.currentPoint = 0;
-                    window.point = 0;
-                    window.history.pushState = function(state, title, url) {
-                        state.point = ++window.point;
-                        window.currentPoint = window.point;
-                        originalPushState(state, title, url);
-                    };
-                    const originalReplaceState = history.replaceState.bind(history);
-                    window.history.replaceState = function(state, title, url) {
-                        state.point = window.currentPoint;
-                        originalReplaceState(state, title, url);
-                    };
-                    window.addEventListener('popstate', function (event) {
-                        const { state: nextState } = event;
-                        const isback = window.currentPoint > nextState.point;
+                    __html: `(() => {
+                        const originalPushState = history.pushState.bind(history);
+                        let currentPoint = 0;
+                        let point = 0;
+                        window.history.pushState = function(state, title, url) {
+                            state.point = ++point;
+                            currentPoint = point;
+                            originalPushState(state, title, url);
+                        };
+                        const originalReplaceState = history.replaceState.bind(history);
+                        window.history.replaceState = function(state, title, url) {
+                            state.point = currentPoint;
+                            originalReplaceState(state, title, url);
+                        };
+                        window.addEventListener('popstate', function (event) {
+                            const { state: nextState } = event;
+                            const isback = currentPoint > nextState.point;
 
-                        window.currentPoint = nextState.point;
+                            currentPoint = nextState.point;
 
-                        const script = document.getElementById('proxy-script');
-                        if (!script || location.href === script.dataset.href) return;
+                            const script = document.getElementById('proxy-script');
+                            if (!script || location.href === script.dataset.href) return;
 
-                        const msg = script.dataset.msg||'';
-                        const confirm = msg == '' ? true : window.confirm(msg);
-                        if (!confirm) {
-                            event.stopImmediatePropagation();
-                            isback ? history.forward() : history.back();
-                        }
-                    });`,
+                            const msg = script.dataset.msg||'';
+                            const confirm = msg == '' ? true : window.confirm(msg);
+                            if (!confirm) {
+                                event.stopImmediatePropagation();
+                                isback ? history.forward() : history.back();
+                            }
+                        });
+                    })()`,
                 }}
             ></Script>
             {children}
