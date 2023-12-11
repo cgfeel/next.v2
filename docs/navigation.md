@@ -76,7 +76,7 @@ function linkClicked(e, router, href, as, replace, shallow, scroll, locale, isAp
 
 ## 阻塞导航
 
-来自Semi群友的一个场景，当在表单提交或内容发布页时，需要监听用户离开，并阻塞其行为展开提示信息，待用户决定去留。这项功能在`App router`模式以前，可以监听`router.event`来实现，而在`App router`之后这个事件取消了。于是我通过`usePathname`、`useSearchParams` + `react context`的方式实现用户监听操作
+来自Semi群友的一个场景，当在表单提交或内容发布页时，需要监听用户离开，并阻塞其行为展开提示信息，待用户决定去留。这项功能在`App router`模式以前，可以监听`router.event`来实现，而在`App router`之后这个事件取消了。于是我通过`react context`的方式实现用户监听操作
 
 https://github.com/cgfeel/next.v2/assets/578141/fe1e7f24-054a-4f56-892c-5345ac177a75
 
@@ -92,9 +92,7 @@ https://github.com/cgfeel/next.v2/assets/578141/fe1e7f24-054a-4f56-892c-5345ac17
 - 监听URL的变化
 - 一旦发生改变发起确认框，点击“取消”之后立即返回前一页
 
-缺点：
-
-- 存在一个闪动的过程
+缺点：存在一个闪动的过程，于是我设想了第二个方法
 
 **方法2：代理`router`对象和`Link`组件**（推荐）
 
@@ -117,6 +115,21 @@ https://github.com/cgfeel/next.v2/assets/578141/fe1e7f24-054a-4f56-892c-5345ac17
 - 点击`Link`组件发生的导航
 - 通过`Router`触发的导航事件
 - 浏览器默认行为：关闭、刷新、前进、后退、更改URL
+
+缺点：本来以为这样就结束了，结果并没有，由于NextJS也是SPA，所以在以缓存路由的情况下，前进后退是不走`beforeunload`的，而是走`popstate`，这样就有可能无法拦截
+
+- 于是我前置一个`popstate`监听对象，通过`event.stopImmediatePropagation`这个API拦截事件不再交给`NextJS`后续处理，这样就完成了拦截
+
+做到这一步基本就完成了，但是浏览器默认的行为还是不对的，毕竟用户已经点了前进和后退，这个堆栈的行为已经发生了，如果放着不管后续导航是会存在问题的
+
+- 于是我代理了`history`这个对象的`pushState`和`replaceState`，增加判断用户是前进还是后退
+- 当拦截事件发起时根据用户的行为去修正`history`
+
+详细见：`/routing-file/src/components/proxyProvider/index.tsx` [[查看](https://github.com/cgfeel/next.v2/blob/master/routing-file/src/components/proxyProvider/index.tsx)]
+
+**这样就监听并阻止了：**
+
+- SPA应用中，用户点击前进和后退，在`popstate`下实现拦截
 
 **写在最后：**
 
