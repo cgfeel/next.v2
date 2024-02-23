@@ -1,4 +1,4 @@
-import { Antonio, Dancing_Script, IBM_Plex_Sans, Inter, Merriweather, Oswald, Raleway, Roboto } from "next/font/google";
+import { Antonio, Dancing_Script, IBM_Plex_Sans, Inter, Merriweather, Oswald, Press_Start_2P, Raleway, Roboto } from "next/font/google";
 
 export const inter = Inter({
     subsets: ['latin'],
@@ -41,9 +41,16 @@ export const raleway = Raleway({
 export const ibmSans = IBM_Plex_Sans({
     weight: '700',
     subsets: ['latin'],
+    variable: '--font-ibm-sans',
 });
 
 export const antonio = Antonio({
     subsets: ['latin'],
-    variable: '--antonio-font',
+    variable: '--font-antonio',
+});
+
+export const pressStart2p = Press_Start_2P({
+    weight: '400',
+    subsets: ['latin'],
+    variable: '--font-press-start',
 });

@@ -170,7 +170,7 @@ const nextConfig = {
     // output: 'export',
 
     // 采用standalone的方式导出到`./next/standalone`，具体看总结
-    // output: 'standalone',
+    output: 'standalone',
 
     // This can be modified to allow other extensions like markdown (.md, .mdx).
     // Configure `pageExtensions` to include MDX files

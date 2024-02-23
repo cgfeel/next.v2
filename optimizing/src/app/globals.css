@@ -1,7 +1,10 @@
 /* @import "~@douyinfe/semi-ui/dist/css/semi.min.css"; */
 @import "~@semi-bot/semi-theme-doucreator/semi.min.css";
-
 @import "semi.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .fixedButton {
     position: fixed;
