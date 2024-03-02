@@ -17,3 +17,16 @@
     border: 1px solid #ddd;
     margin-right: 10px;
 }
+.wrapper li {
+    display: flex;
+}
+.wrapper li form {
+    margin-left: 10px;
+}
+.wrapper li button {
+    border: none;
+    padding: 0;
+}
+.wrapper ul {
+    margin-top: 10px;
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import {
+    FC,
     PropsWithChildren,
     forwardRef,
     useCallback,
@@ -9,6 +10,16 @@ import {
     useOptimistic,
     useTransition,
 } from "react";
+import { useFormStatus } from "react-dom";
+
+const DeleteItem: FC = () => {
+    const { pending } = useFormStatus();
+    return (
+        <button type="submit" disabled={pending}>
+            {pending ? "Removing" : "×"}
+        </button>
+    );
+};
 
 const List = forwardRef<ListInstance, PropsWithChildren<ListProps>>(({ children, data, remove, send }, ref) => {
     const [, startTransition] = useTransition();
@@ -38,11 +49,20 @@ const List = forwardRef<ListInstance, PropsWithChildren<ListProps>>(({ children,
     return (
         <>
             {children}
-            {optimisticMessage.map(({ message, sending }, i) => (
-                <div key={i}>
-                    {message} {sending ? "Sending" : i !== 0 && <a onClick={() => remove(i)}>×</a>}
-                </div>
-            ))}
+            <ul>
+                {optimisticMessage.map(({ message, sending }, i) => (
+                    <li key={i}>
+                        {message}{" "}
+                        {sending
+                            ? "Sending"
+                            : i !== 0 && (
+                                  <form action={() => remove(i)}>
+                                      <DeleteItem />
+                                  </form>
+                              )}
+                    </li>
+                ))}
+            </ul>
         </>
     );
 });
