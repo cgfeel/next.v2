@@ -1,8 +1,8 @@
 'use server';
 
+import Api from "@/src/utils/api";
 import { revalidatePath } from "next/cache";
 import { ZodError, z } from "zod";
-import Api from "@/src/utils/api";
 
 const schemas = z.object({
     todo: z.string().min(5).max(12),
@@ -24,8 +24,8 @@ export async function createTodo(formData: FormData) {
                 name: data.todo,
             },
             headers: {
-                "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImV4cCI6MzIzMzkwODUyNSwiaWF0IjoxNjk1OTg4NTI1LCJpc3MiOiJzdXBhYmFzZSJ9.I_mTI_fOTJZPLD0HBwDcgE1qFUDmwVSr8TL5vTWQagk",
-                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImV4cCI6MzIzMzkwODUyNSwiaWF0IjoxNjk1OTg4NTI1LCJpc3MiOiJzdXBhYmFzZSJ9.I_mTI_fOTJZPLD0HBwDcgE1qFUDmwVSr8TL5vTWQagk",
+                "apikey": process.env.ENV_DATABASE_APIKEY,
+                "Authorization": `Bearer ${process.env.ENV_DATABASE_APIKEY}`,
                 "Content-Type": "application/json",
                 "Prefer": "return=minimal",
             },
@@ -52,8 +52,8 @@ export async function deleteTodo(formData: FormData) {
 
         await Api.delete(`https://ckbbmba5g6h95mu41o8g.baseapi.memfiredb.com/rest/v1/todolist?id=eq.${delInfo.id}`, {
             headers: {
-                "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImV4cCI6MzIzMzkwODUyNSwiaWF0IjoxNjk1OTg4NTI1LCJpc3MiOiJzdXBhYmFzZSJ9.I_mTI_fOTJZPLD0HBwDcgE1qFUDmwVSr8TL5vTWQagk",
-                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImV4cCI6MzIzMzkwODUyNSwiaWF0IjoxNjk1OTg4NTI1LCJpc3MiOiJzdXBhYmFzZSJ9.I_mTI_fOTJZPLD0HBwDcgE1qFUDmwVSr8TL5vTWQagk",
+                "apikey": process.env.ENV_DATABASE_APIKEY,
+                "Authorization": `Bearer ${process.env.ENV_DATABASE_APIKEY}`,
                 "Content-Type": "application/json",
                 "Prefer": "return=minimal",
             },

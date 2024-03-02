@@ -1,0 +1,19 @@
+.wrapper {
+    padding: 25px;
+}
+.wrapper a {
+    cursor: pointer;
+}
+.wrapper button {
+    border: 1px solid #ddd;
+    padding: 0 10px;
+}
+.wrapper button[disabled] {
+    border-color: #666;
+    color: #666;
+}
+.wrapper input {
+    background-color: #666;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+}

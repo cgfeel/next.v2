@@ -5,9 +5,6 @@ const nextConfig = {
     env: {
         HOME_URL: 'http://localhost:3000',
     },
-    experimental: {
-        serverActions: true,
-    },
 
     // Headers allow you to set custom HTTP headers on the response to an incoming request on a given path.
     async headers() {

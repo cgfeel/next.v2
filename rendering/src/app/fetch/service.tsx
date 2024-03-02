@@ -14,11 +14,11 @@ export type AlbumsItemsType = {
 };
 
 export async function getArtist(id: `${number}`): Promise<ArtistType> {
-    const res = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts/" + id);
     return res.json();
 }
 
-export async function getArtistAlbums(id: `${number}`): Promise<AlbumsItemsType []> {
-    const rest = await fetch('https://jsonplaceholder.typicode.com/posts/1/comments');
+export async function getArtistAlbums(id: `${number}`): Promise<AlbumsItemsType[]> {
+    const rest = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}/comments`);
     return rest.json();
 }

@@ -8,9 +8,9 @@ function sleep(time: number) {
     });
 }
 
-// 这里的阻塞会等待完成后刷新视图
+// 若开启阻塞会等待完成后刷新视图
 export const action = async (formData: FormData) => {
-    await sleep(5000);
+    // await sleep(5000);
     const data = formData.get('flush')?.toString()||'';
     const flush = parseInt(data)||0;
     if (flush > 0) {

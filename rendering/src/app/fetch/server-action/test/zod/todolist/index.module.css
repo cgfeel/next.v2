@@ -11,6 +11,11 @@
     padding: 10px 15px;
 }
 
+.todo :global(button[disabled]) {
+    background-color: #686648;
+    color: #8d8d8d;
+}
+
 .todo :global(input) {
     border-radius: 6px;
     color: #000;
