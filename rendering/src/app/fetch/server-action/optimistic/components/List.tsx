@@ -72,7 +72,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 export interface ListInstance {
-    submit: (msg: string) => Promise<void>;
+    submit: (msg: string) => Promise<void> | undefined;
 }
 
 export interface ListProps {

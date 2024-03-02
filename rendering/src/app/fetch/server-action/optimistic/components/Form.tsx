@@ -3,7 +3,7 @@
 import { FC, PropsWithChildren, useRef } from "react";
 import { ListInstance } from "./List";
 
-const Form: FC<PropsWithChildren<FormProps>> = ({ children, send }) => {
+const Form: FC<PropsWithChildren<FormProps>> = ({ children, submit }) => {
     const formRef = useRef<HTMLFormElement>(null);
 
     return (
@@ -14,7 +14,7 @@ const Form: FC<PropsWithChildren<FormProps>> = ({ children, send }) => {
                 if (message === "") return;
 
                 formRef.current?.reset();
-                send(message);
+                submit(message);
             }}>
             {children}
         </form>

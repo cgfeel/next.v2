@@ -1,12 +1,10 @@
 import { cookies } from "next/headers";
-import Form from "./Form";
-import List from "./List";
 import { get, remove, send } from "./action";
 import ListForm from "./components";
 import Button from "./components/Button";
 import styles from "./index.module.css";
 
-export const NAME = "optimistic-list";
+const NAME = "optimistic-list";
 
 export default async function page() {
     const data = await get(NAME);
@@ -21,7 +19,7 @@ export default async function page() {
 
     return (
         <div className={styles.wrapper}>
-            <ListForm data={data} className={styles.wrapper} remove={removeHandle} send={sendHandle}>
+            <ListForm data={data} remove={removeHandle} send={sendHandle}>
                 <input name="message" type="text" />
                 <Button>Submit</Button>
             </ListForm>

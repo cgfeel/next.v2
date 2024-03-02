@@ -8,7 +8,7 @@ const ListForm: FC<PropsWithChildren<ListProps>> = ({ children, data, remove, se
     const listRef = useRef<ListInstance>(null);
     return (
         <List data={data} ref={listRef} remove={remove} send={send}>
-            <Form send={msg => listRef.current?.submit(msg)}>{children}</Form>
+            <Form submit={msg => listRef.current?.submit(msg)}>{children}</Form>
         </List>
     );
 };

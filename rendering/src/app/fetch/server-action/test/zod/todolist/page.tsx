@@ -17,8 +17,8 @@ export default async function Page() {
         "https://ckbbmba5g6h95mu41o8g.baseapi.memfiredb.com/rest/v1/todolist?select=*",
         {
             headers: {
-                apikey: process.env.ENV_DATABASE_APIKEY,
-                Authorization: `Bearer ${process.env.ENV_DATABASE_APIKEY}`,
+                apikey: process.env.ENV_DATABASE_APIKEY || "",
+                Authorization: `Bearer ${process.env.ENV_DATABASE_APIKEY || ""}`,
             },
         },
     );
