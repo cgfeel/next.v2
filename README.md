@@ -196,8 +196,11 @@
       - client validate + route validate: `/rendering/src/app/fetch/server-action/test/zod/user-info`
       - server validate + route validate: `/rendering/src/app/fetch/server-action/test/zod/user-info-server`
       - todolist (含错误处理): `/rendering/src/app/fetch/server-action/test/zod/todolist`
-    - 通过`useOptimistic`乐观更新：`/rendering/src/app/fetch/server-action/optimistic`
-    - 总结 ([查看](#nextjs-server-action总结))
+    - 通过`useOptimistic`乐观更新实现消息列表
+      - 目录：`/rendering/src/app/fetch/server-action/optimistic`
+      - 包含：`startTransition` + `useOptimistic` + `useFormStatus` + 通过`server action`对`Cookies`增删改查
+      - 总结 ([查看](https://github.com/cgfeel/next.v2/blob/master/docs/useOptimistic.md))
+    - `Server Action`总结 ([查看](#nextjs-server-action总结))
     - ~~服务端非表单进行操作：`/rendering/src/app/fetch/server-action/server-cart/noform`~~ (查看：[路由导航总结](https://github.com/cgfeel/next.v2/blob/master/docs/navigation.md))
     - ---- 附赠应用场景 ----
     - 客户端轮训：`/rendering/src/app/fetch/server-action/client-cart/noform`
