@@ -237,8 +237,9 @@
   - 附加案例
     - UI 库：antd，演示服务器渲染中通过 Provider 提供 context
       - 渲染配置：`/rendering/src/lib` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/lib))
-      - 根布局引入：`/rendering/src/app/layout.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/rendering/src/app/layout.tsx))
       - 主题切换案例：`/rendering/src/app/antd` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/antd))
+      - 包含：引入、主题切换，通过`CSS`提权的实现系统主题，通过`cookies`实现无闪烁
+      - 总结[[查看](https://github.com/cgfeel/next.v2/blob/master/docs/antd-theme.md)]
     - ---- 分割线 ----
 - 缓存 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/cache))
   - 请求树：
