@@ -156,8 +156,8 @@
 **运行环境：**
 
 - 路径：`/rendering` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering))
-- NodeJS：`v18.13.0`
-- NextJS：`13.5.6`
+- NodeJS：`v20.9.0`
+- NextJS：`14.1.0`
 
 **示例：**
 
@@ -191,7 +191,7 @@
     - 除表单外通过`startTransition`进行操作：`/rendering/src/app/fetch/server-action/client-cart/transition`
     - 除`startTransition`外，非表单操作：`/rendering/src/app/fetch/server-action/custom/[id]`
     - 服务端校验表单 + 设置 cookies：`/rendering/src/app/fetch/server-action/validation`
-    - 通过实验性 Api (experimental_useFormStatus) 处理 loading + Error 处理 + 重定向：`/rendering/src/app/fetch/server-action/test/form-submit`
+    - 通过useFormStatus处理：loading、Error、重定向：`/rendering/src/app/fetch/server-action/test/form-submit`
     - Zod 数据校验，提供 3 个例子：
       - client validate + route validate: `/rendering/src/app/fetch/server-action/test/zod/user-info`
       - server validate + route validate: `/rendering/src/app/fetch/server-action/test/zod/user-info-server`
@@ -235,7 +235,7 @@
     - UI 库：antd，演示服务器渲染中通过 Provider 提供 context
       - 渲染配置：`/rendering/src/lib` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/lib))
       - 根布局引入：`/rendering/src/app/layout.tsx` ([查看](https://github.com/cgfeel/next.v2/blob/master/rendering/src/app/layout.tsx))
-      - 案例，实时搜索：`/rendering/src/app/fetch/server-action/client-cart/transition` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/server-action/client-cart/transition))
+      - 主题切换案例：`/rendering/src/app/antd` ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/antd))
     - ---- 分割线 ----
 - 缓存 ([查看](https://github.com/cgfeel/next.v2/tree/master/rendering/src/app/fetch/cache))
   - 请求树：
