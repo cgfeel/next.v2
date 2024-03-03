@@ -1,4 +1,5 @@
 import WithTheme from "@/src/lib/WithTheme";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { PropsWithChildren } from "react";
 import { ThemeMode } from "./PickCard";
@@ -6,23 +7,17 @@ import SelectTheme from "./SelectTheme";
 
 export default function Layout({ children }: PropsWithChildren<{}>) {
     const cookieStore = cookies();
-    const appearance = cookieStore.get("theme")?.value || "light";
-    const appearanceSystem = cookieStore.get("systemTheme")?.value || "light";
+    const appearance = (cookieStore.get("theme")?.value || "auto") as ThemeMode;
 
     async function changeTheme(theme: ThemeMode) {
         "use server";
-        cookies().set("theme", theme);
-    }
-
-    async function systemTheme(theme: Exclude<ThemeMode, "auto">) {
-        "use server";
-        cookies().set("systemTheme", theme);
+        theme === "auto" ? cookies().delete("theme") : cookies().set("theme", theme);
+        revalidatePath("/");
     }
 
     return (
-        <WithTheme
-            darkTheme={appearance === "dark" ? true : appearance === "light" ? false : appearanceSystem === "dark"}>
-            <SelectTheme system={appearanceSystem} theme={appearance} changeSystem={systemTheme} onChange={changeTheme}>
+        <WithTheme darkTheme={appearance === "dark"}>
+            <SelectTheme theme={appearance} onChange={changeTheme}>
                 {children}
             </SelectTheme>
         </WithTheme>

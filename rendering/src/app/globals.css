@@ -2,26 +2,102 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@import "theme.css";
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+  html[data-theme="auto"] {
+    color-scheme: dark;
   }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  html[data-theme="auto"] body {
+    color: rgb(var(--foreground-rgb));
+  }
+  html[data-theme="auto"] .ant-btn-primary {
+    background-color: var(--btn-primary-bg);
+    box-shadow: var(--btn-primary-shadow);
+  }
+  html[data-theme="auto"] label, 
+  html[data-theme="auto"] h1, 
+  html[data-theme="auto"] h2, 
+  html[data-theme="auto"] .ant-form-text, 
+  html[data-theme="auto"] .ant-divider-inner-text, a {
+    /* color: rgb(var(--foreground-rgb)) !important; */
+    color: rgba(var(--input-color-rgba)) !important;
+  }
+  html[data-theme="auto"] .ant-card {
+    background-color: rgb(var(--card-bg-color)) !important;
+    border-color: rgb(var(--card-border-rgb)) !important;
+    color: rgb(var(--card-rgb)) !important;
+  }
+  html[data-theme="auto"] .ant-divider-horizontal.ant-divider-with-text {
+    border-block-start: 0 rgba(var(--pick-border-rgba));
+  }
+  html[data-theme="auto"] .ant-btn-default,
+  html[data-theme="auto"] .ant-input-number .ant-input-number-input,
+  html[data-theme="auto"] .ant-picker,
+  html[data-theme="auto"] .ant-picker-dropdown .ant-picker-cell-in-view,
+  html[data-theme="auto"] .ant-picker-dropdown .ant-picker-content th,
+  html[data-theme="auto"] .ant-select-single .ant-select-selector {
+    color: rgba(var(--input-color-rgba)) !important;
+  }
+  html[data-theme="auto"] .ant-btn-default,
+  html[data-theme="auto"] .ant-input-number-outlined,
+  html[data-theme="auto"] .ant-picker-outlined,
+  html[data-theme="auto"] .ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+    background-color: rgb(var(--card-bg-color)) !important;
+    border-color: rgb(var(--input-border-rgb)) !important;
+  }
+  html[data-theme="auto"] .ant-segmented {
+    background-color: rgb(var(--segmented-bg-color)) !important;
+  }
+  html[data-theme="auto"] .ant-segmented .ant-segmented-item-selected {
+    background-color: rgb(var(--pick-bg-rgb));
+  }
+  html[data-theme="auto"] .ant-picker .ant-picker-input-placeholder >input,
+  html[data-theme="auto"] .ant-picker .ant-picker-input input::placeholder,
+  html[data-theme="auto"] .ant-picker .ant-picker-separator,
+  html[data-theme="auto"] .ant-picker-dropdown .ant-picker-cell,
+  html[data-theme="auto"] .ant-picker .ant-picker-suffix,
+  html[data-theme="auto"] .ant-select .ant-select-arrow {
+    color: rgba(var(--select-icon-rgba));
+  }
+  html[data-theme="auto"] .ant-picker-dropdown .ant-picker-panel-container {
+    background-color: rgb(var(--pick-bg-rgb));
+  }
+  html[data-theme="auto"] .ant-picker-dropdown .ant-picker-footer {
+    border-color: rgba(var(--pick-border-rgba));
+  }
+  html[data-theme="auto"] .ant-picker-dropdown .ant-picker-header {
+    color: rgba(var(--input-color-rgba));
+    border-color: rgba(var(--pick-border-rgba));
+  }
+  html[data-theme="auto"] .ant-picker-dropdown .ant-picker-header button {
+    color: rgba(var(--pick-header-rgba));
+  }
+  html[data-theme="auto"] .ant-picker-dropdown .ant-picker-header-view button {
+    color: inherit;
+  }
+  html[data-theme="auto"] .ant-picker-dropdown .ant-picker-cell:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end) .ant-picker-cell-inner {
+    background-color: rgba(var(--pick-hover-rgba));
+  }
+  html[data-theme="auto"] .ant-slider .ant-slider-rail {
+    background-color: rgba(var(--pick-hover-rgba));
+  }
+  html[data-theme="auto"] .ant-slider .ant-slider-handle::after {
+    background-color: rgb(var(--pick-bg-rgb));
+    box-shadow: var(--slider-handle-shadown);
+  }
+  html[data-theme="auto"] .ant-slider .ant-slider-track {
+    background-color: var(--slider-bg-color);
+  }
+  html[data-theme="auto"] .ant-switch.ant-switch-checked {
+    background-color: var(--btn-primary-bg);
+  }
 }

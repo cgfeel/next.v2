@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { get, remove, send } from "./action";
 import ListForm from "./components";
 import Button from "./components/Button";
