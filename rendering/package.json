@@ -10,8 +10,9 @@
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.17.2",
+    "@ant-design/nextjs-registry": "^1.0.0",
     "ahooks": "^3.7.8",
-    "antd": "^5.10.2",
+    "antd": "^5.15.0",
     "dayjs": "^1.11.10",
     "lodash": "^4.17.21",
     "next": "^14.1.0",
