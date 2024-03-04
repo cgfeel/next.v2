@@ -34,8 +34,8 @@ https://github.com/cgfeel/next.v2/assets/578141/7b6b350f-27b2-4509-98c7-d91c76d7
 
 注意点：
 
-- `useOptimistic`返回的更新方法只能通过`action`触发
-- `action`触发更新需要包裹`startTransition`，也也是为什么初始值是通过这样来设置
+- `useOptimistic`返回的更新方法只能通过`form`的`action`触发
+- `action`之外触发更新，需要包裹`startTransition`，这也是为什么初始值是通过下面代码来设置
 
 ```
     useEffect(() => {
