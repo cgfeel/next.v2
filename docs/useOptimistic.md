@@ -30,6 +30,7 @@ https://github.com/cgfeel/next.v2/assets/578141/7b6b350f-27b2-4509-98c7-d91c76d7
 
 - `useStatus`一旦赋予初始值后，将不再接受初始值的更新，必须通过返回的数组中的更新方法来更新
 - `useOptimistic`接受初始值每一次的更新之外，也接受来自返回的数组中的更新方法来更新
+- 除此之外`useOptimistic`还接受一个函数作为第二个参数，用于作为乐观更新的规则
 
 注意点：
 
