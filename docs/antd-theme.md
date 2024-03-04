@@ -117,3 +117,9 @@ html[data-theme="light"] {
 
 - 已解决闪屏问题，但`antd`组件本身加载机制存在抖动，查看了一些`tailwind`组件，抖动情况稍好点，但仍旧存在抖动
 - 对于组件抖动这个问题还需要实际开发过程中根据实际情况解决，不在这次研究中
+
+### 写在最后
+
+手动设置变量是不是很麻烦？可以参考这篇`CSR`的解决办法。
+
+https://github.com/cgfeel/ant-design-style?tab=readme-ov-file#csr%E4%B8%BB%E9%A2%98%E5%88%87%E6%8D%A2%E6%97%A0%E9%97%AA%E7%83%81
